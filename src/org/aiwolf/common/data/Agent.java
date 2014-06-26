@@ -6,7 +6,9 @@ import java.util.Map;
 
 
 /**
- * Player Agent 
+ * Player Agent.
+ * Each players can identify other players as Agent.
+ * Each agent has unique index.
  * @author tori
  *
  */
@@ -15,9 +17,9 @@ public class Agent implements Comparable<Agent>{
 	private static Map<Integer, Agent> agentIndexMap = new HashMap<Integer, Agent>();
 	
 	/**
-	 * get agent of index
-	 * @param idx
-	 * @return
+	 * Get agent of idx
+	 * @param idx agent's idx
+	 * @return agent
 	 */
 	static public Agent getAgent(int idx){
 		if(idx < 0){
@@ -41,22 +43,24 @@ public class Agent implements Comparable<Agent>{
 //	}
 
 	/**
-	 * 
+	 * create new agent
 	 * @param idx
 	 */
 	private Agent(int idx){
 		this.agentIdx = idx;
 	}
 
-	/* (非 Javadoc)
-	 * @see org.aiwolf.server.core.Agent#getIdx()
+
+	/**
+	 * 
+	 * @return
 	 */
 	public int getAgentIdx() {
 		return agentIdx;
 	}
 
-	/* (非 Javadoc)
-	 * @see org.aiwolf.server.core.Agent#toString()
+	/**
+	 * 
 	 */
 	@Override
 	public String toString(){
@@ -64,8 +68,8 @@ public class Agent implements Comparable<Agent>{
 		return String.format("Agent[%02d]", agentIdx);
 	}
 
-	/* (非 Javadoc)
-	 * @see org.aiwolf.server.core.Agent#hashCode()
+	/**
+	 * 
 	 */
 	@Override
 	public int hashCode() {
@@ -75,8 +79,8 @@ public class Agent implements Comparable<Agent>{
 		return result;
 	}
 
-	/* (非 Javadoc)
-	 * @see org.aiwolf.server.core.Agent#equals(java.lang.Object)
+	/**
+	 * 
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -90,13 +94,6 @@ public class Agent implements Comparable<Agent>{
 		if (agentIdx != other.agentIdx)
 			return false;
 		return true;
-	}
-
-	/**
-	 * @param idx セットする idx
-	 */
-	public void setAgentIdx(int idx) {
-		this.agentIdx = idx;
 	}
 
 	@Override
