@@ -22,6 +22,11 @@ public class AiWolfLoggerFactory {
 	
     protected static final String LOGGING_PROPERTIES = "javalog.properties";
 
+    /**
+     * 
+     * @param name
+     * @return
+     */
 	static public Logger getSimpleLogger(String name){
 		Logger logger = Logger.getLogger(name);
 		

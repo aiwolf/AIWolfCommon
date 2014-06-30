@@ -102,18 +102,13 @@ public class TcpipClient implements Runnable, GameClient{
 	public Object recieve(Packet packet) {
 		
 		GameInfo gameInfo = packet.getGameInfo().toGameInfo();
-		player.update(gameInfo);
+
 		
 		Object returnObject = null;
 		switch(packet.getRequest()){
-		case Attack:
-			returnObject = player.attack();
-			break;
-		case DailyInitialize:
-			player.dayStart();
-			break;
 		case Initialize:
-			player.initialize();
+			player.initialize(gameInfo);
+//			player.update(gameInfo);
 			break;
 		case Name:
 			returnObject = player.getName();
@@ -126,22 +121,36 @@ public class TcpipClient implements Runnable, GameClient{
 				returnObject = "none";
 			}
 			break;
+		case Attack:
+			player.update(gameInfo);
+			returnObject = player.attack();
+			break;
+		case DailyInitialize:
+			player.update(gameInfo);
+			player.dayStart();
+			break;
 		case Talk:
+			player.update(gameInfo);
 			returnObject = player.talk();
 			break;
 		case Whisper:
+			player.update(gameInfo);
 			returnObject = player.whisper();
 			break;
 		case Divine:
+			player.update(gameInfo);
 			returnObject = player.divine();
 			break;
 		case Guard:
+			player.update(gameInfo);
 			returnObject = player.guard();
 			break;
 		case Vote:
+			player.update(gameInfo);
 			returnObject = player.vote();
 			break;
 		case Finish:
+			player.update(gameInfo);
 			finish();
 		default:
 			break;

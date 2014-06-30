@@ -27,10 +27,10 @@ public interface Player {
 	void update(GameInfo gameInfo);
 	
 	/**
-	 * initialize
+	 * Called when the game started
 	 * @return
 	 */
-	void initialize();
+	void initialize(GameInfo gameInfo);
 	
 	/**
 	 * Called when the day started
