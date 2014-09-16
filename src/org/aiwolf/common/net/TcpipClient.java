@@ -12,6 +12,7 @@ import java.net.Socket;
 //import net.arnx.jsonic.JSON;
 
 import org.aiwolf.common.AIWolfRuntimeException;
+import org.aiwolf.common.NoReturnObjectException;
 import org.aiwolf.common.data.Player;
 import org.aiwolf.common.data.Role;
 
@@ -28,9 +29,26 @@ public class TcpipClient implements Runnable, GameClient{
 	
 	private boolean isRunning;
 	
+	/**
+	 * 
+	 * @param host
+	 * @param port
+	 */
 	public TcpipClient(String host, int port) {
 		this.host = host;
 		this.port = port;
+	}
+	
+	/**
+	 * 
+	 * @param host
+	 * @param port
+	 * @param requestRole
+	 */
+	public TcpipClient(String host, int port, Role requestRole) {
+		this.host = host;
+		this.port = port;
+		this.requestRole = requestRole;
 	}
 	
 	public boolean connect(Player player){
@@ -75,10 +93,14 @@ public class TcpipClient implements Runnable, GameClient{
 	    		
 	        	Object obj = recieve(packet);
 	        	if(packet.getRequest().hasReturn()){
+	        		if(obj == null){
+	        			throw new NoReturnObjectException(player+" "+obj);
+	        		}
 	        		if(obj instanceof String){
 	        			bw.append(obj+"\n");
 	        		}
 	        		else{
+//	    	        	System.err.println(packet.getRequest());
 	        			bw.append(DataConverter.getInstance().convert(obj)+"\n");
 	        		}
 	        		bw.flush();
@@ -110,6 +132,10 @@ public class TcpipClient implements Runnable, GameClient{
 			player.initialize(gameInfo);
 //			player.update(gameInfo);
 			break;
+		case DailyInitialize:
+			player.update(gameInfo);
+			player.dayStart();
+			break;
 		case Name:
 			returnObject = player.getName();
 			break;
@@ -124,10 +150,6 @@ public class TcpipClient implements Runnable, GameClient{
 		case Attack:
 			player.update(gameInfo);
 			returnObject = player.attack();
-			break;
-		case DailyInitialize:
-			player.update(gameInfo);
-			player.dayStart();
 			break;
 		case Talk:
 			player.update(gameInfo);
@@ -161,6 +183,48 @@ public class TcpipClient implements Runnable, GameClient{
 	protected void finish() {
 		isRunning = false;
 		player.finish();
+	}
+
+	/**
+	 * @return host
+	 */
+	public String getHost() {
+		return host;
+	}
+
+	/**
+	 * @param host セットする host
+	 */
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	/**
+	 * @return port
+	 */
+	public int getPort() {
+		return port;
+	}
+
+	/**
+	 * @param port セットする port
+	 */
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	/**
+	 * @return requestRole
+	 */
+	public Role getRequestRole() {
+		return requestRole;
+	}
+
+	/**
+	 * @param requestRole セットする requestRole
+	 */
+	public void setRequestRole(Role requestRole) {
+		this.requestRole = requestRole;
 	}
 
 

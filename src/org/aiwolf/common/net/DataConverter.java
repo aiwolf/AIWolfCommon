@@ -35,6 +35,7 @@ public class DataConverter {
 	}
 	
 	public String convert(Object obj){
+//		System.out.println(obj);
 		return JSON.encode(obj);
 	}
 	
