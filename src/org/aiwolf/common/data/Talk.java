@@ -74,5 +74,6 @@ public class Talk{
 
 	
 	final static public String OVER = "Over";
+	final static public String SKIP = "Skip";
 
 }

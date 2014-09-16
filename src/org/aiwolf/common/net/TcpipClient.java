@@ -15,6 +15,7 @@ import org.aiwolf.common.AIWolfRuntimeException;
 import org.aiwolf.common.NoReturnObjectException;
 import org.aiwolf.common.data.Player;
 import org.aiwolf.common.data.Role;
+import org.aiwolf.common.data.Talk;
 
 
 public class TcpipClient implements Runnable, GameClient{
@@ -154,10 +155,16 @@ public class TcpipClient implements Runnable, GameClient{
 		case Talk:
 			player.update(gameInfo);
 			returnObject = player.talk();
+			if(returnObject == null){
+				returnObject = Talk.SKIP;
+			}
 			break;
 		case Whisper:
 			player.update(gameInfo);
 			returnObject = player.whisper();
+			if(returnObject == null){
+				returnObject = Talk.SKIP;
+			}
 			break;
 		case Divine:
 			player.update(gameInfo);
