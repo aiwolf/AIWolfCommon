@@ -158,26 +158,26 @@ public class GameInfo {
 	 * returns all agents if you are human
 	 * @return
 	 */
-	public List<Agent> getHumanList() {
-		List<Agent> humanList = new ArrayList<Agent>(getAgentList());
-		humanList.removeAll(getWolfList());
-		return humanList;
-	}
+//	public List<Agent> getHumanList() {
+//		List<Agent> humanList = new ArrayList<Agent>(getAgentList());
+//		humanList.removeAll(getWolfList());
+//		return humanList;
+//	}
 
 	/**
 	 * Werewolves. werewolf only.<br>
 	 * returns empty list if you are human
 	 * @return
 	 */
-	public List<Agent> getWolfList() {
-		List<Agent> wolfList = new ArrayList<Agent>();
-		for (Agent agent : roleMap.keySet()) {
-			if (roleMap.get(agent) == Role.werewolf) {
-				wolfList.add(agent);
-			}
-		}
-		return wolfList;
-	}
+//	public List<Agent> getWolfList() {
+//		List<Agent> wolfList = new ArrayList<Agent>();
+//		for (Agent agent : roleMap.keySet()) {
+//			if (roleMap.get(agent) == Role.werewolf) {
+//				wolfList.add(agent);
+//			}
+//		}
+//		return wolfList;
+//	}
 
 	/**
 	 * Agents who are aliving now
