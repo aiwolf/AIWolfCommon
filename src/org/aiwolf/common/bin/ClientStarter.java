@@ -1,3 +1,4 @@
+package org.aiwolf.common.bin;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
