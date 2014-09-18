@@ -187,7 +187,7 @@ public class GameInfo {
 		List<Agent> aliveAgentList = new ArrayList<Agent>();
 		if (getAgentList() != null) {
 			for (Agent target : getAgentList()) {
-				if (statusMap.get(target) == Status.alive) {
+				if (statusMap.get(target) == Status.ALIVE) {
 					aliveAgentList.add(target);
 				}
 			}

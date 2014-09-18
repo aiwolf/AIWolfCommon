@@ -29,7 +29,8 @@ public interface Player {
 	
 	/**
 	 * Called when the game started
-	 * @return
+	 * @param gameInfo information about current game status
+	 * @param gameSetting Game settings
 	 */
 	void initialize(GameInfo gameInfo, GameSetting gameSetting);
 	
@@ -39,14 +40,17 @@ public interface Player {
 	void dayStart();
 	
 	/**
-	 * Each player can talk thier opinions throw this method
-	 * @return
+	 * Each player can talk thier opinions throw this method<br>
+	 * Return texts must be written in aiwolf protocol.
+	 * When you return null, it will be ｃｏｎｓｉｄｅｒｅｄ as SKIP
+	 * @return 
 	 */
 	String talk();
 	
 	/**
-	 * Each wolves can talk thier opinions throw this method
-	 * @return
+	 * Each wolves can talk thier opinions throw this method<br>
+	 * 
+	 * @return aiwolf protocol based whisper
 	 */
 	String whisper();
 	
@@ -76,7 +80,8 @@ public interface Player {
 	Agent guard();
 
 	/**
-	 * Finalize
+	 * Called when the game finished.<br>
+	 * Before this method is called, gameinfo is updated with all information.
 	 */
 	void finish();
 	

@@ -6,6 +6,6 @@ package org.aiwolf.common.data;
  *
  */
 public enum Status {
-	alive,
-	dead
+	ALIVE,
+	DEAD
 }

@@ -9,35 +9,35 @@ public enum Role {
 	/**
 	 * bodyguard
 	 */
-	bodyguard(Team.villager, Species.Human),
+	BODYGUARD(Team.VILLAGER, Species.HUMAN),
 	/**
 	 * freemason<br>
 	 * ver0.1.xでは使用されません
 	 * @deprecated
 	 */
-	freemason(Team.villager, Species.Human),
+	FREEMASON(Team.VILLAGER, Species.HUMAN),
 	/**
 	 * medium
 	 */
-	medium(Team.villager, Species.Human),
+	MEDIUM(Team.VILLAGER, Species.HUMAN),
 	/**
 	 * Possessed
 	 */
-	possessed(Team.werewolf, Species.Human),
+	POSSESSED(Team.WEREWOLF, Species.HUMAN),
 	/**
 	 * Seer
 	 */
-	seer(Team.villager, Species.Human),
+	SEER(Team.VILLAGER, Species.HUMAN),
 	
 	/**
 	 * Villager
 	 */
-	villager(Team.villager, Species.Human),
+	VILLAGER(Team.VILLAGER, Species.HUMAN),
 	
 	/**
 	 * WereWolf
 	 */
-	werewolf(Team.werewolf, Species.Werewolf);
+	WEREWOLF(Team.WEREWOLF, Species.WEREWOLF);
 	
 	private Team teamType;
 	private Species species;

@@ -6,6 +6,6 @@ package org.aiwolf.common.data;
  *
  */
 public enum Team {
-	villager,
-	werewolf
+	VILLAGER,
+	WEREWOLF
 }
