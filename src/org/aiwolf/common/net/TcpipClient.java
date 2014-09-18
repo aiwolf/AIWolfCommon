@@ -125,12 +125,12 @@ public class TcpipClient implements Runnable, GameClient{
 	public Object recieve(Packet packet) {
 		
 		GameInfo gameInfo = packet.getGameInfo().toGameInfo();
-
+		GameSetting gameSetting = packet.getGameSetting();
 		
 		Object returnObject = null;
 		switch(packet.getRequest()){
 		case Initialize:
-			player.initialize(gameInfo);
+			player.initialize(gameInfo, gameSetting);
 //			player.update(gameInfo);
 			break;
 		case DailyInitialize:

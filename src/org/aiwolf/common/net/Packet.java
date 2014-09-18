@@ -10,6 +10,7 @@ public class Packet {
 
 	Request request;
 	GameInfoToSend gameInfo;
+	GameSettingEntity gameSetting;
 	
 	public Packet(){
 		
@@ -21,11 +22,27 @@ public class Packet {
 //		this.gameInfo = new GameInfoToSend(gameInfo);
 //	}
 
+	/**
+	 * Create Packet with GameInformation
+	 * @param request
+	 * @param gameInfoToSend
+	 */
 	public Packet(Request request, GameInfoToSend gameInfoToSend) {
 		this.request = request;
 		this.gameInfo = gameInfoToSend;
 	}
 
+	/**
+	 * Create Packet with GameInforamtion and Game Setting
+	 * @param request
+	 * @param gameInfoToSend
+	 */
+	public Packet(Request request, GameInfoToSend gameInfoToSend, GameSettingEntity gameSetting) {
+		this.request = request;
+		this.gameInfo = gameInfoToSend;
+		this.gameSetting = gameSetting;
+	}
+	
 	/**
 	 * @return request
 	 */
@@ -50,6 +67,10 @@ public class Packet {
 	 */
 	public void setGameInfo(GameInfoToSend gameInfo) {
 		this.gameInfo = gameInfo;
+	}
+
+	public GameSetting getGameSetting() {
+		return gameSetting;
 	}
 
 //	/**

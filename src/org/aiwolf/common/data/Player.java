@@ -1,6 +1,7 @@
 package org.aiwolf.common.data;
 
 import org.aiwolf.common.net.GameInfo;
+import org.aiwolf.common.net.GameSetting;
 
 
 
@@ -30,7 +31,7 @@ public interface Player {
 	 * Called when the game started
 	 * @return
 	 */
-	void initialize(GameInfo gameInfo);
+	void initialize(GameInfo gameInfo, GameSetting gameSetting);
 	
 	/**
 	 * Called when the day started
