@@ -137,6 +137,9 @@ public class TcpipClient implements Runnable, GameClient{
 			player.update(gameInfo);
 			player.dayStart();
 			break;
+		case DailyFinish:
+			player.update(gameInfo);
+			break;
 		case Name:
 			returnObject = player.getName();
 			break;

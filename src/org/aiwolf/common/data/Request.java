@@ -16,6 +16,7 @@ public enum Request {
 	Attack(true),
 	Initialize(false),
 	DailyInitialize(false),
+	DailyFinish(false),
 //	Update(false);
 	Finish(false);
 	
