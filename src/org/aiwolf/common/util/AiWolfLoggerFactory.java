@@ -83,7 +83,7 @@ public class AiWolfLoggerFactory {
 		FileOutputStream out = new FileOutputStream(outputFile);
 		Handler handler = new StreamHandler(out, new GameLogFormat());
 		logger.addHandler(handler);
-		logger.setLevel(Level.ALL);
+		logger.setLevel(Level.OFF);
 		return logger;
 	}
 

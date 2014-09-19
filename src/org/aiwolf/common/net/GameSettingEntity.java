@@ -96,6 +96,11 @@ public class GameSettingEntity implements GameSetting {
 	 */
 	boolean isVoteVisible;
 	
+	/**
+	 * ランダムシード
+	 */
+	long randomSeed = System.currentTimeMillis();
+	
 	public GameSettingEntity(){
 		roleNumMap = new HashMap<Role, Integer>();
 	}
@@ -184,6 +189,21 @@ public class GameSettingEntity implements GameSetting {
 	public void setVoteVisible(boolean isVoteVisible) {
 		this.isVoteVisible = isVoteVisible;
 	}
+
+	/**
+	 * @return randomSeed
+	 */
+	public long getRandomSeed() {
+		return randomSeed;
+	}
+
+	/**
+	 * @param randomSeed セットする randomSeed
+	 */
+	public void setRandomSeed(long randomSeed) {
+		this.randomSeed = randomSeed;
+	}
+	
 	
 	
 }
