@@ -30,6 +30,7 @@ public class GameInfo {
 	Judge divineResult;
 	Agent executedAgent;
 	Agent attackedAgent;
+	Agent guardedAgent;
 	List<Vote> voteList;
 	List<Vote> attackVoteList;
 
@@ -119,6 +120,14 @@ public class GameInfo {
 	 */
 	public Agent getAttackedAgent() {
 		return attackedAgent;
+	}
+
+	/**
+	 * agent who guarded last night
+	 * @return
+	 */
+	public Agent getGuardedAgent() {
+		return guardedAgent;
 	}
 
 	/**

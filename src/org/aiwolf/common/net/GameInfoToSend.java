@@ -28,6 +28,7 @@ public class GameInfoToSend{
 	JudgeToSend divineResult;
 	int executedAgent = -1;
 	int attackedAgent = -1;
+	int guardedAgent = -1;
 	List<VoteToSend> voteList;
 	List<VoteToSend> attackVoteList;
 	
@@ -145,6 +146,22 @@ public class GameInfoToSend{
 		this.attackedAgent = attackedAgent;
 	}
 
+	
+	
+	/**
+	 * @return guardedAgent
+	 */
+	public int getGuardedAgent() {
+		return guardedAgent;
+	}
+
+	/**
+	 * @param guardedAgent セットする guardedAgent
+	 */
+	public void setGuardedAgent(int guardedAgent) {
+		this.guardedAgent = guardedAgent;
+	}
+
 	/**
 	 * @return voteList
 	 */
@@ -242,6 +259,7 @@ public class GameInfoToSend{
 		}
 		gi.executedAgent = Agent.getAgent(this.getExecutedAgent());
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
+		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 
 		gi.voteList = new ArrayList<Vote>();
 		for(VoteToSend vote:this.getVoteList()){
