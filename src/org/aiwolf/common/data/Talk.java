@@ -76,4 +76,14 @@ public class Talk{
 	final static public String OVER = "Over";
 	final static public String SKIP = "Skip";
 
+
+
+	public boolean isSkip() {
+		return content.equals(SKIP);
+	}
+
+	public boolean isOver() {
+		return content.equals(OVER);
+	}
+	
 }

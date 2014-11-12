@@ -42,8 +42,8 @@ public class GameSettingEntity implements GameSetting {
 	};
 	
 	static public GameSettingEntity getDefaultGame(int agentNum){
-		if(agentNum < 7){
-			throw new IllegalArgumentException("agentNum must be bigger than 8 but "+agentNum);
+		if(agentNum < 5){
+			throw new IllegalArgumentException("agentNum must be bigger than 5 but "+agentNum);
 		}
 		if(agentNum > 16){
 			throw new IllegalArgumentException("agentNum must be smaller than 16 but "+agentNum);
