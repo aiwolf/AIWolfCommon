@@ -17,7 +17,11 @@ import org.aiwolf.common.data.Player;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Talk;
 
-
+/**
+ * Client Using TCP/IP Connection
+ * @author tori
+ *
+ */
 public class TcpipClient implements Runnable, GameClient{
 
 	String host;
@@ -95,7 +99,8 @@ public class TcpipClient implements Runnable, GameClient{
 	        	Object obj = recieve(packet);
 	        	if(packet.getRequest().hasReturn()){
 	        		if(obj == null){
-	        			throw new NoReturnObjectException(player+" "+obj);
+	        			bw.append("\n");
+//	        			throw new NoReturnObjectException(player+" "+obj);
 	        		}
 	        		if(obj instanceof String){
 	        			bw.append(obj+"\n");
