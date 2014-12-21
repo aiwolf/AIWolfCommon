@@ -13,6 +13,10 @@ import org.aiwolf.common.data.Role;
  */
 public class GameSettingEntity implements GameSetting {
 
+	/**
+	 * Num of each roles.
+	 * Bodyguard, FreeMason, Medium, Possessed, seer, villager, werewolf
+	 */
 	static private int[][] roleNumArray = {
 		{},//0
 		{},//1
@@ -31,6 +35,8 @@ public class GameSettingEntity implements GameSetting {
 		{1, 0, 1, 1, 1, 7, 3}, //14
 		{1, 0, 1, 1, 1, 8, 3}, //15
 		{1, 0, 1, 1, 1, 9, 3}, //16
+		{1, 0, 1, 1, 1, 10, 3}, //17
+		{1, 0, 1, 1, 1, 11, 3}, //18
 	};
 	
 	/**
@@ -45,7 +51,7 @@ public class GameSettingEntity implements GameSetting {
 		if(agentNum < 5){
 			throw new IllegalArgumentException("agentNum must be bigger than 5 but "+agentNum);
 		}
-		if(agentNum > 16){
+		if(agentNum > roleNumArray.length){
 			throw new IllegalArgumentException("agentNum must be smaller than 16 but "+agentNum);
 		}
 		
