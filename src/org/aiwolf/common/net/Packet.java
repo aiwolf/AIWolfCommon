@@ -10,7 +10,7 @@ public class Packet {
 
 	Request request;
 	GameInfoToSend gameInfo;
-	GameSettingEntity gameSetting;
+	GameSetting gameSetting;
 	
 	public Packet(){
 		
@@ -37,7 +37,7 @@ public class Packet {
 	 * @param request
 	 * @param gameInfoToSend
 	 */
-	public Packet(Request request, GameInfoToSend gameInfoToSend, GameSettingEntity gameSetting) {
+	public Packet(Request request, GameInfoToSend gameInfoToSend, GameSetting gameSetting) {
 		this.request = request;
 		this.gameInfo = gameInfoToSend;
 		this.gameSetting = gameSetting;

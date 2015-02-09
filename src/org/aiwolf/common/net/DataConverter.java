@@ -45,7 +45,7 @@ public class DataConverter {
     	Request request = Request.valueOf((String)map.get("request"));
     	GameInfoToSend gameInfoToSend = JSON.decode(JSON.encode(map.get("gameInfo")), GameInfoToSend.class);
     	if(map.get("gameSetting") != null){
-    		GameSettingEntity gameSetting = JSON.decode(JSON.encode(map.get("gameSetting")), GameSettingEntity.class);
+    		GameSetting gameSetting = JSON.decode(JSON.encode(map.get("gameSetting")), GameSetting.class);
         	return new Packet(request, gameInfoToSend, gameSetting);
     	}else{
         	return new Packet(request, gameInfoToSend);
