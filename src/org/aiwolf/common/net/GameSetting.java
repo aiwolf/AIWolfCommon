@@ -59,6 +59,7 @@ public class GameSetting{
 		setting.maxTalk = 10;
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
+		setting.isVotableInFirstDay = false;
 		
 		Role[] roles = Role.values();
 		for(int i = 0; i < roles.length; i++){
@@ -101,12 +102,17 @@ public class GameSetting{
 	 * Can agents see who vote to who
 	 */
 	boolean isVoteVisible;
+
+	/**
+	 * Are there vote in first day?
+	 */
+	private boolean isVotableInFirstDay;
 	
 	/**
-	 * ランダムシード
+	 * Random Seed
 	 */
 	long randomSeed = System.currentTimeMillis();
-	
+
 	public GameSetting(){
 		roleNumMap = new HashMap<Role, Integer>();
 	}
@@ -149,6 +155,13 @@ public class GameSetting{
 		return isVoteVisible;
 	}
 
+	/**
+	 * 
+	 */
+	public boolean isVotableInFirstDay(){
+		return isVotableInFirstDay;
+	}
+	
 	/**
 	 * 
 	 * @return
