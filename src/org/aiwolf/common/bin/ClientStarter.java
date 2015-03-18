@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 import org.aiwolf.common.data.Player;
+import org.aiwolf.common.data.Role;
 import org.aiwolf.common.net.TcpipClient;
 
 
@@ -20,6 +21,10 @@ public class ClientStarter {
 		String host = null;
 		int port = -1;
 		String clsName = null;
+
+		//RoleRequestを追加
+		Role RoleRequest = null;
+		
 		for(int i = 0; i < args.length; i++){
 			if(args[i].startsWith("-")){
 				if(args[i].equals("-p")){
@@ -33,6 +38,21 @@ public class ClientStarter {
 				else if(args[i].equals("-c")){
 					i++;
 					clsName = args[i];
+
+					//RoleRequestStarterのｌ56～ｌ72を参考にして以下追加
+					i++;
+					try{
+						if(i > args.length-1  || args[i].startsWith("-")){
+							i--;
+							RoleRequest = null;
+							continue;
+						}
+						RoleRequest = Role.valueOf(args[i]);
+					}catch(IllegalArgumentException e){
+						System.err.println("No such role as "+args[i]);
+						return;
+					}
+					
 				}
 			}
 		}
@@ -41,7 +61,8 @@ public class ClientStarter {
 			return;
 		}
 		Player player = (Player)Class.forName(clsName).newInstance();
-		TcpipClient client = new TcpipClient(host, port);
+		//引数にRoleRequestを追加
+		TcpipClient client = new TcpipClient(host, port, RoleRequest);
 		if(client.connect(player)){
 			System.out.println("Player connected to server:"+player);
 		}
