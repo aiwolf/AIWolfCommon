@@ -11,13 +11,13 @@ import org.aiwolf.common.data.Role;
  * @author tori
  *
  */
-public class GameSetting{
+public class GameSetting implements Cloneable{
 
 	/**
 	 * Num of each roles.
 	 * Bodyguard, FreeMason, Medium, Possessed, seer, villager, werewolf
 	 */
-	static private int[][] roleNumArray = {
+	static final private int[][] roleNumArray = {
 		{},//0
 		{},//1
 		{},//2
@@ -43,7 +43,7 @@ public class GameSetting{
 	 * セミナー用セット．<br>
 	 * 村人8， 人狼3， 占い，狩人
 	 */
-	static private int[] seminarArray = {
+	static final private int[] seminarArray = {
 		1, 0, 0, 0, 1, 8, 3 //13
 	};
 	
@@ -224,6 +224,18 @@ public class GameSetting{
 		this.randomSeed = randomSeed;
 	}
 	
-	
+	/**
+	 * Create Copy
+	 */
+	public GameSetting clone(){
+		GameSetting gameSetting = new GameSetting();
+		gameSetting.isEnableNoAttack = isEnableNoAttack;
+		gameSetting.isVotableInFirstDay = isVotableInFirstDay;
+		gameSetting.isVoteVisible = isVoteVisible;
+		gameSetting.maxTalk = maxTalk;
+		gameSetting.randomSeed = randomSeed;
+		gameSetting.roleNumMap.putAll(roleNumMap);
+		return gameSetting;
+	}
 	
 }
