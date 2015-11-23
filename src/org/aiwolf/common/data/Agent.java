@@ -1,76 +1,102 @@
 package org.aiwolf.common.data;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
-
 /**
- * Player Agent.
- * Each players can identify other players as Agent.
- * Each agent has unique index.
+ * <div lang="ja">
+ * 
+ * プレイヤーのエージェントです。 各プレイヤーは、エージェントとして他のプレイヤーを識別することができます。
+ * 各エージェントは、一意のインデックスを持っています。
+ * 
+ * </div>
+ * 
+ * <div lang="en">
+ * 
+ * Player Agent. Each players can identify other players as Agent. Each agent
+ * has unique index.
+ * 
+ * </div>
+ * 
  * @author tori
  *
  */
-public class Agent implements Comparable<Agent>{
+public class Agent implements Comparable<Agent> {
 
-	private static Map<Integer, Agent> agentIndexMap = new HashMap<Integer, Agent>();
-	
+	private static Map<Integer, Agent> agentIndexMap = new HashMap<>();
+
 	/**
-	 * Get agent of idx
-	 * @param idx agent's idx
-	 * @return agent
+	 * <div lang="ja">指定されたインデックスのエージェントを取得します。</div>
+	 * 
+	 * <div lang="en">Get agent of idx</div>
+	 * 
+	 * @param idx
+	 *            <div lang="ja">エージェントのインデックス</div>
+	 * 
+	 *            <div lang="en">agent's idx</div>
+	 * @return
+	 * 
+	 * 		<div lang="ja">エージェント</div>
+	 *
+	 *         <div lang="en">Agent</div>
 	 */
-	static public Agent getAgent(int idx){
-		if(idx < 0){
+	static public Agent getAgent(int idx) {
+		if (idx < 0) {
 			return null;
 		}
-		if(!agentIndexMap.containsKey(idx)){
+		if (!agentIndexMap.containsKey(idx)) {
 			Agent agent = new Agent(idx);
 			agentIndexMap.put(idx, agent);
 		}
 		return agentIndexMap.get(idx);
 	}
-	
-	
+
 	int agentIdx;
-	
+
+	// TODO コメントアウトされたコンストラクター
 	/**
 	 * 
 	 * @param agentIdx
 	 */
-//	public Agent(){
-//	}
+	// public Agent(){
+	// }
 
 	/**
-	 * create new agent
+	 * <div lang="ja">新しいエージェントを構築します。</div>
+	 * 
+	 * <div lang="en">Create new agent.</div>
+	 * 
 	 * @param idx
+	 *            <div lang="ja">エージェントのインデックス</div>
+	 * 
+	 *            <div lang="en">Agent's index</div>
 	 */
-	private Agent(int idx){
+	private Agent(int idx) {
 		this.agentIdx = idx;
 	}
 
-
 	/**
+	 * <div lang="ja">エージェントのインデックスを返します。</div>
+	 * 
+	 * <div lang="en">Get agent's index.</div>
 	 * 
 	 * @return
+	 * 
+	 * 		<div lang="ja">エージェントのインデックス</div>
+	 * 
+	 *         <div lang="en">Agent's index</div>
 	 */
 	public int getAgentIdx() {
 		return agentIdx;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
-	public String toString(){
-//		return String.format("{\"agentIdx\":%02d}", agentIdx);
-		return String.format("Agent[%02d]", agentIdx);
+	public String toString() {
+		// TODO コメントアウトされた行
+		// return String.format("{\"agentIdx\":%02d}", agentIdx);
+		return String.format("Agent[%2d]", agentIdx);
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,9 +105,6 @@ public class Agent implements Comparable<Agent>{
 		return result;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -98,10 +121,10 @@ public class Agent implements Comparable<Agent>{
 
 	@Override
 	public int compareTo(Agent target) {
-		if(target == null){
+		if (target == null) {
 			return 1;
 		}
-		return getAgentIdx()-target.getAgentIdx();
+		return getAgentIdx() - target.getAgentIdx();
 	}
-	
+
 }

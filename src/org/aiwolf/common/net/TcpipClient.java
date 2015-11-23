@@ -102,7 +102,7 @@ public class TcpipClient implements Runnable, GameClient{
 	        			bw.append("\n");
 //	        			throw new NoReturnObjectException(player+" "+obj);
 	        		}
-	        		if(obj instanceof String){
+	        		else if(obj instanceof String){
 	        			bw.append(obj+"\n");
 	        		}
 	        		else{
@@ -134,21 +134,21 @@ public class TcpipClient implements Runnable, GameClient{
 		
 		Object returnObject = null;
 		switch(packet.getRequest()){
-		case Initialize:
+		case INITIALIZE:
 			player.initialize(gameInfo, gameSetting);
 //			player.update(gameInfo);
 			break;
-		case DailyInitialize:
+		case DAILY_INITIALIZE:
 			player.update(gameInfo);
 			player.dayStart();
 			break;
-		case DailyFinish:
+		case DAILY_FINISH:
 			player.update(gameInfo);
 			break;
-		case Name:
+		case NAME:
 			returnObject = player.getName();
 			break;
-		case Role:
+		case ROLE:
 			if(requestRole != null){
 				returnObject = requestRole.toString();
 			}
@@ -156,37 +156,37 @@ public class TcpipClient implements Runnable, GameClient{
 				returnObject = "none";
 			}
 			break;
-		case Attack:
+		case ATTACK:
 			player.update(gameInfo);
 			returnObject = player.attack();
 			break;
-		case Talk:
+		case TALK:
 			player.update(gameInfo);
 			returnObject = player.talk();
 			if(returnObject == null){
 				returnObject = Talk.SKIP;
 			}
 			break;
-		case Whisper:
+		case WHISPER:
 			player.update(gameInfo);
 			returnObject = player.whisper();
 			if(returnObject == null){
 				returnObject = Talk.SKIP;
 			}
 			break;
-		case Divine:
+		case DIVINE:
 			player.update(gameInfo);
 			returnObject = player.divine();
 			break;
-		case Guard:
+		case GUARD:
 			player.update(gameInfo);
 			returnObject = player.guard();
 			break;
-		case Vote:
+		case VOTE:
 			player.update(gameInfo);
 			returnObject = player.vote();
 			break;
-		case Finish:
+		case FINISH:
 			player.update(gameInfo);
 			finish();
 		default:
