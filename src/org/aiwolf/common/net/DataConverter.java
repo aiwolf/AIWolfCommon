@@ -1,13 +1,16 @@
 package org.aiwolf.common.net;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.arnx.jsonic.JSON;
 
+import org.aiwolf.common.AIWolfRuntimeException;
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Request;
 
@@ -43,13 +46,35 @@ public class DataConverter {
     	LinkedHashMap<String, Object> map = JSON.decode(line);
     	
     	Request request = Request.valueOf((String)map.get("request"));
-    	GameInfoToSend gameInfoToSend = JSON.decode(JSON.encode(map.get("gameInfo")), GameInfoToSend.class);
-    	if(map.get("gameSetting") != null){
-    		GameSetting gameSetting = JSON.decode(JSON.encode(map.get("gameSetting")), GameSetting.class);
-        	return new Packet(request, gameInfoToSend, gameSetting);
-    	}else{
-        	return new Packet(request, gameInfoToSend);
+    	GameInfoToSend gameInfoToSend = null;
+    	if(map.get("gameInfo") != null){
+    		gameInfoToSend = JSON.decode(JSON.encode(map.get("gameInfo")), GameInfoToSend.class);
+        	if(map.get("gameSetting") != null){
+        		GameSetting gameSetting = JSON.decode(JSON.encode(map.get("gameSetting")), GameSetting.class);
+            	return new Packet(request, gameInfoToSend, gameSetting);
+        	}
+        	else{
+            	return new Packet(request, gameInfoToSend);
+        	}
     	}
+    	else if(map.get("talkHistoryList") != null){
+    		List<TalkToSend> talkHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("talkHistoryList"));
+    		List<TalkToSend> whisperHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("whisperHistoryList"));
+//    		List<TalkToSend> whisperHistoryList = JSON.decode(JSON.encode(map.get("whisperHistoryList")), ArrayList.class);
+    		return new Packet(request, talkHistoryList, whisperHistoryList);
+    	}
+    	else{
+    		return new Packet(request);
+    	}
+	}
+
+	private List<TalkToSend> toTalkList(List<LinkedHashMap<String, String>> mapList) {
+		List<TalkToSend> list = new ArrayList<>();
+		for(LinkedHashMap<String, String> value:mapList){
+			TalkToSend talk = JSON.decode(JSON.encode(value), TalkToSend.class);
+			list.add(talk);
+		}
+		return list;
 	}
 
 	@SuppressWarnings("rawtypes")

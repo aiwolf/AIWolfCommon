@@ -94,7 +94,7 @@ public class Agent implements Comparable<Agent> {
 	public String toString() {
 		// TODO コメントアウトされた行
 		// return String.format("{\"agentIdx\":%02d}", agentIdx);
-		return String.format("Agent[%2d]", agentIdx);
+		return String.format("Agent[%02d]", agentIdx);
 	}
 
 	@Override

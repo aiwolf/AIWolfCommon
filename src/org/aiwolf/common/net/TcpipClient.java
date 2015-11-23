@@ -34,6 +34,8 @@ public class TcpipClient implements Runnable, GameClient{
 	
 	private boolean isRunning;
 	
+	GameInfo lastGameInfo;
+	
 	/**
 	 * 
 	 * @param host
@@ -129,8 +131,40 @@ public class TcpipClient implements Runnable, GameClient{
 	@Override
 	public Object recieve(Packet packet) {
 		
-		GameInfo gameInfo = packet.getGameInfo().toGameInfo();
+		GameInfo gameInfo = lastGameInfo;
 		GameSetting gameSetting = packet.getGameSetting();
+
+		if(packet.getGameInfo() != null){
+			gameInfo = packet.getGameInfo().toGameInfo();
+			lastGameInfo = gameInfo;
+		}
+		
+		if(packet.getTalkHistoryList() != null){
+			if(packet.getTalkHistoryList() != null){
+				Talk lastTalk = null;
+				if(gameInfo.getTalkList() != null && !gameInfo.getTalkList().isEmpty()){
+					lastTalk = gameInfo.getTalkList().get(gameInfo.getTalkList().size()-1);
+				}
+				for(TalkToSend talk:packet.getTalkHistoryList()){
+					if(isAfter(talk, lastTalk)){
+						gameInfo.talkList.add(talk.toTalk());
+					}
+				}
+			}
+			
+			if(packet.getWhisperHistoryList() != null){
+				Talk lastWhisper = null;
+				if(gameInfo.getWhisperList() != null && !gameInfo.getWhisperList().isEmpty()){
+					lastWhisper = gameInfo.getWhisperList().get(gameInfo.getWhisperList().size()-1);
+				}
+				for(TalkToSend whisper:packet.getWhisperHistoryList()){
+					if(isAfter(whisper, lastWhisper)){
+						gameInfo.whisperList.add(whisper.toTalk());
+					}
+				}
+			}
+		}
+
 		
 		Object returnObject = null;
 		switch(packet.getRequest()){
@@ -193,6 +227,25 @@ public class TcpipClient implements Runnable, GameClient{
 			break;
 		}
 		return returnObject;
+	}
+
+	/**
+	 * Check is talk after lastTalk.<br>
+	 * If it is same, return false;
+	 * @param talk
+	 * @param lastTalk
+	 * @return
+	 */
+	private boolean isAfter(TalkToSend talk, Talk lastTalk) {
+		if(lastTalk != null){
+			if(talk.getDay() < lastTalk.getDay()){
+				return false;
+			}
+			if(talk.getDay() == lastTalk.getDay() && talk.getIdx() <= lastTalk.getIdx()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	protected void finish() {
