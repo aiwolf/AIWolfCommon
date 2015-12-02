@@ -139,25 +139,25 @@ public class TcpipClient implements Runnable, GameClient{
 			lastGameInfo = gameInfo;
 		}
 		
-		if(packet.getTalkHistoryList() != null){
-			if(packet.getTalkHistoryList() != null){
+		if(packet.getTalkHistory() != null){
+			if(packet.getTalkHistory() != null){
 				Talk lastTalk = null;
 				if(gameInfo.getTalkList() != null && !gameInfo.getTalkList().isEmpty()){
 					lastTalk = gameInfo.getTalkList().get(gameInfo.getTalkList().size()-1);
 				}
-				for(TalkToSend talk:packet.getTalkHistoryList()){
+				for(TalkToSend talk:packet.getTalkHistory()){
 					if(isAfter(talk, lastTalk)){
 						gameInfo.talkList.add(talk.toTalk());
 					}
 				}
 			}
 			
-			if(packet.getWhisperHistoryList() != null){
+			if(packet.getWhisperHistory() != null){
 				Talk lastWhisper = null;
 				if(gameInfo.getWhisperList() != null && !gameInfo.getWhisperList().isEmpty()){
 					lastWhisper = gameInfo.getWhisperList().get(gameInfo.getWhisperList().size()-1);
 				}
-				for(TalkToSend whisper:packet.getWhisperHistoryList()){
+				for(TalkToSend whisper:packet.getWhisperHistory()){
 					if(isAfter(whisper, lastWhisper)){
 						gameInfo.whisperList.add(whisper.toTalk());
 					}

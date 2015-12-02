@@ -13,8 +13,8 @@ public class Packet {
 	Request request;
 	GameInfoToSend gameInfo;
 	GameSetting gameSetting;
-	List<TalkToSend> talkHistoryList;  
-	List<TalkToSend> whisperHistoryList;
+	List<TalkToSend> talkHistory;  
+	List<TalkToSend> whisperHistory;
 	
 	public Packet(){
 		
@@ -58,8 +58,8 @@ public class Packet {
 	 */
 	public Packet(Request request, List<TalkToSend> talkHitoryList, List<TalkToSend> whisperHitoryList) {
 		this.request = request;
-		this.talkHistoryList = talkHitoryList;
-		this.whisperHistoryList = whisperHitoryList;
+		this.talkHistory = talkHitoryList;
+		this.whisperHistory = whisperHitoryList;
 	}
 	
 	/**
@@ -95,29 +95,29 @@ public class Packet {
 	/**
 	 * @return talkHistoryList
 	 */
-	public List<TalkToSend> getTalkHistoryList() {
-		return talkHistoryList;
+	public List<TalkToSend> getTalkHistory() {
+		return talkHistory;
 	}
 
 	/**
 	 * @param talkHistoryList セットする talkHistoryList
 	 */
-	public void setTalkHistoryList(List<TalkToSend> talkHistoryList) {
-		this.talkHistoryList = talkHistoryList;
+	public void setTalkHistory(List<TalkToSend> talkHistoryList) {
+		this.talkHistory = talkHistoryList;
 	}
 
 	/**
 	 * @return whisperHistoryList
 	 */
-	public List<TalkToSend> getWhisperHistoryList() {
-		return whisperHistoryList;
+	public List<TalkToSend> getWhisperHistory() {
+		return whisperHistory;
 	}
 
 	/**
 	 * @param whisperHistoryList セットする whisperHistoryList
 	 */
-	public void setWhisperHistoryList(List<TalkToSend> whisperHistoryList) {
-		this.whisperHistoryList = whisperHistoryList;
+	public void setWhisperHistory(List<TalkToSend> whisperHistoryList) {
+		this.whisperHistory = whisperHistoryList;
 	}
 
 	
