@@ -52,9 +52,10 @@ public class Packet {
 	}
 	
 	/**
-	 * Create Packet with GameInforamtion and Game Setting
+	 * 
 	 * @param request
-	 * @param gameInfoToSend
+	 * @param talkHitoryList
+	 * @param whisperHitoryList
 	 */
 	public Packet(Request request, List<TalkToSend> talkHitoryList, List<TalkToSend> whisperHitoryList) {
 		this.request = request;

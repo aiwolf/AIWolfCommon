@@ -57,9 +57,9 @@ public class DataConverter {
             	return new Packet(request, gameInfoToSend);
         	}
     	}
-    	else if(map.get("talkHistoryList") != null){
-    		List<TalkToSend> talkHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("talkHistoryList"));
-    		List<TalkToSend> whisperHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("whisperHistoryList"));
+    	else if(map.get("talkHistory") != null){
+    		List<TalkToSend> talkHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("talkHistory"));
+    		List<TalkToSend> whisperHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("whisperHistory"));
 //    		List<TalkToSend> whisperHistoryList = JSON.decode(JSON.encode(map.get("whisperHistoryList")), ArrayList.class);
     		return new Packet(request, talkHistoryList, whisperHistoryList);
     	}
