@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 
 //import net.arnx.jsonic.JSON;
 
@@ -32,7 +33,7 @@ public class TcpipClient implements Runnable, GameClient{
 	Player player;
 	Role requestRole;
 	
-	private boolean isRunning;
+	boolean isRunning;
 	
 	GameInfo lastGameInfo;
 	
@@ -44,6 +45,7 @@ public class TcpipClient implements Runnable, GameClient{
 	public TcpipClient(String host, int port) {
 		this.host = host;
 		this.port = port;
+		isRunning = false;
 	}
 	
 	/**
@@ -56,6 +58,7 @@ public class TcpipClient implements Runnable, GameClient{
 		this.host = host;
 		this.port = port;
 		this.requestRole = requestRole;
+		isRunning = false;
 	}
 	
 	public boolean connect(Player player){
@@ -93,8 +96,7 @@ public class TcpipClient implements Runnable, GameClient{
 	        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 	        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	        String line;
-	        isRunning = true;
-	        while((line = br.readLine()) != null && isRunning){
+	        while((line = br.readLine()) != null){
 //	        	System.out.println(line);
 	    		Packet packet = DataConverter.getInstance().toPacket(line);
 	    		
@@ -114,14 +116,17 @@ public class TcpipClient implements Runnable, GameClient{
 	        		bw.flush();
 	        	}
 	        }
-	        System.out.println("Close connectoin of "+player);
-	        br.close();
-	        bw.close();
-	        socket.close();
+//	        System.out.println("Close connection of "+player);
+//	        br.close();
+//	        bw.close();
+//	        socket.close();
+//	        System.out.println("Finish game");
 		}catch(IOException e){
-			throw new AIWolfRuntimeException(e);
+			if(isRunning){
+				throw new AIWolfRuntimeException(e);
+			}
 		}finally{
-			isRunning = false;
+//			isRunning = false;
 		}
 	}
 
@@ -167,6 +172,7 @@ public class TcpipClient implements Runnable, GameClient{
 		Object returnObject = null;
 		switch(packet.getRequest()){
 		case INITIALIZE:
+	        isRunning = true;
 			player.initialize(gameInfo, gameSetting);
 //			player.update(gameInfo);
 			break;
@@ -179,6 +185,9 @@ public class TcpipClient implements Runnable, GameClient{
 			break;
 		case NAME:
 			returnObject = player.getName();
+			if(returnObject == null){
+				returnObject = player.getClass().getName();
+			}
 			break;
 		case ROLE:
 			if(requestRole != null){
@@ -247,8 +256,8 @@ public class TcpipClient implements Runnable, GameClient{
 	}
 
 	protected void finish() {
-		isRunning = false;
 		player.finish();
+		isRunning = false;
 	}
 
 	/**
