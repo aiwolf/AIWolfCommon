@@ -34,6 +34,7 @@ public class TcpipClient implements Runnable, GameClient{
 	Role requestRole;
 	
 	boolean isRunning;
+	boolean isConnecting;
 	
 	GameInfo lastGameInfo;
 	
@@ -70,7 +71,8 @@ public class TcpipClient implements Runnable, GameClient{
 	        // ソケットを作成してサーバに接続する。
 	        socket = new Socket();
 	        socket.connect(new InetSocketAddress(host, port));
-
+	        isConnecting = true;
+	        
 	        Thread th = new Thread(this);
 	        th.start();
 	        
@@ -83,6 +85,7 @@ public class TcpipClient implements Runnable, GameClient{
 	        
 	    } catch (Exception e) {
 	       e.printStackTrace();
+	       isConnecting = false;
 	       return false;
 	    }
 	    
@@ -122,7 +125,9 @@ public class TcpipClient implements Runnable, GameClient{
 //	        socket.close();
 //	        System.out.println("Finish game");
 		}catch(IOException e){
-			if(isRunning){
+			if(isConnecting){
+				isRunning = false;
+				isConnecting = false;
 				throw new AIWolfRuntimeException(e);
 			}
 		}finally{
@@ -300,6 +305,20 @@ public class TcpipClient implements Runnable, GameClient{
 	 */
 	public void setRequestRole(Role requestRole) {
 		this.requestRole = requestRole;
+	}
+
+	/**
+	 * @return isRunning
+	 */
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+	/**
+	 * @return isConnecting
+	 */
+	public boolean isConnecting() {
+		return isConnecting;
 	}
 
 
