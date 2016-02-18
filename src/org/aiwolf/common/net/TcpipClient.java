@@ -34,6 +34,8 @@ public class TcpipClient implements Runnable, GameClient{
 	
 	GameInfo lastGameInfo;
 	
+	String playerName;
+	
 	/**
 	 * 
 	 * @param host
@@ -187,9 +189,14 @@ public class TcpipClient implements Runnable, GameClient{
 			player.update(gameInfo);
 			break;
 		case NAME:
-			returnObject = player.getName();
-			if(returnObject == null){
-				returnObject = player.getClass().getName();
+			if(playerName == null){
+				returnObject = player.getName();
+				if(returnObject == null){
+					returnObject = player.getClass().getName();
+				}
+			}
+			else{
+				returnObject = playerName;
 			}
 			break;
 		case ROLE:
@@ -317,6 +324,20 @@ public class TcpipClient implements Runnable, GameClient{
 	 */
 	public boolean isConnecting() {
 		return isConnecting;
+	}
+
+	/**
+	 * @return name
+	 */
+	public String getName() {
+		return playerName;
+	}
+
+	/**
+	 * @param name セットする name
+	 */
+	public void setName(String name) {
+		this.playerName = name;
 	}
 
 
