@@ -1,22 +1,18 @@
 package org.aiwolf.common.net;
 
 import java.io.BufferedReader;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketException;
-
-//import net.arnx.jsonic.JSON;
 
 import org.aiwolf.common.AIWolfRuntimeException;
-import org.aiwolf.common.NoReturnObjectException;
 import org.aiwolf.common.data.Player;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Talk;
+//import net.arnx.jsonic.JSON;
 
 /**
  * Client Using TCP/IP Connection
@@ -126,9 +122,11 @@ public class TcpipClient implements Runnable, GameClient{
 //	        System.out.println("Finish game");
 		}catch(IOException e){
 			if(isConnecting){
-				isRunning = false;
 				isConnecting = false;
-				throw new AIWolfRuntimeException(e);
+				if(isRunning()){
+					isRunning = false;
+					throw new AIWolfRuntimeException(e);
+				}
 			}
 		}finally{
 //			isRunning = false;
