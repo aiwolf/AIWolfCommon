@@ -22,8 +22,13 @@ public class ClientStarter {
 		int port = -1;
 		String clsName = null;
 
-		//RoleRequestを追加
+		//Add RoleRequest
 		Role RoleRequest = null;
+		
+		/**
+		 * 
+		 */
+		String playerName = null;
 		
 		for(int i = 0; i < args.length; i++){
 			if(args[i].startsWith("-")){
@@ -54,15 +59,24 @@ public class ClientStarter {
 					}
 					
 				}
+				else if(args[i].equals("-n")){
+					i++;
+					playerName = args[i];
+				}
 			}
 		}
 		if(port < 0 || host == null || clsName == null){
-			System.err.println("Usage:"+ClientStarter.class+" -h host -p port -c clientClass");
+			System.err.println("Usage:"+ClientStarter.class+" -h host -p port -c clientClass [-n name]");
 			return;
 		}
+
 		Player player = (Player)Class.forName(clsName).newInstance();
 		//引数にRoleRequestを追加
 		TcpipClient client = new TcpipClient(host, port, RoleRequest);
+		if(playerName != null){
+			client.setName(playerName);
+			System.out.println("Set name "+client.getName());
+		}
 		if(client.connect(player)){
 			System.out.println("Player connected to server:"+player);
 		}
