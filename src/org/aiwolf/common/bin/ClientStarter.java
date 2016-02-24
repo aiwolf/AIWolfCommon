@@ -75,10 +75,10 @@ public class ClientStarter {
 		TcpipClient client = new TcpipClient(host, port, RoleRequest);
 		if(playerName != null){
 			client.setName(playerName);
-			System.out.println("Set name "+client.getName());
+//			System.out.println("Set name "+client.getName());
 		}
 		if(client.connect(player)){
-			System.out.println("Player connected to server:"+player);
+//			System.out.println("Player connected to server:"+player);
 		}
 	}
 
