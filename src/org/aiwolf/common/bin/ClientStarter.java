@@ -23,7 +23,7 @@ public class ClientStarter {
 		String clsName = null;
 
 		//Add RoleRequest
-		Role RoleRequest = null;
+		Role roleRequest = null;
 		
 		/**
 		 * 
@@ -49,10 +49,10 @@ public class ClientStarter {
 					try{
 						if(i > args.length-1  || args[i].startsWith("-")){
 							i--;
-							RoleRequest = null;
+							roleRequest = null;
 							continue;
 						}
-						RoleRequest = Role.valueOf(args[i]);
+						roleRequest = Role.valueOf(args[i]);
 					}catch(IllegalArgumentException e){
 						System.err.println("No such role as "+args[i]);
 						return;
@@ -72,7 +72,7 @@ public class ClientStarter {
 
 		Player player = (Player)Class.forName(clsName).newInstance();
 		//引数にRoleRequestを追加
-		TcpipClient client = new TcpipClient(host, port, RoleRequest);
+		TcpipClient client = new TcpipClient(host, port, roleRequest);
 		if(playerName != null){
 			client.setName(playerName);
 //			System.out.println("Set name "+client.getName());
