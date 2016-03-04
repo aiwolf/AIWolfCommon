@@ -202,13 +202,13 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	/**
 	 * <div lang="ja">
 	 *
-	 * 指定された値を削除します。
+	 * 指定された値とそのキーを削除します。
 	 *
 	 * </div>
 	 *
 	 * <div lang="en">
 	 *
-	 * Remove the value.
+	 * Remove the value and key.
 	 *
 	 * </div>
 	 *
