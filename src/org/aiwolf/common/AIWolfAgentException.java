@@ -1,5 +1,8 @@
 package org.aiwolf.common;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+
 import org.aiwolf.common.data.Agent;
 
 /**
@@ -95,5 +98,38 @@ public class AIWolfAgentException extends AIWolfRuntimeException {
 	 */
 	public Throwable getException() {
 		return exception;
+	}
+
+	/* (非 Javadoc)
+	 * @see java.lang.Throwable#printStackTrace()
+	 */
+	@Override
+	public void printStackTrace() {
+		if(exception != null){
+			exception.printStackTrace();
+		}
+		super.printStackTrace();
+	}
+
+	/* (非 Javadoc)
+	 * @see java.lang.Throwable#printStackTrace(java.io.PrintStream)
+	 */
+	@Override
+	public void printStackTrace(PrintStream s) {
+		if(exception != null){
+			exception.printStackTrace(s);
+		}
+		super.printStackTrace(s);
+	}
+
+	/* (非 Javadoc)
+	 * @see java.lang.Throwable#printStackTrace(java.io.PrintWriter)
+	 */
+	@Override
+	public void printStackTrace(PrintWriter s) {
+		if(exception != null){
+			exception.printStackTrace(s);
+		}
+		super.printStackTrace(s);
 	}
 }
