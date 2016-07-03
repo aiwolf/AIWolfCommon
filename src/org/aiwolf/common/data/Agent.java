@@ -21,7 +21,7 @@ import java.util.Map;
  * @author tori
  *
  */
-public class Agent implements Comparable<Agent> {
+final public class Agent implements Comparable<Agent> {
 
 	private static Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
