@@ -9,7 +9,8 @@ package org.aiwolf.common.data;
  *
  */
 public class Talk {
-
+	//TODO content => text
+	
 	/**
 	 * <div lang="ja">
 	 *

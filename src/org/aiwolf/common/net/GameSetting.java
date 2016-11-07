@@ -15,6 +15,19 @@ import org.aiwolf.common.data.Role;
  */
 public class GameSetting implements Cloneable {
 
+	//TODO 最大得票プレイヤーが同数だった場合の挙動
+	//TODO 再投票の回数(Defaultは0)
+	//TODO 最大得票数が同じだったときの処理(ランダム or 処刑無し)
+
+	//TODO 最大襲撃得票プレイヤーが同数だった場合の挙動
+	//TODO 再襲撃投票の回数(Defaultは0)
+	//TODO 最大襲撃得票数が同じだったときの処理(ランダム or 襲撃無し)
+	//TODO 襲撃再投票時のWhisperの有無
+	
+	//TODO 制限時間
+	//TODO 人狼知能プロトコル違反チェックを行うかどうか
+	
+	
 	/**
 	 * <div lang="ja">
 	 *
@@ -96,12 +109,11 @@ public class GameSetting implements Cloneable {
 	 *         <div lang="en">Default game setting</div>
 	 */
 	static public GameSetting getDefaultGame(int agentNum) {
-		// TODO 配列では4人以上18人以下なのに対し、こちらでは5人以上16人以下となっている
-		if (agentNum < 5) {
-			throw new IllegalArgumentException("agentNum must be bigger than 5 but " + agentNum);
+		if (agentNum < 4) {
+			throw new IllegalArgumentException("agentNum must be bigger than 4 but " + agentNum);
 		}
 		if (agentNum > roleNumArray.length) {
-			throw new IllegalArgumentException("agentNum must be smaller than 16 but " + agentNum);
+			throw new IllegalArgumentException("agentNum must be smaller than "+roleNumArray.length+" but " + agentNum);
 		}
 
 		GameSetting setting = new GameSetting();
