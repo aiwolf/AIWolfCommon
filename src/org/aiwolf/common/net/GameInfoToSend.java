@@ -256,15 +256,10 @@ public class GameInfoToSend{
 	}
 
 	/**
-	 * Adds a agent died last night.
-	 * 
-	 * @param agent
+	 * @param lastDeadAgentList - the lastDeadAgentList to set
 	 */
-	public void addLastDeadAgent(int agent) {
-		Integer a = new Integer(agent);
-		if (!lastDeadAgentList.contains(a)) {
-			lastDeadAgentList.add(a);
-		}
+	public void setLastDeadAgentList(List<Integer> lastDeadAgentList) {
+		this.lastDeadAgentList = lastDeadAgentList;
 	}
 
 	public GameInfo toGameInfo() {
