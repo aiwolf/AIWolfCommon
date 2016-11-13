@@ -38,6 +38,8 @@ public class GameInfo {
 	Judge mediumResult;
 	Judge divineResult;
 	Agent executedAgent;
+
+	// the agent werewolves attacked last night (werewolf only)
 	Agent attackedAgent;
 	Agent guardedAgent;
 	List<Vote> voteList;
@@ -206,21 +208,19 @@ public class GameInfo {
 	/**
 	 * <div lang="ja">
 	 * 
-	 * 昨夜に襲撃されたエージェントを返します。
+	 * 昨夜実際に襲撃されたエージェントを返します．人狼以外には知らされません．
 	 * 
 	 * </div>
 	 * 
 	 * <div lang="en">
 	 * 
-	 * Get the agent who attacked last night.
+	 * Returns the agent actually attacked last night.
 	 * 
 	 * </div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">昨夜実際に襲撃されたエージェント</div>
 	 * 
-	 * 		<div lang="ja">昨夜に襲撃されたエージェント</div>
-	 * 
-	 *         <div lang="en">Agent who attacked last night</div>
+	 *         <div lang="en">the agent actually attacked last night</div>
 	 */
 	public Agent getAttackedAgent() {
 		return attackedAgent;
