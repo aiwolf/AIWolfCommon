@@ -1,7 +1,6 @@
 package org.aiwolf.common.net;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,6 +38,8 @@ public class GameInfoToSend{
 	LinkedHashMap<Integer, String> roleMap;
 //	List<Integer> agentList;
 
+	List<Integer> lastDeadAgentList; // The list of agents died last night.
+
 	public GameInfoToSend() {
 		voteList = new ArrayList<VoteToSend>();
 		attackVoteList = new ArrayList<VoteToSend>();
@@ -46,6 +47,7 @@ public class GameInfoToSend{
 		roleMap = new LinkedHashMap<Integer, String>();
 		talkList = new ArrayList<TalkToSend>();
 		whisperList = new ArrayList<TalkToSend>();
+		lastDeadAgentList = new ArrayList<>();
 	}
 
 	/**
@@ -246,6 +248,25 @@ public class GameInfoToSend{
 		this.roleMap = roleMap;
 	}
 
+	/**
+	 * @return the lastDeadAgentList
+	 */
+	public List<Integer> getLastDeadAgentList() {
+		return lastDeadAgentList;
+	}
+
+	/**
+	 * Adds a agent died last night.
+	 * 
+	 * @param agent
+	 */
+	public void addLastDeadAgent(int agent) {
+		Integer a = new Integer(agent);
+		if (!lastDeadAgentList.contains(a)) {
+			lastDeadAgentList.add(a);
+		}
+	}
+
 	public GameInfo toGameInfo() {
 		GameInfo gi = new GameInfo();
 		gi.day = this.getDay();
@@ -277,6 +298,11 @@ public class GameInfoToSend{
 		gi.whisperList = new ArrayList<Talk>();
 		for(TalkToSend whisper:this.getWhisperList()){
 			gi.whisperList.add(whisper.toTalk());
+		}
+
+		gi.lastDeadAgentList = new ArrayList<>();
+		for (int agent : lastDeadAgentList) {
+			gi.lastDeadAgentList.add(Agent.getAgent(agent));
 		}
 
 		gi.statusMap = new HashMap<Agent, Status>();

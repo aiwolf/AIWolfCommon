@@ -57,6 +57,8 @@ public class GameInfo {
 	// TODO コメントアウトされたフィールド・メンバ
 	// List<Agent> agentList;
 
+	List<Agent> lastDeadAgentList; // The list of agents died last night.
+
 	/**
 	 * <div lang="ja">新しいゲーム情報を構築します。</div>
 	 * 
@@ -71,6 +73,7 @@ public class GameInfo {
 		roleMap = new HashMap<>();
 		// TODO コメントアウトされた初期化
 		// agentList = new ArrayList<>();
+		lastDeadAgentList = new ArrayList<>();
 	}
 
 	/**
@@ -489,5 +492,12 @@ public class GameInfo {
 	 */
 	public Map<Agent, Role> getRoleMap() {
 		return roleMap;
+	}
+
+	/**
+	 * @return the lastDeadAgentList
+	 */
+	public List<Agent> getLastDeadAgentList() {
+		return lastDeadAgentList;
 	}
 }
