@@ -24,7 +24,6 @@ public class GameSetting implements Cloneable {
 	//TODO 最大襲撃得票数が同じだったときの処理(ランダム or 襲撃無し)
 	//TODO 襲撃再投票時のWhisperの有無
 	
-	//TODO 制限時間
 	//TODO 人狼知能プロトコル違反チェックを行うかどうか
 	
 	
@@ -194,6 +193,13 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Random Seed</div>
 	 */
 	long randomSeed = System.currentTimeMillis();
+
+	/**
+	 * <div lang="ja">リクエスト応答時間の上限</div>
+	 * 
+	 * <div lang="en">Time limit for the response to the request.</div>
+	 */
+	int timeLimit = 1000;
 
 	/**
 	 * <div lang="ja">
@@ -542,6 +548,29 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">リクエスト応答時間の上限を返します．</div>
+	 * 
+	 * <div lang="en">Returns the time limit for the response to the request.<div>
+	 * 
+	 * @return <div lang="ja">制限時間</div><div lang="en">the time limit<div>
+	 */
+	public int getTimeLimit() {
+		return timeLimit;
+	}
+
+	/**
+	 * <div lang="ja">リクエスト応答時間の上限をセットします．</div>
+	 * 
+	 * <div lang="en">Sets the time limit for the response to the request.</div>
+	 * 
+	 * @param timeLimit
+	 *            - <div lang="ja">制限時間</div> <div lang="en">the timeLimit to set</div>
+	 */
+	public void setTimeLimit(int timeLimit) {
+		this.timeLimit = timeLimit;
+	}
+
+	/**
 	 * <div lang="ja">ゲーム設定の複製を作成し、返します。</div>
 	 *
 	 * <div lang="en">Create copy.</div>
@@ -560,6 +589,7 @@ public class GameSetting implements Cloneable {
 		gameSetting.isVoteVisible = isVoteVisible;
 		gameSetting.maxTalk = maxTalk;
 		gameSetting.randomSeed = randomSeed;
+		gameSetting.timeLimit = timeLimit;
 		gameSetting.roleNumMap.putAll(roleNumMap);
 		return gameSetting;
 	}
