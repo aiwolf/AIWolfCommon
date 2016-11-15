@@ -16,8 +16,6 @@ import org.aiwolf.common.data.Role;
 public class GameSetting implements Cloneable {
 
 	//TODO 最大得票プレイヤーが同数だった場合の挙動
-	//TODO 再投票の回数(Defaultは0)
-	//TODO 最大得票数が同じだったときの処理(ランダム or 処刑無し)
 
 	//TODO 最大襲撃得票プレイヤーが同数だった場合の挙動
 	//TODO 再襲撃投票の回数(Defaultは0)
@@ -120,6 +118,10 @@ public class GameSetting implements Cloneable {
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
 		setting.isVotableInFirstDay = false;
+		// already initialized
+		// setting.maxRevote = 0;
+		// setting.timeLimit = 1000;
+		// setting.isEnableNoBanish = false;
 
 		Role[] roles = Role.values();
 		for (int i = 0; i < roles.length; i++) {
@@ -188,6 +190,13 @@ public class GameSetting implements Cloneable {
 	private boolean isVotableInFirstDay;
 
 	/**
+	 * <div lang="ja">得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム</div>
+	 * 
+	 * <div lang="en">Whether or not no banish is allowed when the vote ends in a tie.</div>
+	 */
+	private boolean isEnableNoBanish = false;
+
+	/**
 	 * <div lang="ja">ランダムシード(乱数種)</div>
 	 *
 	 * <div lang="en">Random Seed</div>
@@ -197,9 +206,16 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">リクエスト応答時間の上限</div>
 	 * 
-	 * <div lang="en">Time limit for the response to the request.</div>
+	 * <div lang="en">Time limit for the response to the request</div>
 	 */
-	int timeLimit = 1000;
+	private int timeLimit = 1000;
+
+	/**
+	 * <div lang="ja">最大再投票回数</div>
+	 * 
+	 * <div lang="en">Maximum number of revotes</div>
+	 */
+	private int maxRevote = 0;
 
 	/**
 	 * <div lang="ja">
@@ -357,6 +373,17 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isVotableInFirstDay() {
 		return isVotableInFirstDay;
+	}
+
+	/**
+	 * <div lang="ja">同票数の場合に追放なしとするかどうかを返します。</div>
+	 * 
+	 * <div lang="en">Returns whether or not no banish is allowed.</div>
+	 * 
+	 * @return <div lang="ja">同票数の場合に追放なしとするかどうか </div><div lang="en">whether or not no banish is allowed</div>
+	 */
+	public boolean isEnableNoBanish() {
+		return isEnableNoBanish;
 	}
 
 	/**
@@ -518,6 +545,18 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">同票数の場合に追放なしとするかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not no banish is allowed.</div>
+	 * 
+	 * @param isEnableNoBanish
+	 *            - <div lang="ja">同票数の場合に追放なしとするかどうか </div><div lang="en">whether or not no banish is allowed</div>
+	 */
+	public void setEnableNoBanish(boolean isEnableNoBanish) {
+		this.isEnableNoBanish = isEnableNoBanish;
+	}
+
+	/**
 	 * <div lang="ja">ランダムシードを返します。</div>
 	 *
 	 * <div lang="en">Get the random seed.</div>
@@ -548,7 +587,7 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">リクエスト応答時間の上限を返します．</div>
+	 * <div lang="ja">リクエスト応答時間の上限を返します。</div>
 	 * 
 	 * <div lang="en">Returns the time limit for the response to the request.<div>
 	 * 
@@ -559,7 +598,7 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">リクエスト応答時間の上限をセットします．</div>
+	 * <div lang="ja">リクエスト応答時間の上限をセットします。</div>
 	 * 
 	 * <div lang="en">Sets the time limit for the response to the request.</div>
 	 * 
@@ -568,6 +607,29 @@ public class GameSetting implements Cloneable {
 	 */
 	public void setTimeLimit(int timeLimit) {
 		this.timeLimit = timeLimit;
+	}
+
+	/**
+	 * <div lang="ja">最大再投票回数を返します。</div>
+	 * 
+	 * <div lang="en">Returns the maximum number of revotes.<div>
+	 * 
+	 * @return <div lang="ja">最大再投票回数</div><div lang="en">the maximum number of revotes<div>
+	 */
+	public int getMaxRevote() {
+		return maxRevote;
+	}
+
+	/**
+	 * <div lang="ja">最大再投票回数をセットします。</div>
+	 * 
+	 * <div lang="en">Sets the maximum number of revotes.</div>
+	 * 
+	 * @param maxRevote
+	 *            - <div lang="ja">最大再投票回数</div> <div lang="en">the maximum number of revotes</div>
+	 */
+	public void setMaxRevote(int maxRevote) {
+		this.maxRevote = maxRevote;
 	}
 
 	/**
@@ -587,9 +649,11 @@ public class GameSetting implements Cloneable {
 		gameSetting.isEnableNoAttack = isEnableNoAttack;
 		gameSetting.isVotableInFirstDay = isVotableInFirstDay;
 		gameSetting.isVoteVisible = isVoteVisible;
+		gameSetting.isEnableNoBanish = isEnableNoBanish;
 		gameSetting.maxTalk = maxTalk;
 		gameSetting.randomSeed = randomSeed;
 		gameSetting.timeLimit = timeLimit;
+		gameSetting.maxRevote = maxRevote;
 		gameSetting.roleNumMap.putAll(roleNumMap);
 		return gameSetting;
 	}
