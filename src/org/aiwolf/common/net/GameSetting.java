@@ -122,6 +122,7 @@ public class GameSetting implements Cloneable {
 		// setting.maxRevote = 0;
 		// setting.timeLimit = 1000;
 		// setting.isEnableNoBanish = false;
+		// setting.isTalkOnFirstDay = false;
 
 		Role[] roles = Role.values();
 		for (int i = 0; i < roles.length; i++) {
@@ -195,6 +196,13 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Whether or not no banish is allowed when the vote ends in a tie.</div>
 	 */
 	private boolean isEnableNoBanish = false;
+
+	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうか</div>
+	 * 
+	 * <div lang="en">Whether of not there are talks on day 0
+	 */
+	private boolean isTalkOnFirstDay = false;
 
 	/**
 	 * <div lang="ja">ランダムシード(乱数種)</div>
@@ -387,6 +395,17 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうかを返します。</div>
+	 * 
+	 * <div lang="en">Returns whether or not there are talks on day 0.</div>
+	 * 
+	 * @return <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
+	 */
+	public boolean isTalkOnFirstDay() {
+		return isTalkOnFirstDay;
+	}
+
+	/**
 	 * <div lang="ja">
 	 *
 	 * プレイヤーの人数を返します。
@@ -557,6 +576,18 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not there are talks on day 0.</div>
+	 * 
+	 * @param isTalkOnFirstDay
+	 *            - <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
+	 */
+	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
+		this.isTalkOnFirstDay = isTalkOnFirstDay;
+	}
+
+	/**
 	 * <div lang="ja">ランダムシードを返します。</div>
 	 *
 	 * <div lang="en">Get the random seed.</div>
@@ -650,6 +681,7 @@ public class GameSetting implements Cloneable {
 		gameSetting.isVotableInFirstDay = isVotableInFirstDay;
 		gameSetting.isVoteVisible = isVoteVisible;
 		gameSetting.isEnableNoBanish = isEnableNoBanish;
+		gameSetting.isTalkOnFirstDay = isTalkOnFirstDay;
 		gameSetting.maxTalk = maxTalk;
 		gameSetting.randomSeed = randomSeed;
 		gameSetting.timeLimit = timeLimit;
