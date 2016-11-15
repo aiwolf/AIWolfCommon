@@ -188,6 +188,13 @@ public class GameSetting implements Cloneable {
 	private boolean isVotableInFirstDay;
 
 	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうか</div>
+	 * 
+	 * <div lang="en">Whether of not there are talks on day 0
+	 */
+	private boolean isTalkOnFirstDay = false;
+
+	/**
 	 * <div lang="ja">ランダムシード(乱数種)</div>
 	 *
 	 * <div lang="en">Random Seed</div>
@@ -360,6 +367,17 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうかを返します。</div>
+	 * 
+	 * <div lang="en">Returns whether or not there are talks on day 0.</div>
+	 * 
+	 * @return <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
+	 */
+	public boolean isTalkOnFirstDay() {
+		return isTalkOnFirstDay;
+	}
+
+	/**
 	 * <div lang="ja">
 	 *
 	 * プレイヤーの人数を返します。
@@ -515,6 +533,18 @@ public class GameSetting implements Cloneable {
 	 */
 	public void setVoteVisible(boolean isVoteVisible) {
 		this.isVoteVisible = isVoteVisible;
+	}
+
+	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not there are talks on day 0.</div>
+	 * 
+	 * @param isTalkOnFirstDay
+	 *            - <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
+	 */
+	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
+		this.isTalkOnFirstDay = isTalkOnFirstDay;
 	}
 
 	/**
