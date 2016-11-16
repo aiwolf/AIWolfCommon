@@ -58,6 +58,11 @@ public class GameInfo {
 	Map<Agent, Status> statusMap;
 	Map<Agent, Role> roleMap;
 
+	/**
+	 * 
+	 */
+	List<Role> existingRoleList;
+	
 	// TODO コメントアウトされたフィールド・メンバ
 	// List<Agent> agentList;
 
@@ -511,6 +516,6 @@ public class GameInfo {
 	 * @return <div lang="ja">存在するRoleのリスト</div> <div lang="en">the list of the roles</div>
 	 */
 	public List<Role> getExistingRoles(){
-		return Collections.unmodifiableList(new ArrayList<>(new TreeSet<>(this.roleMap.values())));
+		return existingRoleList;
 	}
 }

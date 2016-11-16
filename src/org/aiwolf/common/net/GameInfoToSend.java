@@ -39,7 +39,8 @@ public class GameInfoToSend{
 //	List<Integer> agentList;
 
 	List<Integer> lastDeadAgentList; // The list of agents died last night.
-
+	List<String> existingRoleList;
+	
 	public GameInfoToSend() {
 		voteList = new ArrayList<VoteToSend>();
 		attackVoteList = new ArrayList<VoteToSend>();
@@ -48,6 +49,7 @@ public class GameInfoToSend{
 		talkList = new ArrayList<TalkToSend>();
 		whisperList = new ArrayList<TalkToSend>();
 		lastDeadAgentList = new ArrayList<>();
+		existingRoleList = new ArrayList<>();
 	}
 
 	/**
@@ -267,6 +269,22 @@ public class GameInfoToSend{
 		this.lastDeadAgentList = lastDeadAgentList;
 	}
 
+
+	/**
+	 * @return existingRoleList
+	 */
+	public List<String> getExistingRoleList() {
+		return existingRoleList;
+	}
+
+	/**
+	 * @param existingRoleList セットする existingRoleList
+	 */
+	public void setExistingRoleList(List<String> existingRoleList) {
+		this.existingRoleList = existingRoleList;
+	}
+	
+	
 	public GameInfo toGameInfo() {
 		GameInfo gi = new GameInfo();
 		gi.day = this.getDay();
@@ -313,8 +331,12 @@ public class GameInfoToSend{
 		for(int agent:this.getRoleMap().keySet()){
 			gi.roleMap.put(Agent.getAgent(agent), Role.valueOf(getRoleMap().get(agent)));
 		}
+		gi.existingRoleList = new ArrayList<>();
+		for(String roleText:this.getExistingRoleList()){
+			gi.existingRoleList.add(Role.valueOf(roleText));
+		}
 		
 		return gi;
 	}
-	
+
 }
