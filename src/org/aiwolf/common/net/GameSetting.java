@@ -119,7 +119,7 @@ public class GameSetting implements Cloneable {
 		setting.isVoteVisible = true;
 		setting.isVotableInFirstDay = false;
 		// already initialized
-		// setting.maxRevote = 0;
+		// setting.maxRevote = 1;
 		// setting.timeLimit = 1000;
 		// setting.isEnableNoBanish = false;
 		// setting.isTalkOnFirstDay = false;
@@ -223,7 +223,7 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Maximum number of revotes</div>
 	 */
-	private int maxRevote = 0;
+	private int maxRevote = 1;
 
 	/**
 	 * <div lang="ja">
