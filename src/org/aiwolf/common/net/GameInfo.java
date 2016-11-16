@@ -1,9 +1,11 @@
 package org.aiwolf.common.net;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Judge;
@@ -56,6 +58,11 @@ public class GameInfo {
 	Map<Agent, Status> statusMap;
 	Map<Agent, Role> roleMap;
 
+	/**
+	 * 
+	 */
+	List<Role> existingRoleList;
+	
 	// TODO コメントアウトされたフィールド・メンバ
 	// List<Agent> agentList;
 
@@ -501,5 +508,14 @@ public class GameInfo {
 	 */
 	public List<Agent> getLastDeadAgentList() {
 		return lastDeadAgentList;
+	}
+	
+	/**
+	 * <div lang="ja"> 存在するRoleを返す </div> <div lang="en"> Returns the roles that existing in this game. </div>
+	 * 
+	 * @return <div lang="ja">存在するRoleのリスト</div> <div lang="en">the list of the roles</div>
+	 */
+	public List<Role> getExistingRoles(){
+		return existingRoleList;
 	}
 }

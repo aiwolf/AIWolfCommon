@@ -25,7 +25,6 @@ public enum Role {
 	 * <div lang="en">The role Freemason.<br>
 	 * This role has not yet been used.</div>
 	 * 
-	 * @deprecated
 	 */
 	FREEMASON(Team.VILLAGER, Species.HUMAN),
 
