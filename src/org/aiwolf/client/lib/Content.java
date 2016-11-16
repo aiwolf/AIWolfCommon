@@ -12,7 +12,7 @@ import org.aiwolf.common.data.Talk;
 /*
  * 発話をパースしたもの
  */
-public class Utterance {
+public class Content {
 	//原文
 	String text = null;
 
@@ -113,7 +113,7 @@ public class Utterance {
 	 *
 	 * @param input
 	 */
-	public Utterance(String input){
+	public Content(String input){
 		text = input;
 
 		//原文を単語に分割
