@@ -133,30 +133,6 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">セミナー用のゲーム設定を返します。</div>
-	 *
-	 * <div lang="en">Get the game setting for seminar.</div>
-	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">セミナー用のゲーム設定</div>
-	 *
-	 *         <div lang="en">Game setting for seminar</div>
-	 */
-	static public GameSetting getSeminarGame() {
-		GameSetting setting = new GameSetting();
-		setting.maxTalk = 10;
-		setting.isEnableNoAttack = false;
-		setting.isVoteVisible = true;
-
-		Role[] roles = Role.values();
-		for (int i = 0; i < roles.length; i++) {
-			setting.roleNumMap.put(roles[i], seminarArray[i]);
-		}
-		return setting;
-	}
-
-	/**
 	 * <div lang="ja">各役職が何人かを関連付けたマップ</div>
 	 *
 	 * <div lang="en">Number of each charactors</div>
