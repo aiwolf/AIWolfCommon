@@ -57,7 +57,7 @@ public class GameInfo {
 
 	Map<Agent, Status> statusMap;
 	Map<Agent, Role> roleMap;
-
+	Map<Agent, Integer> remainTalkMap;
 	/**
 	 * 
 	 */

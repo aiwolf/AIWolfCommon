@@ -115,6 +115,8 @@ public class GameSetting implements Cloneable {
 
 		GameSetting setting = new GameSetting();
 		setting.maxTalk = 10;
+		setting.maxTalkTurn = 10;
+		setting.maxSkip = 3;
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
 		setting.isVotableInFirstDay = false;
@@ -170,6 +172,21 @@ public class GameSetting implements Cloneable {
 	int maxTalk;
 
 	/**
+	 * <div lang="ja">1日あたりの発言時間の最大数</div>
+	 *
+	 * <div lang="en">Max number of talk time</div>
+	 */
+	int maxTalkTurn;
+
+	/**
+	 * <div lang="ja">連続Skipの最大数</div>
+	 *
+	 * <div lang="en">Max number of contunious skip</div>
+	 */
+
+	int maxSkip;
+	
+	/**
 	 * <div lang="ja">誰も襲撃しないのを許すかどうか</div>
 	 *
 	 * <div lang="en">Is the game permit to attack no one?</div>
@@ -216,14 +233,14 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Time limit for the response to the request</div>
 	 */
-	private int timeLimit = 1000;
+	int timeLimit = 1000;
 
 	/**
 	 * <div lang="ja">最大再投票回数</div>
 	 * 
 	 * <div lang="en">Maximum number of revotes</div>
 	 */
-	private int maxRevote = 1;
+	int maxRevote = 1;
 
 	/**
 	 * <div lang="ja">
@@ -290,6 +307,39 @@ public class GameSetting implements Cloneable {
 		return maxTalk;
 	}
 
+
+	/**
+	 * <div lang="ja">1日あたりの発言ターンの最大数を返します。</div>
+	 *
+	 * <div lang="en">Get the max turn of talks.</div>
+	 *
+	 * @return
+	 *
+	 * 		<div lang="ja">1日あたりの発言ターン最大数</div>
+	 *
+	 *         <div lang="en">Max turn of talk</div>
+	 */
+	public int getMaxTalkTurn() {
+		return this.maxTalkTurn;
+	}
+	
+	/**
+	 * <div lang="ja">Skipの最大値．これ以上のSKIPを連続するとOVERに変換される</div>
+	 *
+	 * <div lang="en">Max value of Skip. If the agent continues SKIP more than this value, it will be changed to OVER</div>
+	 *
+	 * @return
+	 *
+	 * 		<div lang="ja">1日あたりの連続SKIP最大数</div>
+	 *
+	 *         <div lang="en">Max contunious SKIP</div>
+	 */
+	public int getMaxSkip() {
+		return maxSkip;
+	}
+
+
+	
 	/**
 	 * <div lang="ja">
 	 *
@@ -689,4 +739,5 @@ public class GameSetting implements Cloneable {
 		gameSetting.roleNumMap.putAll(roleNumMap);
 		return gameSetting;
 	}
+
 }

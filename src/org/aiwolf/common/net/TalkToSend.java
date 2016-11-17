@@ -20,7 +20,11 @@ public class TalkToSend {
 	 * told day
 	 */
 	int day;
-	
+
+	/**
+	 * 
+	 */
+	int turn;
 	/**
 	 * agent
 	 */
@@ -38,6 +42,7 @@ public class TalkToSend {
 	public TalkToSend(Talk talk){
 		this.idx = talk.getIdx();
 		this.day = talk.getDay();
+		this.turn = talk.getTurn();
 		this.agent = talk.getAgent().getAgentIdx();
 		this.content = talk.getContent();
 	}
@@ -99,7 +104,21 @@ public class TalkToSend {
 	}
 
 	public Talk toTalk() {
-		return new Talk(idx, day, Agent.getAgent(agent), content);
+		return new Talk(idx, day, turn, Agent.getAgent(agent), content);
+	}
+
+	/**
+	 * @return time
+	 */
+	public int getTurn() {
+		return turn;
+	}
+
+	/**
+	 * @param time セットする time
+	 */
+	public void setTurn(int time) {
+		this.turn = time;
 	}
 	
 	

@@ -42,6 +42,7 @@ public class Talk {
 
 	int idx;
 	int day;
+	int turn;
 	Agent agent;
 	String content;
 
@@ -67,10 +68,11 @@ public class Talk {
 	 *
 	 *            <div lang="en">Content of talk</div>
 	 */
-	public Talk(int idx, int day, Agent agent, String content) {
+	public Talk(int idx, int day, int turn, Agent agent, String content) {
 		super();
 		this.idx = idx;
 		this.day = day;
+		this.turn = turn;
 		this.agent = agent;
 		this.content = content;
 	}
@@ -103,6 +105,21 @@ public class Talk {
 	 */
 	public int getDay() {
 		return day;
+	}
+	
+	/**
+	 * <div lang="ja">話した時間を返します。</div>
+	 *
+	 * <div lang="en">Get the told time.</div>
+	 *
+	 * @return
+	 *
+	 * 		<div lang="ja">話した時間</div>
+	 *
+	 *         <div lang="en">Tald time</div>
+	 */
+	public int getTurn(){
+		return turn;
 	}
 
 	/**
@@ -195,7 +212,7 @@ public class Talk {
 
 	@Override
 	public String toString() {
-		return String.format("Day%02d[%03d]\t%s\t%s", day, idx, agent, content);
+		return String.format("Day%02d %02d[%03d]\t%s\t%s", day, turn, idx, agent, content);
 	}
 
 }
