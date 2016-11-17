@@ -29,7 +29,7 @@ public class TalkToSend {
 	/**
 	 * 
 	 */
-	String content;
+	String text;
 	
 	public TalkToSend(){
 		
@@ -39,7 +39,7 @@ public class TalkToSend {
 		this.idx = talk.getIdx();
 		this.day = talk.getDay();
 		this.agent = talk.getAgent().getAgentIdx();
-		this.content = talk.getContent();
+		this.text = talk.getText();
 	}
 
 	/**
@@ -85,24 +85,22 @@ public class TalkToSend {
 	}
 
 	/**
-	 * @return content
+	 * @return text
 	 */
-	public String getContent() {
-		return content;
+	public String getText() {
+		return text;
 	}
 
 	/**
-	 * @param content セットする content
+	 * @param text
+	 *            セットする text
 	 */
-	public void setContent(String content) {
-		this.content = content;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public Talk toTalk() {
-		return new Talk(idx, day, Agent.getAgent(agent), content);
+		return new Talk(idx, day, Agent.getAgent(agent), text);
 	}
-	
-	
-	
 	
 }
