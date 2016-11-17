@@ -9,7 +9,6 @@ package org.aiwolf.common.data;
  *
  */
 public class Talk {
-	//TODO content => text
 	
 	/**
 	 * <div lang="ja">
@@ -44,7 +43,7 @@ public class Talk {
 	int day;
 	int turn;
 	Agent agent;
-	String content;
+	String text;
 
 	/**
 	 * <div lang="ja">会話を構築します。</div>
@@ -63,18 +62,18 @@ public class Talk {
 	 *            <div lang="ja">話したエージェント</div>
 	 *
 	 *            <div lang="en">Agent</div>
-	 * @param content
-	 *            <div lang="ja">話の内容</div>
+	 * @param text
+	 *            <div lang="ja">発話内容テキスト</div>
 	 *
-	 *            <div lang="en">Content of talk</div>
+	 *            <div lang="en">Uttered text of talk</div>
 	 */
-	public Talk(int idx, int day, int turn, Agent agent, String content) {
+	public Talk(int idx, int day, int turn, Agent agent, String text) {
 		super();
 		this.idx = idx;
 		this.day = day;
 		this.turn = turn;
 		this.agent = agent;
-		this.content = content;
+		this.text = text;
 	}
 
 	/**
@@ -106,7 +105,8 @@ public class Talk {
 	public int getDay() {
 		return day;
 	}
-	
+
+
 	/**
 	 * <div lang="ja">話した時間を返します。</div>
 	 *
@@ -122,6 +122,7 @@ public class Talk {
 		return turn;
 	}
 
+	
 	/**
 	 * <div lang="ja">話したエージェントを返します。</div>
 	 *
@@ -138,22 +139,22 @@ public class Talk {
 	}
 
 	/**
-	 * <div lang="ja">話の内容を返します。</div>
+	 * <div lang="ja">発話内容テキストを返します。</div>
 	 *
 	 * <div lang="en">
 	 *
-	 * Get the content of talk, Werewolf language.
+	 * Get the uttered text of talk.
 	 *
 	 * </div>
 	 *
 	 * @return
 	 *
-	 * 		<div lang="ja">話の内容</div>
+	 * 		<div lang="ja">発話内容テキスト</div>
 	 *
-	 *         <div lang="en">Content of talk</div>
+	 *         <div lang="en">Uttered text of talk</div>
 	 */
-	public String getContent() {
-		return content;
+	public String getText() {
+		return text;
 	}
 
 	/**
@@ -165,7 +166,7 @@ public class Talk {
 	 *
 	 * <div lang="en">
 	 *
-	 * Returns true if content is "SKIP".
+	 * Returns true if utterance is "SKIP".
 	 *
 	 * </div>
 	 *
@@ -173,10 +174,10 @@ public class Talk {
 	 *
 	 * 		<div lang="ja">発言がSKIPならtrue、そうでない場合はfalse</div>
 	 *
-	 *         <div lang="en">True if content is "SKIP".</div>
+	 *         <div lang="en">True if utterance is "SKIP".</div>
 	 */
 	public boolean isSkip() {
-		return content.equals(SKIP);
+		return text.equals(SKIP);
 	}
 
 	/**
@@ -188,7 +189,7 @@ public class Talk {
 	 *
 	 * <div lang="en">
 	 *
-	 * Returns true if content is "OVER".
+	 * Returns true if utterance is "OVER".
 	 *
 	 * </div>
 	 *
@@ -202,17 +203,18 @@ public class Talk {
 	 *
 	 *         <div lang="en">
 	 *
-	 *         True if content is "OVER"
+	 *         True if utterance is "OVER"
 	 *
 	 *         </div>
 	 */
 	public boolean isOver() {
-		return content.equals(OVER);
+		return text.equals(OVER);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Day%02d %02d[%03d]\t%s\t%s", day, turn, idx, agent, content);
+		return String.format("Day%02d %02d[%03d]\t%s\t%s", day, turn, idx, agent, text);
 	}
+
 
 }

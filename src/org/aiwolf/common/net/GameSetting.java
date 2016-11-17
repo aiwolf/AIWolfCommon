@@ -125,34 +125,11 @@ public class GameSetting implements Cloneable {
 		// setting.timeLimit = 1000;
 		// setting.isEnableNoBanish = false;
 		// setting.isTalkOnFirstDay = false;
+		// setting.isValidateUtterance = true;
 
 		Role[] roles = Role.values();
 		for (int i = 0; i < roles.length; i++) {
 			setting.roleNumMap.put(roles[i], roleNumArray[agentNum][i]);
-		}
-		return setting;
-	}
-
-	/**
-	 * <div lang="ja">セミナー用のゲーム設定を返します。</div>
-	 *
-	 * <div lang="en">Get the game setting for seminar.</div>
-	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">セミナー用のゲーム設定</div>
-	 *
-	 *         <div lang="en">Game setting for seminar</div>
-	 */
-	static public GameSetting getSeminarGame() {
-		GameSetting setting = new GameSetting();
-		setting.maxTalk = 10;
-		setting.isEnableNoAttack = false;
-		setting.isVoteVisible = true;
-
-		Role[] roles = Role.values();
-		for (int i = 0; i < roles.length; i++) {
-			setting.roleNumMap.put(roles[i], seminarArray[i]);
 		}
 		return setting;
 	}
@@ -220,6 +197,13 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Whether of not there are talks on day 0
 	 */
 	private boolean isTalkOnFirstDay = false;
+
+	/**
+	 * <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
+	 * 
+	 * <div lang="en">Whether or not the text in talk/whisper is validated
+	 */
+	private boolean isValidateUtterance = true;
 
 	/**
 	 * <div lang="ja">ランダムシード(乱数種)</div>
@@ -456,6 +440,17 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">発話文字列の違反チェックを行うかどうかを返します。</div>
+	 * 
+	 * <div lang="en">Returns whether or not the text in talk/whisper is validated.</div>
+	 * 
+	 * @return <div lang="ja">発話文字列の違反チェックを行うかどうか</div> <div lang="en">whether or not the text in talk/whisper is validated</div>
+	 */
+	public boolean isValidateUtterance() {
+		return isValidateUtterance;
+	}
+
+	/**
 	 * <div lang="ja">
 	 *
 	 * プレイヤーの人数を返します。
@@ -635,6 +630,18 @@ public class GameSetting implements Cloneable {
 	 */
 	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
 		this.isTalkOnFirstDay = isTalkOnFirstDay;
+	}
+
+	/**
+	 * <div lang="ja">発話文字列の違反チェックを行うかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not the text in talk/whisper is validated.</div>
+	 * 
+	 * @param isValidateUtterance
+	 *            - <div lang="ja">発話文字列の違反チェックを行うかどうか</div> <div lang="en">whether or not the text in talk/whisper is validated</div>
+	 */
+	public void setValidateUtterance(boolean isValidateUtterance) {
+		this.isValidateUtterance = isValidateUtterance;
 	}
 
 	/**
