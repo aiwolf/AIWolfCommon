@@ -13,27 +13,28 @@ import org.aiwolf.common.data.Talk;
  * 発話をパースしたもの
  */
 public class Content {
+
 	//原文
-	String text = null;
+	private final String text;
 
 	//文章のトピック
-	Topic topic = null;
+	private final Topic topic;
 
 	//文章上の対象プレイヤー
-	Agent target = null;
+	private final Agent target;
 
 	//カミングアウト結果や占い結果等
-	State state = null;
+	private final State state;
 
 	//TopicがAGREE,DISAGREEの時の対象発話のログの種類（囁きかどうか）
 	@Deprecated
-	TalkType talkType = null;
+	private final TalkType talkType;
 
 	//TopicがAGREE,DISAGREEの時の対象発話の日にち
-	int talkDay = -1;
+	private final int talkDay;
 
 	//TopicがAGREE,DISAGREEの時の対象発話のID
-	int talkID = -1;
+	private final int talkID;
 
 
 	/**
@@ -110,76 +111,134 @@ public class Content {
 	}
 
 	/**
-	 *
-	 * @param input
+	 * parses uttered text and returns content of utterance
+	 * 
+	 * @param text
+	 * @return
 	 */
-	public Content(String input){
-		text = input;
-
-		//原文を単語に分割
-		String[] split = input.split("\\s+");// 一つ以上の空白で区切る
-
-		//Topicの取得．Topicに存在しない者ならばnullが入る
-		topic = Topic.getTopic(split[0]);
-
+	public static Content parse(String text) {
+		Builder builder = new Builder(text);
+	
+		// 原文を単語に分割
+		String[] split = text.split("\\s+");// 一つ以上の空白で区切る
+	
+		// Topicの取得．解析できない場合null
+		Topic topic = Topic.getTopic(split[0]);
+		builder.topic(topic);
+	
 		int agentId = -1;
-
-		if(split.length >= 2 && split[1].startsWith("Agent")){
-//			int startNum = split[1].indexOf("[") + 1;
-//			int endNum = split[1].indexOf("]");
-//			agentId = Integer.parseInt(split[1].substring(startNum, endNum));
+	
+		if (split.length >= 2 && split[1].startsWith("Agent")) {
 			agentId = getInt(split[1]);
 		}
-
+	
 		switch (topic) {
-			//話すこと無し
+		// 話すこと無し
 		case SKIP:
 		case OVER:
 			break;
-
-			//同意系
+	
+		// 同意系
 		case AGREE:
 		case DISAGREE:
-			//Talk day4 ID38 みたいな形でくるので数字だけ取得
-			talkType = TalkType.parseTalkType(split[1]);
-//			talkDay = Integer.parseInt(split[2].substring(3));
-//			talkID = Integer.parseInt(split[3].substring(3));
-			talkDay = getInt(split[2]);
-			talkID = getInt(split[3]);
+			// Talk day4 ID38 みたいな形でくるので数字だけ取得
+			builder.talkType(TalkType.parseTalkType(split[1])).talkDay(getInt(split[2])).talkID(getInt(split[3]));
 			break;
-
-			//"Topic Agent Role"
+	
+		// "Topic Agent Role"
 		case ESTIMATE:
 		case COMINGOUT:
-			target = Agent.getAgent(agentId);
-			state = State.parseState(split[2]);
+			builder.target(Agent.getAgent(agentId)).state(State.parseState(split[2]));
 			break;
-
-			//RESULT系
+	
+		// RESULT系
 		case DIVINED:
 		case INQUESTED:
-			state = State.parseState(split[2]);
+			builder.state(State.parseState(split[2]));
 		case GUARDED:
-			target = Agent.getAgent(agentId);
+			builder.target(Agent.getAgent(agentId));
 			break;
-
-			//投票系
+	
+		// 投票系
 		case ATTACK:
 		case VOTE:
-			target = Agent.getAgent(agentId);
+			builder.target(Agent.getAgent(agentId));
 			break;
-
+	
 		default:
-			return;
+			break;
+		}
+	
+		return builder.build();
+	}
+
+	/**
+	 * Builder for Content
+	 * 
+	 * @author otsuki
+	 *
+	 */
+	public static class Builder {
+		private String text; // null
+		private Topic topic; // null
+		private Agent target; // null
+		private State state; // null
+		private TalkType talkType; // null
+		private int talkDay = -1;
+		private int talkID = -1;
+
+		public Builder(String text) {
+			this.text = text;
 		}
 
+		public Builder topic(Topic topic) {
+			this.topic = topic;
+			return this;
+		}
 
-		return;
+		public Builder target(Agent target) {
+			this.target = target;
+			return this;
+		}
+
+		public Builder state(State state) {
+			this.state = state;
+			return this;
+		}
+
+		public Builder talkType(TalkType talkType) {
+			this.talkType = talkType;
+			return this;
+		}
+
+		public Builder talkDay(int talkDay) {
+			this.talkDay = talkDay;
+			return this;
+		}
+
+		public Builder talkID(int talkID) {
+			this.talkID = talkID;
+			return this;
+		}
+
+		public Content build() {
+			return new Content(this);
+		}
+	}
+
+	private Content(Builder builder) {
+		text = builder.text;
+		topic = builder.topic;
+		target = builder.target;
+		state = builder.state;
+		talkType = builder.talkType;
+		talkDay = builder.talkDay;
+		talkID = builder.talkID;
 	}
 
 	static final private Pattern intPattern = Pattern.compile("-?[\\d]+");
 
-	protected int getInt(String text){
+	protected static int getInt(String text) {
 		Matcher m = intPattern.matcher(text);
 		if(m.find()){
 			return Integer.parseInt(m.group());
