@@ -37,6 +37,7 @@ public class GameInfoToSend{
 	LinkedHashMap<Integer, String> statusMap;
 	LinkedHashMap<Integer, String> roleMap;
 	LinkedHashMap<Integer, Integer> remainTalkMap;
+	LinkedHashMap<Integer, Integer> remainWhisperMap;
 //	List<Integer> agentList;
 
 	List<Integer> lastDeadAgentList; // The list of agents died last night.
@@ -48,6 +49,7 @@ public class GameInfoToSend{
 		statusMap = new LinkedHashMap<Integer, String>();
 		roleMap = new LinkedHashMap<Integer, String>();
 		remainTalkMap = new LinkedHashMap<>();
+		remainWhisperMap = new LinkedHashMap<>();
 		talkList = new ArrayList<TalkToSend>();
 		whisperList = new ArrayList<TalkToSend>();
 		lastDeadAgentList = new ArrayList<>();
@@ -267,12 +269,27 @@ public class GameInfoToSend{
 		return remainTalkMap;
 	}
 
+
 	/**
 	 * @param remainTalkMap セットする remainTalkMap
 	 */
-	public void setRemainTalkMap(Map<Integer, Integer> remainTalkMap) {
-		this.remainTalkMap.clear();
-		this.remainTalkMap.putAll(remainTalkMap);
+	public void setRemainTalkMap(LinkedHashMap<Integer, Integer> remainTalkMap) {
+		this.remainTalkMap = remainTalkMap;
+	}
+
+
+	/**
+	 * @return remainWhisperMap
+	 */
+	public LinkedHashMap<Integer, Integer> getRemainWhisperMap() {
+		return remainWhisperMap;
+	}
+
+	/**
+	 * @param remainWhisperMap セットする remainWhisperMap
+	 */
+	public void setRemainWhisperMap(LinkedHashMap<Integer, Integer> remainWhisperMap) {
+		this.remainWhisperMap = remainWhisperMap;
 	}
 
 	/**
@@ -354,6 +371,10 @@ public class GameInfoToSend{
 		gi.remainTalkMap = new HashMap<Agent, Integer>();
 		for(int agent:this.getRemainTalkMap().keySet()){
 			gi.remainTalkMap.put(Agent.getAgent(agent), getRemainTalkMap().get(agent));
+		}
+		gi.remainWhisperMap = new HashMap<Agent, Integer>();
+		for(int agent:this.getRemainWhisperMap().keySet()){
+			gi.remainWhisperMap.put(Agent.getAgent(agent), getRemainWhisperMap().get(agent));
 		}
 		
 		gi.existingRoleList = new ArrayList<>();

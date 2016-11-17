@@ -58,6 +58,7 @@ public class GameInfo {
 	Map<Agent, Status> statusMap;
 	Map<Agent, Role> roleMap;
 	Map<Agent, Integer> remainTalkMap;
+	Map<Agent, Integer> remainWhisperMap;
 	/**
 	 * 
 	 */
@@ -517,5 +518,19 @@ public class GameInfo {
 	 */
 	public List<Role> getExistingRoles(){
 		return existingRoleList;
+	}
+
+	/**
+	 * @return remainTalkMap
+	 */
+	public Map<Agent, Integer> getRemainTalkMap() {
+		return remainTalkMap;
+	}
+
+	/**
+	 * @return remainWhisperMap
+	 */
+	public Map<Agent, Integer> getRemainWhisperMap() {
+		return remainWhisperMap;
 	}
 }
