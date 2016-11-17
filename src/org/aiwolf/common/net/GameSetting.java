@@ -115,7 +115,9 @@ public class GameSetting implements Cloneable {
 
 		GameSetting setting = new GameSetting();
 		setting.maxTalk = 10;
-		setting.maxTalkTurn = 10;
+		setting.maxTalkTurn = 20;
+		setting.maxWhisper = 10;
+		setting.maxWhisperTurn = 20;
 		setting.maxSkip = 3;
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
@@ -155,6 +157,19 @@ public class GameSetting implements Cloneable {
 	 */
 	int maxTalkTurn;
 
+	/**
+	 * <div lang="ja">1日あたりの発言の最大数</div>
+	 *
+	 * <div lang="en">Max number of talk</div>
+	 */
+	int maxWhisper;
+
+	/**
+	 * <div lang="ja">1日あたりの発言時間の最大数</div>
+	 *
+	 * <div lang="en">Max number of talk time</div>
+	 */
+	int maxWhisperTurn;
 	/**
 	 * <div lang="ja">連続Skipの最大数</div>
 	 *
@@ -306,6 +321,39 @@ public class GameSetting implements Cloneable {
 	public int getMaxTalkTurn() {
 		return this.maxTalkTurn;
 	}
+	
+
+	/**
+	 * <div lang="ja">1日あたりの発言の最大数を返します。</div>
+	 *
+	 * <div lang="en">Get the max number of Whispers.</div>
+	 *
+	 * @return
+	 *
+	 * 		<div lang="ja">1日あたりの発言の最大数</div>
+	 *
+	 *         <div lang="en">Max number of Whisper</div>
+	 */
+	public int getMaxWhisper() {
+		return maxWhisper;
+	}
+
+
+	/**
+	 * <div lang="ja">1日あたりの発言ターンの最大数を返します。</div>
+	 *
+	 * <div lang="en">Get the max turn of Whispers.</div>
+	 *
+	 * @return
+	 *
+	 * 		<div lang="ja">1日あたりの発言ターン最大数</div>
+	 *
+	 *         <div lang="en">Max turn of Whisper</div>
+	 */
+	public int getMaxWhisperTurn() {
+		return this.maxWhisperTurn;
+	}
+	
 	
 	/**
 	 * <div lang="ja">Skipの最大値．これ以上のSKIPを連続するとOVERに変換される</div>
