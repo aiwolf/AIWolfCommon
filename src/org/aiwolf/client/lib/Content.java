@@ -1,3 +1,8 @@
+/**
+ * Contetn.java
+ * 
+ * Copyright (c) 2016 人狼知能プロジェクト
+ */
 package org.aiwolf.client.lib;
 
 import java.util.regex.Matcher;
@@ -190,9 +195,83 @@ public class Content {
 		return;
 	}
 
-	static final private Pattern intPattern = Pattern.compile("-?[\\d]+");
+	/**
+	 * <div lang="ja">発話テキストが有効かどうかを返します．</div>
+	 * 
+	 * <div lang="en">Returns whether or not the uttered text is valid.</div>
+	 * 
+	 * @param text
+	 * @return
+	 */
+	public static boolean validate(String text) {
+		String[] split = text.split("\\s+");
+		int length = split.length;
+		if (length == 0) {
+			return false;
+		}
 
-	protected int getInt(String text) {
+		Topic topic = Topic.getTopic(split[0]);
+		if (topic == null) {
+			return false;
+		}
+
+		switch (topic) {
+		case SKIP:
+		case OVER:
+			if (split.length != 1) {
+				return false;
+			}
+			return true;
+		case AGREE:
+		case DISAGREE:
+			if (split.length != 4) {
+				return false;
+			}
+			if (TalkType.parseTalkType(split[1]) == null) {
+				return false;
+			}
+			if (getInt(split[2]) == -1 || getInt(split[3]) == -1) {
+				return false;
+			}
+			return true;
+
+		case ESTIMATE:
+		case COMINGOUT:
+		case DIVINED:
+		case INQUESTED:
+			if (split.length != 3) {
+				return false;
+			}
+
+			if (!split[1].startsWith("Agent") || getInt(split[1]) == -1) {
+				return false;
+			}
+
+			if (State.parseState(split[2]) == null) {
+				return false;
+			}
+			return true;
+
+		case GUARDED:
+		case ATTACK:
+		case VOTE:
+			if (split.length != 2) {
+				return false;
+			}
+
+			if (!split[1].startsWith("Agent") || getInt(split[1]) == -1) {
+				return false;
+			}
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
+	private static final Pattern intPattern = Pattern.compile("-?[\\d]+");
+
+	protected static int getInt(String text) {
 		Matcher m = intPattern.matcher(text);
 		if (m.find()) {
 			return Integer.parseInt(m.group());
