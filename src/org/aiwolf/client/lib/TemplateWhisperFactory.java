@@ -1,6 +1,5 @@
 package org.aiwolf.client.lib;
 
-import org.aiwolf.client.lib.TemplateTalkFactory.TalkType;
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Species;
@@ -8,8 +7,9 @@ import org.aiwolf.common.data.Talk;
 
 /**
  * 人狼の囁き用の発話を生成するクラス
+ * 
  * @author kengo
- *
+ * @deprecated
  */
 public class TemplateWhisperFactory {
 

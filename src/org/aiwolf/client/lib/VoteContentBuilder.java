@@ -1,20 +1,26 @@
 /**
+ * VoteContetnBuilder.java
  * 
+ * Copyright (c) 2016 人狼知能プロジェクト
  */
 package org.aiwolf.client.lib;
 
 import org.aiwolf.common.data.Agent;
 
 /**
+ * <div lang="ja">投票発話ビルダークラス</div>
+ * 
+ * <div lang="en">Builder class for the utterance of vote</div>
+ * 
  * @author otsuki
  *
  */
 public class VoteContentBuilder extends ContentBuilder {
 
 	public VoteContentBuilder(Agent target) {
-		this.topic = Topic.VOTE;
+		topic = Topic.VOTE;
 		this.target = target;
-		this.text = wordAttachment(new String[] { Topic.VOTE.toString(), String.valueOf(target.toString()) });
+		text = wordAttachment(new String[] { Topic.VOTE.toString(), String.valueOf(target.toString()) });
 	}
 
 }

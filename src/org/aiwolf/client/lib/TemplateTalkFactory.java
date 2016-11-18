@@ -7,8 +7,9 @@ import org.aiwolf.common.data.Talk;
 
 /**
  * Factory to create template talk contents
+ * 
  * @author kengo
- * //TODO @deprecated
+ * @deprecated
  */
 public class TemplateTalkFactory {
 
@@ -75,26 +76,6 @@ public class TemplateTalkFactory {
 	public static String vote(Agent target){
 		String[] split = {Topic.VOTE.toString(), String.valueOf(target.toString())};
 		return wordAttachment(split);
-	}
-
-	public enum TalkType{
-		TALK(false),
-		WHISPER(true);
-
-		private boolean isWhisper;
-		private TalkType(boolean isWhisper) {
-			this.isWhisper = isWhisper;
-		}
-
-		public static TalkType parseTalkType(String input){
-			if(input.equalsIgnoreCase("talk")){
-				return TALK;
-			}else if(input.equalsIgnoreCase("whisper")){
-				return WHISPER;
-			}else{
-				return null;
-			}
-		}
 	}
 
 	public static String agree(TalkType talkType, int day, int id){
