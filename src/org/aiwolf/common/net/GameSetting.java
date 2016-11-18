@@ -15,14 +15,12 @@ import org.aiwolf.common.data.Role;
  */
 public class GameSetting implements Cloneable {
 
-	//TODO 最大得票プレイヤーが同数だった場合の挙動
 
 	//TODO 最大襲撃得票プレイヤーが同数だった場合の挙動
 	//TODO 再襲撃投票の回数(Defaultは0)
 	//TODO 最大襲撃得票数が同じだったときの処理(ランダム or 襲撃無し)
 	//TODO 襲撃再投票時のWhisperの有無
 	
-	//TODO 人狼知能プロトコル違反チェックを行うかどうか
 	
 	
 	/**
