@@ -1,5 +1,7 @@
 /**
+ * ContetnBuilder.java
  * 
+ * Copyright (c) 2016 人狼知能プロジェクト
  */
 package org.aiwolf.client.lib;
 
@@ -7,6 +9,10 @@ import org.aiwolf.client.lib.TemplateTalkFactory.TalkType;
 import org.aiwolf.common.data.Agent;
 
 /**
+ * <div lang="ja">発話ビルダークラス</div>
+ * 
+ * <div lang="en">Builder class for utterance</div>
+ * 
  * @author otsuki
  *
  */
@@ -72,14 +78,13 @@ public class ContentBuilder {
 	public Content build() {
 		return new Content(this);
 	}
-	
+
 	protected static String wordAttachment(String[] split) {
 		String answer = "";
-		for(int i = 0; i < split.length; i++){
+		for (int i = 0; i < split.length; i++) {
 			answer += split[i] + " ";
 		}
 		return answer.trim();
 	}
-
 
 }
