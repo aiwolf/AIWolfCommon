@@ -77,26 +77,6 @@ public class TemplateTalkFactory {
 		return wordAttachment(split);
 	}
 
-	public enum TalkType{
-		TALK(false),
-		WHISPER(true);
-
-		private boolean isWhisper;
-		private TalkType(boolean isWhisper) {
-			this.isWhisper = isWhisper;
-		}
-
-		public static TalkType parseTalkType(String input){
-			if(input.equalsIgnoreCase("talk")){
-				return TALK;
-			}else if(input.equalsIgnoreCase("whisper")){
-				return WHISPER;
-			}else{
-				return null;
-			}
-		}
-	}
-
 	public static String agree(TalkType talkType, int day, int id){
 		String[] split = {Topic.AGREE.toString(), talkType.toString(), "day"+String.valueOf(day), "ID:"+String.valueOf(id)};
 		return wordAttachment(split);

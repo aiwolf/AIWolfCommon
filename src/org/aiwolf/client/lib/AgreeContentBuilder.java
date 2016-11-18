@@ -5,8 +5,6 @@
  */
 package org.aiwolf.client.lib;
 
-import org.aiwolf.client.lib.TemplateTalkFactory.TalkType;
-
 /**
  * <div lang="ja">同意発話ビルダークラス</div>
  * 

@@ -5,7 +5,6 @@
  */
 package org.aiwolf.client.lib;
 
-import org.aiwolf.client.lib.TemplateTalkFactory.TalkType;
 import org.aiwolf.common.data.Agent;
 
 /**
