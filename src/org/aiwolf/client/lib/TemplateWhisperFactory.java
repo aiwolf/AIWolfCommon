@@ -7,8 +7,9 @@ import org.aiwolf.common.data.Talk;
 
 /**
  * 人狼の囁き用の発話を生成するクラス
+ * 
  * @author kengo
- *
+ * @deprecated
  */
 public class TemplateWhisperFactory {
 
