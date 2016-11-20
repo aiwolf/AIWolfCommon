@@ -240,6 +240,13 @@ public class GameSetting implements Cloneable {
 	int maxRevote = 1;
 
 	/**
+	 * <div lang="ja">最大襲撃再投票回数</div>
+	 * 
+	 * <div lang="en">Maximum number of revotesfor attack</div>
+	 */
+	int maxAttackRevote = 1;
+
+	/**
 	 * <div lang="ja">
 	 *
 	 * 新しいゲーム設定を構築します。
@@ -764,6 +771,31 @@ public class GameSetting implements Cloneable {
 	 */
 	public void setMaxRevote(int maxRevote) {
 		this.maxRevote = maxRevote;
+	}
+
+	/**
+	 * <div lang="ja">最大襲撃再投票回数を返します。</div>
+	 * 
+	 * <div lang="en">Returns the maximum number of revotes for attack.<div>
+	 * 
+	 * @return <div lang="ja">最大襲撃再投票回数</div><div lang="en">the maximum number
+	 *         of revotes for attack<div>
+	 */
+	public int getMaxAttackRevote() {
+		return maxAttackRevote;
+	}
+
+	/**
+	 * <div lang="ja">最大襲撃再投票回数をセットします。</div>
+	 * 
+	 * <div lang="en">Sets the maximum number of revotes for attack.</div>
+	 * 
+	 * @param maxRevote
+	 *            - <div lang="ja">最大襲撃再投票回数</div> <div lang="en">the maximum
+	 *            number of revotes for attack</div>
+	 */
+	public void setMaxAttackRevote(int maxAttackRevote) {
+		this.maxAttackRevote = maxAttackRevote;
 	}
 
 	/**
