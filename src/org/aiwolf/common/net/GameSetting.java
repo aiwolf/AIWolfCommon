@@ -14,14 +14,6 @@ import org.aiwolf.common.data.Role;
  *
  */
 public class GameSetting implements Cloneable {
-
-
-	//TODO 最大襲撃得票プレイヤーが同数だった場合の挙動
-	//TODO 再襲撃投票の回数(Defaultは0)
-	//TODO 最大襲撃得票数が同じだったときの処理(ランダム or 襲撃無し)
-	//TODO 襲撃再投票時のWhisperの有無
-	
-	
 	
 	/**
 	 * <div lang="ja">
@@ -219,6 +211,14 @@ public class GameSetting implements Cloneable {
 	private boolean isValidateUtterance = true;
 
 	/**
+	 * <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
+	 * 
+	 * <div lang="en">whether or not there is whisper before the revote for
+	 * attack</div> *
+	 */
+	private boolean isWhisperBeforeRevote = false;
+
+	/**
 	 * <div lang="ja">ランダムシード(乱数種)</div>
 	 *
 	 * <div lang="en">Random Seed</div>
@@ -240,11 +240,11 @@ public class GameSetting implements Cloneable {
 	int maxRevote = 1;
 
 	/**
-	 * <div lang="ja">最大襲撃再投票回数</div>
+	 * <div lang="ja">最大再襲撃投票回数</div>
 	 * 
 	 * <div lang="en">Maximum number of revotesfor attack</div>
 	 */
-	int maxAttackRevote = 1;
+	int maxAttackRevote = 0;
 
 	/**
 	 * <div lang="ja">
@@ -504,6 +504,19 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">再襲撃投票前にwhisperするかどうかを返します。</div>
+	 * 
+	 * <div lang="en">Returns whether or not there is whisper before the revote
+	 * for attack.</div> *
+	 * 
+	 * @return <div lang="ja">再襲撃投票前にwhisperするかどうか</div> <div lang="en">whether
+	 *         or not there is whisper before the revote for attack</div>
+	 */
+	public boolean isWhisperBeforeRevote() {
+		return isWhisperBeforeRevote;
+	}
+
+	/**
 	 * <div lang="ja">
 	 *
 	 * プレイヤーの人数を返します。
@@ -698,6 +711,21 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">再襲撃投票前にwhisperするかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not there is whisper before the revote for
+	 * attack.</div> *
+	 * 
+	 * @param isWhisperBeforeRevote
+	 *            -<div lang="ja">再襲撃投票前にwhisperするかどうか</div>
+	 *            <div lang="en">whether or not there is whisper before the
+	 *            revote for attack</div>
+	 */
+	public void setWhisperBeforeRevote(boolean isWhisperBeforeRevote) {
+		this.isWhisperBeforeRevote = isWhisperBeforeRevote;
+	}
+
+	/**
 	 * <div lang="ja">ランダムシードを返します。</div>
 	 *
 	 * <div lang="en">Get the random seed.</div>
@@ -774,11 +802,11 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">最大襲撃再投票回数を返します。</div>
+	 * <div lang="ja">最大再襲撃投票回数を返します。</div>
 	 * 
 	 * <div lang="en">Returns the maximum number of revotes for attack.<div>
 	 * 
-	 * @return <div lang="ja">最大襲撃再投票回数</div><div lang="en">the maximum number
+	 * @return <div lang="ja">最大再襲撃投票回数</div><div lang="en">the maximum number
 	 *         of revotes for attack<div>
 	 */
 	public int getMaxAttackRevote() {
@@ -786,12 +814,12 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">最大襲撃再投票回数をセットします。</div>
+	 * <div lang="ja">最大再襲撃投票回数をセットします。</div>
 	 * 
 	 * <div lang="en">Sets the maximum number of revotes for attack.</div>
 	 * 
 	 * @param maxRevote
-	 *            - <div lang="ja">最大襲撃再投票回数</div> <div lang="en">the maximum
+	 *            - <div lang="ja">最大再襲撃投票回数</div> <div lang="en">the maximum
 	 *            number of revotes for attack</div>
 	 */
 	public void setMaxAttackRevote(int maxAttackRevote) {
@@ -817,10 +845,17 @@ public class GameSetting implements Cloneable {
 		gameSetting.isVoteVisible = isVoteVisible;
 		gameSetting.isEnableNoBanish = isEnableNoBanish;
 		gameSetting.isTalkOnFirstDay = isTalkOnFirstDay;
+		gameSetting.isValidateUtterance = isValidateUtterance;
+		gameSetting.isWhisperBeforeRevote = isWhisperBeforeRevote;
 		gameSetting.maxTalk = maxTalk;
+		gameSetting.maxWhisper = maxWhisper;
+		gameSetting.maxWhisperTurn = maxWhisperTurn;
+		gameSetting.maxTalkTurn = maxTalkTurn;
+		gameSetting.maxSkip = maxSkip;
 		gameSetting.randomSeed = randomSeed;
 		gameSetting.timeLimit = timeLimit;
 		gameSetting.maxRevote = maxRevote;
+		gameSetting.maxAttackRevote = maxAttackRevote;
 		gameSetting.roleNumMap.putAll(roleNumMap);
 		return gameSetting;
 	}
