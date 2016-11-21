@@ -41,7 +41,9 @@ public class GameInfo {
 	Judge divineResult;
 	Agent banishedAgent;
 
-	// the agent werewolves attacked last night (werewolf only)
+	/**
+	 * the agent werewolves attacked last night (only werewolf can see it)
+	 */
 	Agent attackedAgent;
 	Agent guardedAgent;
 	List<Vote> voteList;
@@ -67,7 +69,10 @@ public class GameInfo {
 	// TODO コメントアウトされたフィールド・メンバ
 	// List<Agent> agentList;
 
-	List<Agent> lastDeadAgentList; // The list of agents died last night.
+	/**
+	 * the list of agents died last night
+	 */
+	List<Agent> lastDeadAgentList;
 
 	/**
 	 * <div lang="ja">新しいゲーム情報を構築します。</div>
@@ -193,7 +198,7 @@ public class GameInfo {
 	/**
 	 * <div lang="ja">
 	 * 
-	 * 昨夜追放されたエージェントを返します．
+	 * 昨夜追放されたエージェントを返します。
 	 * 
 	 * </div>
 	 * 
@@ -218,6 +223,27 @@ public class GameInfo {
 	 * @return
 	 * @deprecated
 	 */
+	/**
+	 * <div lang="ja">
+	 * 
+	 * 昨夜に処刑されたエージェントを返します。
+	 * 
+	 * </div>
+	 * 
+	 * <div lang="en">
+	 * 
+	 * Get the agent who executed last night.
+	 * 
+	 * </div>
+	 * 
+	 * @return
+	 * 
+	 * 		<div lang="ja">昨夜に処刑されたエージェント</div>
+	 * 
+	 *         <div lang="en">Agent who executed last night</div>
+	 * 
+	 * @deprecated
+	 */
 	public Agent getExecutedAgent() {
 		return banishedAgent;
 	}
@@ -225,7 +251,7 @@ public class GameInfo {
 	/**
 	 * <div lang="ja">
 	 * 
-	 * 昨夜実際に襲撃されたエージェントを返します．人狼以外には知らされません．
+	 * 昨夜実際に襲撃されたエージェントを返します。人狼以外には知らされません。
 	 * 
 	 * </div>
 	 * 
@@ -512,7 +538,7 @@ public class GameInfo {
 	}
 
 	/**
-	 * <div lang="ja"> 昨夜死亡したエージェントのリストを返す </div> <div lang="en"> Returns the list of the agents died last night. </div>
+	 * <div lang="ja"> 昨夜死亡したエージェントのリストを返します。</div> <div lang="en"> Returns the list of the agents died last night. </div>
 	 * 
 	 * @return <div lang="ja">昨夜死亡したエージェントのリスト</div> <div lang="en">the list of the agents died last night</div>
 	 */

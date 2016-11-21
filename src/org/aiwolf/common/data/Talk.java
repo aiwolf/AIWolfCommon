@@ -158,8 +158,19 @@ public class Talk {
 	}
 
 	/**
-	 * 
+	 * <div lang="ja">話の内容を返します。</div>
+	 *
+	 * <div lang="en">
+	 *
+	 * Get the content of talk, Werewolf language.
+	 *
+	 * </div>
+	 *
 	 * @return
+	 *
+	 * 		<div lang="ja">話の内容</div>
+	 *
+	 *         <div lang="en">Content of talk</div>
 	 * @deprecated
 	 */
 	public String getContent() {
