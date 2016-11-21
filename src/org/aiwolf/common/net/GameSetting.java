@@ -112,12 +112,13 @@ public class GameSetting implements Cloneable {
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
 		setting.isVotableInFirstDay = false;
-		// already initialized
-		// setting.maxRevote = 1;
-		// setting.timeLimit = 1000;
-		// setting.isEnableNoBanish = false;
-		// setting.isTalkOnFirstDay = false;
-		// setting.isValidateUtterance = true;
+		setting.isEnableNoBanish = false;
+		setting.isTalkOnFirstDay = false;
+		setting.isValidateUtterance = true;
+		setting.isWhisperBeforeRevote = false;
+		setting.timeLimit = 1000;
+		setting.maxRevote = 1;
+		setting.maxAttackRevote = 0;
 
 		Role[] roles = Role.values();
 		for (int i = 0; i < roles.length; i++) {
@@ -220,21 +221,21 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Whether or not no banish is allowed when the vote ends in a tie.</div>
 	 */
-	private boolean isEnableNoBanish = false;
+	private boolean isEnableNoBanish;
 
 	/**
 	 * <div lang="ja">Day 0にtalkがあるかどうか</div>
 	 * 
 	 * <div lang="en">Whether of not there are talks on day 0
 	 */
-	private boolean isTalkOnFirstDay = false;
+	private boolean isTalkOnFirstDay;
 
 	/**
 	 * <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
 	 * 
 	 * <div lang="en">Whether or not the text in talk/whisper is validated
 	 */
-	private boolean isValidateUtterance = true;
+	private boolean isValidateUtterance;
 
 	/**
 	 * <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
@@ -242,7 +243,7 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">whether or not there is whisper before the revote for
 	 * attack</div> *
 	 */
-	private boolean isWhisperBeforeRevote = false;
+	private boolean isWhisperBeforeRevote;
 
 	/**
 	 * <div lang="ja">ランダムシード(乱数種)</div>
@@ -256,21 +257,21 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Time limit for the response to the request</div>
 	 */
-	int timeLimit = 1000;
+	int timeLimit;
 
 	/**
 	 * <div lang="ja">最大再投票回数</div>
 	 * 
 	 * <div lang="en">Maximum number of revotes</div>
 	 */
-	int maxRevote = 1;
+	int maxRevote;
 
 	/**
 	 * <div lang="ja">最大再襲撃投票回数</div>
 	 * 
 	 * <div lang="en">Maximum number of revotesfor attack</div>
 	 */
-	int maxAttackRevote = 0;
+	int maxAttackRevote;
 
 	/**
 	 * <div lang="ja">
