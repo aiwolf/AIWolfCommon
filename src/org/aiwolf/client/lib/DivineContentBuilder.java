@@ -22,7 +22,7 @@ public class DivineContentBuilder extends ContentBuilder {
 		topic = Topic.DIVINED;
 		this.target = target;
 		state = State.parseState(result);
-		text = wordAttachment(new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), result.toString() });
+		text = String.join(" ", new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), result.toString() });
 	}
 
 }

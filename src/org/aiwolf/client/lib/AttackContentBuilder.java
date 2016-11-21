@@ -20,7 +20,7 @@ public class AttackContentBuilder extends ContentBuilder {
 	public AttackContentBuilder(Agent target) {
 		topic = Topic.ATTACK;
 		this.target = target;
-		text = wordAttachment(new String[] { Topic.ATTACK.toString(), String.valueOf(target.toString()) });
+		text = String.join(" ", new String[] { Topic.ATTACK.toString(), String.valueOf(target.toString()) });
 	}
 
 }

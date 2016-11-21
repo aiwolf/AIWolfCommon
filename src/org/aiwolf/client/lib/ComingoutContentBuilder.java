@@ -22,7 +22,7 @@ public class ComingoutContentBuilder extends ContentBuilder {
 		topic = Topic.COMINGOUT;
 		this.target = target;
 		state = State.parseState(role);
-		text = wordAttachment(new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), role.toString() });
+		text = String.join(" ", new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), role.toString() });
 	}
 
 }

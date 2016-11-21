@@ -20,7 +20,7 @@ public class GuardContentBuilder extends ContentBuilder {
 	public GuardContentBuilder(Agent target) {
 		topic = Topic.GUARDED;
 		this.target = target;
-		text = wordAttachment(new String[] { Topic.GUARDED.toString(), String.valueOf(target.toString()) });
+		text = String.join(" ", new String[] { Topic.GUARDED.toString(), String.valueOf(target.toString()) });
 	}
 
 }

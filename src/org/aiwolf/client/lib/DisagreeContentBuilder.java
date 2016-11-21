@@ -20,7 +20,7 @@ public class DisagreeContentBuilder extends ContentBuilder {
 		this.talkType = talkType;
 		this.talkDay = talkDay;
 		this.talkID = talkID;
-		text = wordAttachment(new String[] { Topic.DISAGREE.toString(), talkType.toString(), "day" + String.valueOf(talkDay), "ID:" + String.valueOf(talkID) });
+		text = String.join(" ", new String[] { Topic.DISAGREE.toString(), talkType.toString(), "day" + String.valueOf(talkDay), "ID:" + String.valueOf(talkID) });
 	}
 
 }

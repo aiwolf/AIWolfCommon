@@ -20,7 +20,7 @@ public class VoteContentBuilder extends ContentBuilder {
 	public VoteContentBuilder(Agent target) {
 		topic = Topic.VOTE;
 		this.target = target;
-		text = wordAttachment(new String[] { Topic.VOTE.toString(), String.valueOf(target.toString()) });
+		text = String.join(" ", new String[] { Topic.VOTE.toString(), String.valueOf(target.toString()) });
 	}
 
 }

@@ -22,7 +22,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 		topic = Topic.ESTIMATE;
 		this.target = target;
 		state = State.parseState(role);
-		text = wordAttachment(new String[] { Topic.ESTIMATE.toString(), String.valueOf(target.toString()), role.toString() });
+		text = String.join(" ", new String[] { Topic.ESTIMATE.toString(), String.valueOf(target.toString()), role.toString() });
 	}
 
 }

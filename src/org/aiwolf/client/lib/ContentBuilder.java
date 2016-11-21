@@ -78,12 +78,4 @@ public class ContentBuilder {
 		return new Content(this);
 	}
 
-	protected static String wordAttachment(String[] split) {
-		String answer = "";
-		for (int i = 0; i < split.length; i++) {
-			answer += split[i] + " ";
-		}
-		return answer.trim();
-	}
-
 }

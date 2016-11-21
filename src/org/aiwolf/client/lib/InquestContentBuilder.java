@@ -22,7 +22,7 @@ public class InquestContentBuilder extends ContentBuilder {
 		topic = Topic.INQUESTED;
 		this.target = target;
 		state = State.parseState(result);
-		text = wordAttachment(new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), result.toString() });
+		text = String.join(" ", new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), result.toString() });
 	}
 
 }
