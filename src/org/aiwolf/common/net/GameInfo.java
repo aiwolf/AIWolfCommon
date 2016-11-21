@@ -214,6 +214,15 @@ public class GameInfo {
 	}
 
 	/**
+	 * 
+	 * @return
+	 * @deprecated
+	 */
+	public Agent getExecutedAgent() {
+		return banishedAgent;
+	}
+
+	/**
 	 * <div lang="ja">
 	 * 
 	 * 昨夜実際に襲撃されたエージェントを返します．人狼以外には知らされません．
