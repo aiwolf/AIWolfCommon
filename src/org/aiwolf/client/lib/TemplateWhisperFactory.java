@@ -1,5 +1,6 @@
 package org.aiwolf.client.lib;
 
+import org.aiwolf.client.lib.TemplateTalkFactory.TalkType;
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Species;

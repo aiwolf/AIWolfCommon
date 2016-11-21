@@ -158,6 +158,15 @@ public class Talk {
 	}
 
 	/**
+	 * 
+	 * @return
+	 * @deprecated
+	 */
+	public String getContent() {
+		return text;
+	}
+
+	/**
 	 * <div lang="ja">
 	 *
 	 * 発言がSKIPならtrue、そうでない場合はfalseを返します。
