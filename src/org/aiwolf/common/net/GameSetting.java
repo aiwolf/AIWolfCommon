@@ -1,5 +1,15 @@
+/**
+ * GameSetting.java
+ * 
+ * Copyright (c) 2016 人狼知能プロジェクト
+ */
 package org.aiwolf.common.net;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,6 +133,80 @@ public class GameSetting implements Cloneable {
 		Role[] roles = Role.values();
 		for (int i = 0; i < roles.length; i++) {
 			setting.roleNumMap.put(roles[i], roleNumArray[agentNum][i]);
+		}
+		return setting;
+	}
+
+	/**
+	 * <div lang="ja">ファイルから設定を読み込んで返します</div>
+	 * 
+	 * <div lang="en">Returns game setting read from configuration file.</div>
+	 * 
+	 * @param fileName
+	 *            <div lang="ja">設定ファイルのファイル名</div><div lang="en">configuration file's name</div>
+	 * @return <div lang="ja">読み込んだGameSetting</div><div lang="en">GameSetting read from file</div>
+	 * @throws IOException
+	 */
+	static public GameSetting readConfigFile(String fileName) throws IOException {
+		GameSetting setting = new GameSetting();
+
+		Path src = new File(fileName).toPath();
+		for (String line : Files.readAllLines(src, Charset.forName("UTF8"))) {
+			if (line.startsWith("#")) {
+				continue;
+			} else if (line.contains("=")) {
+				String[] data = line.split("=");
+				if (data.length < 2) {
+					continue;
+				}
+				if (data[0].trim().equalsIgnoreCase("maxtalk")) {
+					setting.maxTalk = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("maxtalkturn")) {
+					setting.maxTalkTurn = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("maxwhisper")) {
+					setting.maxWhisper = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("maxwhisperturn")) {
+					setting.maxWhisperTurn = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("maxskip")) {
+					setting.maxSkip = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("randomseed")) {
+					setting.randomSeed = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("timelimit")) {
+					setting.timeLimit = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("maxrevote")) {
+					setting.maxRevote = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("maxattackrevote")) {
+					setting.maxAttackRevote = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("isenablenoattack")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isEnableNoAttack = true;
+					}
+				} else if (data[0].trim().equalsIgnoreCase("isvotevisible")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isVoteVisible = true;
+					}
+				} else if (data[0].trim().equalsIgnoreCase("isvotableinfirstday")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isVotableInFirstDay = true;
+					}
+				} else if (data[0].trim().equalsIgnoreCase("isenablenobanish")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isEnableNoBanish = true;
+					}
+				} else if (data[0].trim().equalsIgnoreCase("istalkonfirstday")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isTalkOnFirstDay = true;
+					}
+				} else if (data[0].trim().equalsIgnoreCase("isvalidateutterance")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isValidateUtterance = true;
+					}
+				} else if (data[0].trim().equalsIgnoreCase("iswhisperbeforerevote")) {
+					if (data[1].trim().matches("^[YyTt].*")) {
+						setting.isWhisperBeforeRevote = true;
+					}
+				}
+			}
 		}
 		return setting;
 	}
@@ -269,7 +353,7 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">最大再襲撃投票回数</div>
 	 * 
-	 * <div lang="en">Maximum number of revotesfor attack</div>
+	 * <div lang="en">Maximum number of revotes for attack</div>
 	 */
 	int maxAttackRevote;
 
