@@ -106,8 +106,8 @@ public class GameSetting implements Cloneable {
 	 *         <div lang="en">Default game setting</div>
 	 */
 	static public GameSetting getDefaultGame(int agentNum) {
-		if (agentNum < 4) {
-			throw new IllegalArgumentException("agentNum must be bigger than 4 but " + agentNum);
+		if (agentNum < 3) {
+			throw new IllegalArgumentException("agentNum must be bigger than 3 but " + agentNum);
 		}
 		if (agentNum > roleNumArray.length) {
 			throw new IllegalArgumentException("agentNum must be smaller than "+roleNumArray.length+" but " + agentNum);
