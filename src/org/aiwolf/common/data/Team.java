@@ -9,15 +9,23 @@ package org.aiwolf.common.data;
  */
 public enum Team {
 	/**
-	 * <div lang="ja">村人陣営です。</div>
+	 * <div lang="ja">村人陣営</div>
 	 * 
 	 * <div lang="en">The team of Villager.</div>
 	 */
 	VILLAGER,
 	/**
-	 * <div lang="ja">人狼陣営です。</div>
+	 * <div lang="ja">人狼陣営</div>
 	 * 
 	 * <div lang="en">The team of WereWolf.</div>
 	 */
-	WEREWOLF
+	WEREWOLF,
+
+	/**
+	 * <div lang="ja">第三陣営</div>
+	 * 
+	 * <div lang="en">The third team.</div>
+	 */
+	OTHERS,
+
 }

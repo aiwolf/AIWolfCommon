@@ -61,7 +61,14 @@ public enum Role {
 	 * 
 	 * <div lang="en">The role WereWolf.</div>
 	 */
-	WEREWOLF(Team.WEREWOLF, Species.WEREWOLF);
+	WEREWOLF(Team.WEREWOLF, Species.WEREWOLF),
+
+	/**
+	 * <div lang="ja">妖狐です。</div>
+	 * 
+	 * <div lang="en">The role FOX.</div>
+	 */
+	FOX(Team.OTHERS, Species.WEREWOLF);
 
 	private Team teamType;
 	private Species species;
