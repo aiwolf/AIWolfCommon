@@ -20,10 +20,10 @@ public enum Role {
 	/**
 	 * 
 	 * <div lang="ja">共有者を表します。<br>
-	 * 現在、まだ使用されていない役職です。</div>
+	 * </div>
 	 * 
 	 * <div lang="en">The role Freemason.<br>
-	 * This role has not yet been used.</div>
+	 * </div>
 	 * 
 	 */
 	FREEMASON(Team.VILLAGER, Species.HUMAN),
