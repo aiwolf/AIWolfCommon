@@ -119,9 +119,9 @@ public interface Player {
 	String whisper();
 
 	/**
-	 * <div lang="ja">追放したいエージェントに投票します。</div>
+	 * <div lang="ja">処刑したいエージェントに投票します。</div>
 	 * 
-	 * <div lang="en">Vote agent to banish.</div>
+	 * <div lang="en">Vote agent to execute.</div>
 	 * 
 	 * @return
 	 * 
