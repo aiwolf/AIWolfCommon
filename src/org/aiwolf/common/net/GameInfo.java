@@ -198,7 +198,7 @@ public class GameInfo {
 	/**
 	 * <div lang="ja">
 	 * 
-	 * 昨夜追放されたエージェントを返します。
+	 * 昨夜処刑されたエージェントを返します。
 	 * 
 	 * </div>
 	 * 
@@ -210,7 +210,7 @@ public class GameInfo {
 	 * 
 	 * @return
 	 * 
-	 * 		<div lang="ja">昨夜追放されたエージェント</div>
+	 * 		<div lang="ja">昨夜処刑されたエージェント</div>
 	 * 
 	 *         <div lang="en">the agent who executed last night</div>
 	 */

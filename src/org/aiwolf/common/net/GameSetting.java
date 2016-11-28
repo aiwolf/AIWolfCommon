@@ -301,7 +301,7 @@ public class GameSetting implements Cloneable {
 	private boolean isVotableInFirstDay;
 
 	/**
-	 * <div lang="ja">得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム</div>
+	 * <div lang="ja">得票数同数で決まらなかった場合「処刑なし」とするかどうか。falseの場合はランダム</div>
 	 * 
 	 * <div lang="en">Whether or not executing nobody is allowed when the vote
 	 * ends in a tie.</div>
@@ -583,11 +583,11 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">同票数の場合に追放なしとするかどうかを返します。</div>
+	 * <div lang="ja">同票数の場合に処刑なしとするかどうかを返します。</div>
 	 * 
 	 * <div lang="en">Returns whether or not executing nobody is allowed.</div>
 	 * 
-	 * @return <div lang="ja">同票数の場合に追放なしとするかどうか </div>
+	 * @return <div lang="ja">同票数の場合に処刑なしとするかどうか </div>
 	 * 
 	 *         <div lang="en">whether or not executing nobody is allowed</div>
 	 */
@@ -791,12 +791,12 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">同票数の場合に追放なしとするかどうかをセットします。</div>
+	 * <div lang="ja">同票数の場合に処刑なしとするかどうかをセットします。</div>
 	 * 
 	 * <div lang="en">Sets whether or not executing nobody is allowed.</div>
 	 * 
 	 * @param isEnableNoExecution
-	 *            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
+	 *            <div lang="ja">同票数の場合に処刑なしとするかどうか </div>
 	 * 
 	 *            <div lang="en">whether or not executing nobody is
 	 *            allowed</div>
