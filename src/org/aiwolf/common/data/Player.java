@@ -51,7 +51,7 @@ public interface Player {
 	/**
 	 * <div lang="ja">ゲーム開始時に呼び出されます。</div>
 	 * 
-	 * <div lang="en">Called when the day started.</div>
+	 * <div lang="en">Called when the game started.</div>
 	 * 
 	 * @param gameInfo
 	 * 
@@ -181,7 +181,7 @@ public interface Player {
 	 * <div lang="en">
 	 * 
 	 * Called when the game finished.<br>
-	 * Before this method is called, gameinfo is updated with all infomation.
+	 * Before this method is called, gameinfo is updated with all information.
 	 * 
 	 * </div>
 	 */
