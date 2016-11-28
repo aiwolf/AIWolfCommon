@@ -128,10 +128,10 @@ public class GameInfoToSend{
 	}
 
 	/**
-	 * <div lang="ja">昨夜処刑されたエージェントを返す</div> <div lant="en">Returns the agent
+	 * <div lang="ja">昨夜追放されたエージェントを返す</div> <div lant="en">Returns the agent
 	 * executed last night.</div>
 	 * 
-	 * @return <div lang="ja">昨夜処刑されたエージェント</div> <div lant="en">the agent
+	 * @return <div lang="ja">昨夜追放されたエージェント</div> <div lant="en">the agent
 	 *         executed last night.</div>
 	 */
 	public int getExecutedAgent() {
@@ -139,7 +139,7 @@ public class GameInfoToSend{
 	}
 
 	/**
-	 * <div lang="ja">昨夜処刑されたエージェントをセットする</div>
+	 * <div lang="ja">昨夜追放されたエージェントをセットする</div>
 	 * 
 	 * <div lant="en">Sets the agent executed last night.</div>
 	 * 
