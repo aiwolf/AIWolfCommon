@@ -122,7 +122,7 @@ public class GameSetting implements Cloneable {
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
 		setting.isVotableInFirstDay = false;
-		setting.isEnableNoBanish = false;
+		setting.isEnableNoExecution = false;
 		setting.isTalkOnFirstDay = false;
 		setting.isValidateUtterance = true;
 		setting.isWhisperBeforeRevote = false;
@@ -189,9 +189,9 @@ public class GameSetting implements Cloneable {
 					if (data[1].trim().matches("^[YyTt].*")) {
 						setting.isVotableInFirstDay = true;
 					}
-				} else if (data[0].trim().equalsIgnoreCase("isenablenobanish")) {
+				} else if (data[0].trim().equalsIgnoreCase("isenablenoexecution")) {
 					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isEnableNoBanish = true;
+						setting.isEnableNoExecution = true;
 					}
 				} else if (data[0].trim().equalsIgnoreCase("istalkonfirstday")) {
 					if (data[1].trim().matches("^[YyTt].*")) {
@@ -303,9 +303,10 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム</div>
 	 * 
-	 * <div lang="en">Whether or not no banish is allowed when the vote ends in a tie.</div>
+	 * <div lang="en">Whether or not executing nobody is allowed when the vote
+	 * ends in a tie.</div>
 	 */
-	private boolean isEnableNoBanish;
+	private boolean isEnableNoExecution;
 
 	/**
 	 * <div lang="ja">Day 0にtalkがあるかどうか</div>
@@ -584,12 +585,14 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">同票数の場合に追放なしとするかどうかを返します。</div>
 	 * 
-	 * <div lang="en">Returns whether or not no banish is allowed.</div>
+	 * <div lang="en">Returns whether or not executing nobody is allowed.</div>
 	 * 
-	 * @return <div lang="ja">同票数の場合に追放なしとするかどうか </div><div lang="en">whether or not no banish is allowed</div>
+	 * @return <div lang="ja">同票数の場合に追放なしとするかどうか </div>
+	 * 
+	 *         <div lang="en">whether or not executing nobody is allowed</div>
 	 */
-	public boolean isEnableNoBanish() {
-		return isEnableNoBanish;
+	public boolean isEnableNoExecution() {
+		return isEnableNoExecution;
 	}
 
 	/**
@@ -597,7 +600,9 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Returns whether or not there are talks on day 0.</div>
 	 * 
-	 * @return <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
+	 * @return <div lang="ja">Day 0にtalkがあるかどうか</div>
+	 * 
+	 *         <div lang="en">whether or not there are talks on day 0</div>
 	 */
 	public boolean isTalkOnFirstDay() {
 		return isTalkOnFirstDay;
@@ -788,13 +793,16 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">同票数の場合に追放なしとするかどうかをセットします。</div>
 	 * 
-	 * <div lang="en">Sets whether or not no banish is allowed.</div>
+	 * <div lang="en">Sets whether or not executing nobody is allowed.</div>
 	 * 
-	 * @param isEnableNoBanish
-	 *            - <div lang="ja">同票数の場合に追放なしとするかどうか </div><div lang="en">whether or not no banish is allowed</div>
+	 * @param isEnableNoExecution
+	 *            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
+	 * 
+	 *            <div lang="en">whether or not executing nobody is
+	 *            allowed</div>
 	 */
-	public void setEnableNoBanish(boolean isEnableNoBanish) {
-		this.isEnableNoBanish = isEnableNoBanish;
+	public void setEnableNoExecution(boolean isEnableNoExecution) {
+		this.isEnableNoExecution = isEnableNoExecution;
 	}
 
 	/**
@@ -954,7 +962,7 @@ public class GameSetting implements Cloneable {
 		gameSetting.isEnableNoAttack = isEnableNoAttack;
 		gameSetting.isVotableInFirstDay = isVotableInFirstDay;
 		gameSetting.isVoteVisible = isVoteVisible;
-		gameSetting.isEnableNoBanish = isEnableNoBanish;
+		gameSetting.isEnableNoExecution = isEnableNoExecution;
 		gameSetting.isTalkOnFirstDay = isTalkOnFirstDay;
 		gameSetting.isValidateUtterance = isValidateUtterance;
 		gameSetting.isWhisperBeforeRevote = isWhisperBeforeRevote;

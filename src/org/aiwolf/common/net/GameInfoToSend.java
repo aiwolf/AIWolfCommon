@@ -25,7 +25,7 @@ public class GameInfoToSend{
 	
 	JudgeToSend mediumResult;
 	JudgeToSend divineResult;
-	int banishedAgent = -1;
+	int executedAgent = -1;
 	int attackedAgent = -1;
 	int guardedAgent = -1;
 	List<VoteToSend> voteList;
@@ -128,22 +128,28 @@ public class GameInfoToSend{
 	}
 
 	/**
-	 * <div lang="ja">昨夜追放されたエージェントを返す</div> <div lant="en">Returns the agent banished last night.</div>
+	 * <div lang="ja">昨夜追放されたエージェントを返す</div> <div lant="en">Returns the agent
+	 * executed last night.</div>
 	 * 
-	 * @return <div lang="ja">昨夜追放されたエージェント</div> <div lant="en">the agent banished last night.</div>
+	 * @return <div lang="ja">昨夜追放されたエージェント</div> <div lant="en">the agent
+	 *         executed last night.</div>
 	 */
-	public int getBanishedAgent() {
-		return banishedAgent;
+	public int getExecutedAgent() {
+		return executedAgent;
 	}
 
 	/**
-	 * <div lang="ja">昨夜追放されたエージェントをセットする</div> <div lant="en">Sets the agent banished last night.</div>
+	 * <div lang="ja">昨夜追放されたエージェントをセットする</div>
 	 * 
-	 * @param banishedAgent
-	 *            - <div lang="ja">セットするエージェント</div><div lang="en">the agent to set"</div>
+	 * <div lant="en">Sets the agent executed last night.</div>
+	 * 
+	 * @param executedAgent
+	 *            - <div lang="ja">セットするエージェント</div>
+	 * 
+	 *            <div lang="en">the agent to set"</div>
 	 */
-	public void setBanishedAgent(int banishedAgent) {
-		this.banishedAgent = banishedAgent;
+	public void setExecutedAgent(int executedAgent) {
+		this.executedAgent = executedAgent;
 	}
 
 	/**
@@ -333,7 +339,7 @@ public class GameInfoToSend{
 		if(this.getDivineResult() != null){
 			gi.divineResult = this.getDivineResult().toJudge();
 		}
-		gi.banishedAgent = Agent.getAgent(this.getBanishedAgent());
+		gi.executedAgent = Agent.getAgent(this.getExecutedAgent());
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
 		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 

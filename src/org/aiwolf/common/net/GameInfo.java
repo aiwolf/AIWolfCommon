@@ -39,7 +39,7 @@ public class GameInfo {
 
 	Judge mediumResult;
 	Judge divineResult;
-	Agent banishedAgent;
+	Agent executedAgent;
 
 	/**
 	 * the agent werewolves attacked last night (only werewolf can see it)
@@ -204,7 +204,7 @@ public class GameInfo {
 	 * 
 	 * <div lang="en">
 	 * 
-	 * Get the agent who banished last night.
+	 * Get the agent who executed last night.
 	 * 
 	 * </div>
 	 * 
@@ -212,40 +212,10 @@ public class GameInfo {
 	 * 
 	 * 		<div lang="ja">昨夜追放されたエージェント</div>
 	 * 
-	 *         <div lang="en">the agent who banished last night</div>
-	 */
-	public Agent getBanishedAgent() {
-		return banishedAgent;
-	}
-
-	/**
-	 * 
-	 * @return
-	 * @deprecated
-	 */
-	/**
-	 * <div lang="ja">
-	 * 
-	 * 昨夜に処刑されたエージェントを返します。
-	 * 
-	 * </div>
-	 * 
-	 * <div lang="en">
-	 * 
-	 * Get the agent who executed last night.
-	 * 
-	 * </div>
-	 * 
-	 * @return
-	 * 
-	 * 		<div lang="ja">昨夜に処刑されたエージェント</div>
-	 * 
-	 *         <div lang="en">Agent who executed last night</div>
-	 * 
-	 * @deprecated
+	 *         <div lang="en">the agent who executed last night</div>
 	 */
 	public Agent getExecutedAgent() {
-		return banishedAgent;
+		return executedAgent;
 	}
 
 	/**
