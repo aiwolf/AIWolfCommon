@@ -53,6 +53,13 @@ public class GameInfo {
 	 */
 	Agent attackedDead;
 
+	/**
+	 * <div lang="ja">呪殺された妖狐</div>
+	 * 
+	 * <div lang="en">the fox killed by the curse</div>
+	 */
+	Agent cursedFox;
+
 	Agent guardedAgent;
 	List<Vote> voteList;
 	List<Vote> attackVoteList;
@@ -570,4 +577,26 @@ public class GameInfo {
 		this.attackedDead = attackedDead;
 	}
 
+	/**
+	 * <div lang="ja">呪殺された妖狐を返す．</div>
+	 * 
+	 * <div lang="en">Returns the fox killed by curse.</div>
+	 * 
+	 * @return the attackedDead
+	 */
+	public Agent getCursedFox() {
+		return cursedFox;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐をセットする．</div>
+	 * 
+	 * <div lang="en">Sets the fox killed by curse.</div>
+	 * 
+	 * @param attackedDead
+	 *            the attackedDead to set
+	 */
+	public void setCursedFox(Agent cursedFox) {
+		this.cursedFox = cursedFox;
+	}
 }
