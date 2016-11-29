@@ -45,6 +45,21 @@ public class GameInfo {
 	 * the agent werewolves attacked last night (only werewolf can see it)
 	 */
 	Agent attackedAgent;
+
+	/**
+	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェント</div>
+	 * 
+	 * <div lang="en">the agent who died last night because of the attack by werewolf.</div>
+	 */
+	Agent attackedDead;
+
+	/**
+	 * <div lang="ja">呪殺された妖狐</div>
+	 * 
+	 * <div lang="en">the fox killed by curse</div>
+	 */
+	Agent cursedFox;
+
 	Agent guardedAgent;
 	List<Vote> voteList;
 	List<Vote> attackVoteList;
@@ -537,5 +552,55 @@ public class GameInfo {
 	 */
 	public Map<Agent, Integer> getRemainWhisperMap() {
 		return remainWhisperMap;
+	}
+
+	/**
+	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントを返す．</div>
+	 * 
+	 * <div lang="en">Returns the agent who died last night because of the attack by werewolf.</div>
+	 * 
+	 * @return the attackedDead
+	 */
+	public Agent getAttackedDead() {
+		return attackedDead;
+	}
+
+	/**
+	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントをセットする．</div>
+	 * 
+	 * <div lang="en">Sets the agent who died last night because of the attack by werewolf.</div>
+	 * 
+	 * @param attackedDead
+	 *            the attackedDead to set
+	 */
+	public void setAttackedDead(Agent attackedDead) {
+		this.attackedDead = attackedDead;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐を返す．</div>
+	 * 
+	 * <div lang="en">Returns the fox killed by curse.</div>
+	 * 
+	 * @return <div lang="ja">呪殺された妖狐</div>
+	 * 
+	 *         <div lang="en">the fox killed by curse</div>
+	 */
+	public Agent getCursedFox() {
+		return cursedFox;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐をセットする．</div>
+	 * 
+	 * <div lang="en">Sets the fox killed by curse.</div>
+	 * 
+	 * @param cursedFox
+	 *            <div lang="ja">呪殺された妖狐</div>
+	 * 
+	 *            <div lang="en">the fox killed by curse</div>
+	 */
+	public void setCursedFox(Agent cursedFox) {
+		this.cursedFox = cursedFox;
 	}
 }

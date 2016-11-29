@@ -126,7 +126,7 @@ public class GameSetting implements Cloneable {
 		setting.isTalkOnFirstDay = false;
 		setting.isValidateUtterance = true;
 		setting.isWhisperBeforeRevote = false;
-		setting.timeLimit = 1000;
+		setting.timeLimit = -1; // -1: is not set yet
 		setting.maxRevote = 1;
 		setting.maxAttackRevote = 0;
 
@@ -143,8 +143,14 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Returns game setting read from configuration file.</div>
 	 * 
 	 * @param fileName
-	 *            <div lang="ja">設定ファイルのファイル名</div><div lang="en">configuration file's name</div>
-	 * @return <div lang="ja">読み込んだGameSetting</div><div lang="en">GameSetting read from file</div>
+	 *            <div lang="ja">設定ファイルのファイル名</div>
+	 * 
+	 *            <div lang="en">configuration file's name</div>
+	 * 
+	 * @return <div lang="ja">読み込んだGameSetting</div>
+	 * 
+	 *         <div lang="en">GameSetting read from file</div>
+	 * 
 	 * @throws IOException
 	 */
 	static public GameSetting readConfigFile(String fileName) throws IOException {
@@ -216,9 +222,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Get the game setting for seminar.</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">セミナー用のゲーム設定</div>
+	 * @return <div lang="ja">セミナー用のゲーム設定</div>
 	 *
 	 *         <div lang="en">Game setting for seminar</div>
 	 * 
@@ -325,8 +329,7 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
 	 * 
-	 * <div lang="en">whether or not there is whisper before the revote for
-	 * attack</div> *
+	 * <div lang="en">whether or not there is whisper before the revote for attack</div>
 	 */
 	private boolean isWhisperBeforeRevote;
 
@@ -389,14 +392,11 @@ public class GameSetting implements Cloneable {
 	 * </div>
 	 *
 	 * @param role
-	 *
 	 *            <div lang="ja">役職</div>
 	 *
 	 *            <div lang="en">Role</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">指定された役職の人数</div>
+	 * @return <div lang="ja">指定された役職の人数</div>
 	 *
 	 *         <div lang="en">Number of roles</div>
 	 */
@@ -413,9 +413,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Get the max number of talks.</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">1日あたりの発言の最大数</div>
+	 * @return <div lang="ja">1日あたりの発言の最大数</div>
 	 *
 	 *         <div lang="en">Max number of talk</div>
 	 */
@@ -429,9 +427,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Get the max turn of talks.</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">1日あたりの発言ターン最大数</div>
+	 * @return <div lang="ja">1日あたりの発言ターン最大数</div>
 	 *
 	 *         <div lang="en">Max turn of talk</div>
 	 */
@@ -445,9 +441,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Get the max number of Whispers.</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">1日あたりの発言の最大数</div>
+	 * @return <div lang="ja">1日あたりの発言の最大数</div>
 	 *
 	 *         <div lang="en">Max number of Whisper</div>
 	 */
@@ -461,9 +455,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Get the max turn of Whispers.</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">1日あたりの発言ターン最大数</div>
+	 * @return <div lang="ja">1日あたりの発言ターン最大数</div>
 	 *
 	 *         <div lang="en">Max turn of Whisper</div>
 	 */
@@ -477,9 +469,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Max value of Skip. If the agent continues SKIP more than this value, it will be changed to OVER</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">1日あたりの連続SKIP最大数</div>
+	 * @return <div lang="ja">1日あたりの連続SKIP最大数</div>
 	 *
 	 *         <div lang="en">Max contunious SKIP</div>
 	 */
@@ -502,9 +492,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * </div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">
+	 * @return <div lang="ja">
 	 *
 	 *         誰も襲撃しないのを許されているかどうか
 	 *
@@ -533,9 +521,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * </div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">
+	 * @return <div lang="ja">
 	 *
 	 *         誰が誰に投票したかをエージェントが確認できるかどうか
 	 *
@@ -564,9 +550,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * </div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">
+	 * @return <div lang="ja">
 	 *
 	 *         初日の投票ができるかどうか
 	 *
@@ -875,11 +859,13 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">リクエスト応答時間の上限を返します。</div>
+	 * <div lang="ja">リクエスト応答時間の上限を返す．</div>
 	 * 
 	 * <div lang="en">Returns the time limit for the response to the request.<div>
 	 * 
-	 * @return <div lang="ja">制限時間</div><div lang="en">the time limit<div>
+	 * @return <div lang="ja">制限時間(ms)あるいは未設定の場合-1</div>
+	 * 
+	 *         <div lang="en">the time limit in millisecond or -1 if this is not set yet<div>
 	 */
 	public int getTimeLimit() {
 		return timeLimit;
@@ -891,7 +877,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the time limit for the response to the request.</div>
 	 * 
 	 * @param timeLimit
-	 *            - <div lang="ja">制限時間</div> <div lang="en">the timeLimit to set</div>
+	 *            <div lang="ja">制限時間</div>
+	 * 
+	 *            <div lang="en">the timeLimit to set</div>
 	 */
 	public void setTimeLimit(int timeLimit) {
 		this.timeLimit = timeLimit;
@@ -902,7 +890,9 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Returns the maximum number of revotes.<div>
 	 * 
-	 * @return <div lang="ja">最大再投票回数</div><div lang="en">the maximum number of revotes<div>
+	 * @return <div lang="ja">最大再投票回数</div>
+	 * 
+	 *         <div lang="en">the maximum number of revotes<div>
 	 */
 	public int getMaxRevote() {
 		return maxRevote;
@@ -914,7 +904,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the maximum number of revotes.</div>
 	 * 
 	 * @param maxRevote
-	 *            - <div lang="ja">最大再投票回数</div> <div lang="en">the maximum number of revotes</div>
+	 *            <div lang="ja">最大再投票回数</div>
+	 * 
+	 *            <div lang="en">the maximum number of revotes</div>
 	 */
 	public void setMaxRevote(int maxRevote) {
 		this.maxRevote = maxRevote;
@@ -925,8 +917,9 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * <div lang="en">Returns the maximum number of revotes for attack.<div>
 	 * 
-	 * @return <div lang="ja">最大再襲撃投票回数</div><div lang="en">the maximum number
-	 *         of revotes for attack<div>
+	 * @return <div lang="ja">最大再襲撃投票回数</div>
+	 * 
+	 *         <div lang="en">the maximum number of revotes for attack<div>
 	 */
 	public int getMaxAttackRevote() {
 		return maxAttackRevote;
@@ -938,8 +931,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the maximum number of revotes for attack.</div>
 	 * 
 	 * @param maxRevote
-	 *            - <div lang="ja">最大再襲撃投票回数</div> <div lang="en">the maximum
-	 *            number of revotes for attack</div>
+	 *            <div lang="ja">最大再襲撃投票回数</div>
+	 * 
+	 *            <div lang="en">the maximum number of revotes for attack</div>
 	 */
 	public void setMaxAttackRevote(int maxAttackRevote) {
 		this.maxAttackRevote = maxAttackRevote;
@@ -950,10 +944,8 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Create copy.</div>
 	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">ゲーム設定の複製</div>
-	 *
+	 * @return <div lang="ja">ゲーム設定の複製</div>
+	 * 
 	 *         <div lang="en">Copy of this object</div>
 	 */
 	@Override
