@@ -82,6 +82,8 @@ public class GameSetting implements Cloneable {
 	 * Num of each roles for seminar.
 	 *
 	 * </div>
+	 * 
+	 * @deprecated
 	 */
 	static final private int[] seminarArray = {
 			// {狩, 共, 霊, 狂, 占, 村, 狼}
@@ -153,7 +155,7 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * @throws IOException
 	 */
-	static public GameSetting readConfigFile(String fileName) throws IOException {
+	static public GameSetting getCustomGame(String fileName) throws IOException {
 		GameSetting setting = new GameSetting();
 
 		Path src = new File(fileName).toPath();
