@@ -358,7 +358,9 @@ public class GameInfoToSend{
 	 * 
 	 * <div lang="en">Returns the fox killed by curse.</div>
 	 * 
-	 * @return the attackedDead
+	 * @return <div lang="ja">呪殺された妖狐</div>
+	 * 
+	 *         <div lang="en">the fox killed by curse</div>
 	 */
 	public int getCursedFox() {
 		return cursedFox;
@@ -369,8 +371,10 @@ public class GameInfoToSend{
 	 * 
 	 * <div lang="en">Sets the fox killed by curse.</div>
 	 * 
-	 * @param attackedDead
-	 *            the attackedDead to set
+	 * @param cursedFox
+	 *            <div lang="ja">呪殺された妖狐</div>
+	 * 
+	 *            <div lang="en">the fox killed by curse</div>
 	 */
 	public void setCursedFox(int cursedFox) {
 		this.cursedFox = cursedFox;
