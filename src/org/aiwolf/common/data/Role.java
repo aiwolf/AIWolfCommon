@@ -68,7 +68,7 @@ public enum Role {
 	 * 
 	 * <div lang="en">The role FOX.</div>
 	 */
-	FOX(Team.OTHERS, Species.WEREWOLF);
+	FOX(Team.OTHERS, Species.HUMAN);
 
 	private Team teamType;
 	private Species species;
