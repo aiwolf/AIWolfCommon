@@ -1,11 +1,9 @@
 package org.aiwolf.common.net;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Judge;
@@ -170,11 +168,11 @@ public class GameInfo {
 		return new ArrayList<>(statusMap.keySet());
 	}
 
-	// TODO 霊能者以外はnull? 確認が取れ次第、ドキュメントに追記
+	// TODO 霊媒師以外はnull? 確認が取れ次第、ドキュメントに追記
 	/**
 	 * <div lang="ja">
 	 * 
-	 * 霊能結果を返します。霊能者のみが確認できます。
+	 * 霊媒結果を返します。霊媒師のみが確認できます。
 	 * 
 	 * </div>
 	 * 
@@ -182,7 +180,7 @@ public class GameInfo {
 	 * 
 	 * @return
 	 * 
-	 * 		<div lang="ja">霊能結果</div>
+	 * 		<div lang="ja">霊媒結果</div>
 	 * 
 	 *         <div lang="en">Result of medium</div>
 	 */

@@ -26,7 +26,7 @@ public enum Topic {
 	DIVINED,
 
 	/**
-	 * AgentがSpeciesだと霊能される
+	 * AgentがSpeciesだと霊媒される
 	 * INQUESTED Agent Species
 	 */
 	INQUESTED,

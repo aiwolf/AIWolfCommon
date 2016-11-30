@@ -29,7 +29,7 @@ public enum Role {
 	FREEMASON(Team.VILLAGER, Species.HUMAN),
 
 	/**
-	 * <div lang="ja">霊能者です。</div>
+	 * <div lang="ja">霊媒師です。</div>
 	 * 
 	 * <div lang="en">The role Medium.</div>
 	 */

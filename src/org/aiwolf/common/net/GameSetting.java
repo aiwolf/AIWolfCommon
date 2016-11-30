@@ -30,7 +30,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 * 各役職の人数です。
 	 *
-	 * 狩人、共有者、霊能者、狂人、占い師、
+	 * 狩人、共有者、霊媒師、狂人、占い師、
 	 *
 	 * 村人、人狼の順になっています。
 	 *

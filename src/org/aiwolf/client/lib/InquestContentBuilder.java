@@ -9,7 +9,7 @@ import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Species;
 
 /**
- * <div lang="ja">霊能結果発話ビルダークラス</div>
+ * <div lang="ja">霊媒結果発話ビルダークラス</div>
  * 
  * <div lang="en">Builder class for the utterance of inquest</div>
  * 
