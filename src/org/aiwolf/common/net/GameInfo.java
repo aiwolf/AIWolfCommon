@@ -211,24 +211,38 @@ public class GameInfo {
 	/**
 	 * <div lang="ja">
 	 * 
-	 * 昨夜追放されたエージェントを返します。
+	 * 追放されたエージェントを返します。
 	 * 
 	 * </div>
 	 * 
 	 * <div lang="en">
 	 * 
-	 * Get the agent who executed last night.
+	 * Get the agent executed.
 	 * 
 	 * </div>
 	 * 
 	 * @return
 	 * 
-	 * 		<div lang="ja">昨夜追放されたエージェント</div>
+	 * 		<div lang="ja">追放されたエージェント</div>
 	 * 
-	 *         <div lang="en">the agent who executed last night</div>
+	 *         <div lang="en">the agent executed</div>
 	 */
 	public Agent getExecutedAgent() {
 		return executedAgent;
+	}
+
+	/**
+	 * <div lang="ja">追放されたエージェントをセットする．</div>
+	 *
+	 * <div lang="en">Sets the agent executed.</div>
+	 * 
+	 * @param executedAgent
+	 *            <div lang="ja">エージェント</div>
+	 *
+	 *            <div lang="en">agent</div>
+	 */
+	public void setExecutedAgent(Agent executedAgent) {
+		this.executedAgent = executedAgent;
 	}
 
 	/**
