@@ -9,6 +9,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import org.aiwolf.common.AIWolfRuntimeException;
+import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Player;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Talk;
@@ -171,6 +172,10 @@ public class TcpipClient implements Runnable, GameClient{
 					gameInfo.whisperList.add(whisper.toTalk());
 				}
 			}
+		}
+
+		if (packet.getExecuted() != -1) {
+			gameInfo.setExecutedAgent(Agent.getAgent(packet.getExecuted()));
 		}
 
 		
