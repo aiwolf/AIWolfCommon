@@ -15,7 +15,6 @@ public class Packet {
 	GameSetting gameSetting;
 	List<TalkToSend> talkHistory;  
 	List<TalkToSend> whisperHistory;
-	int executed = -1;
 	
 	public Packet(){
 		
@@ -64,20 +63,6 @@ public class Packet {
 		this.whisperHistory = whisperHitoryList;
 	}
 	
-	/**
-	 * 
-	 * @param request
-	 * @param executed
-	 * @param talkHitoryList
-	 * @param whisperHitoryList
-	 */
-	public Packet(Request request, int executed, List<TalkToSend> talkHitoryList, List<TalkToSend> whisperHitoryList) {
-		this.executed = executed;
-		this.request = request;
-		this.talkHistory = talkHitoryList;
-		this.whisperHistory = whisperHitoryList;
-	}
-
 	/**
 	 * @return request
 	 */
@@ -136,12 +121,6 @@ public class Packet {
 		this.whisperHistory = whisperHistoryList;
 	}
 
-	/**
-	 * @return the executed
-	 */
-	public int getExecuted() {
-		return executed;
-	}
 	
 //	/**
 //	 * 

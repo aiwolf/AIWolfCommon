@@ -61,10 +61,6 @@ public class DataConverter {
     		List<TalkToSend> talkHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("talkHistory"));
     		List<TalkToSend> whisperHistoryList = toTalkList((List<LinkedHashMap<String, String>>)map.get("whisperHistory"));
 //    		List<TalkToSend> whisperHistoryList = JSON.decode(JSON.encode(map.get("whisperHistoryList")), ArrayList.class);
-			int executed = Integer.parseInt(map.get("executed").toString());
-			if (executed != -1) {
-				return new Packet(request, executed, talkHistoryList, whisperHistoryList);
-			}
     		return new Packet(request, talkHistoryList, whisperHistoryList);
     	}
     	else{
