@@ -43,14 +43,6 @@ public class GameInfo {
 	 * the agent werewolves attacked last night (only werewolf can see it)
 	 */
 	Agent attackedAgent;
-
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェント</div>
-	 * 
-	 * <div lang="en">the agent who died last night because of the attack by werewolf.</div>
-	 */
-	Agent attackedDead;
-
 	Agent guardedAgent;
 	List<Vote> voteList;
 	List<Vote> attackVoteList;
@@ -544,28 +536,4 @@ public class GameInfo {
 	public Map<Agent, Integer> getRemainWhisperMap() {
 		return remainWhisperMap;
 	}
-
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントを返す．</div>
-	 * 
-	 * <div lang="en">Returns the agent who died last night because of the attack by werewolf.</div>
-	 * 
-	 * @return the attackedDead
-	 */
-	public Agent getAttackedDead() {
-		return attackedDead;
-	}
-
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントをセットする．</div>
-	 * 
-	 * <div lang="en">Sets the agent who died last night because of the attack by werewolf.</div>
-	 * 
-	 * @param attackedDead
-	 *            the attackedDead to set
-	 */
-	public void setAttackedDead(Agent attackedDead) {
-		this.attackedDead = attackedDead;
-	}
-
 }
