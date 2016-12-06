@@ -27,7 +27,6 @@ public class GameInfoToSend{
 	JudgeToSend divineResult;
 	int executedAgent = -1;
 	int attackedAgent = -1;
-	int attackedDead = -1;
 	int guardedAgent = -1;
 	List<VoteToSend> voteList;
 	List<VoteToSend> attackVoteList;
@@ -329,29 +328,6 @@ public class GameInfoToSend{
 	}
 	
 
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントを返す．</div>
-	 * 
-	 * <div lang="en">Returns the agent who died last night because of the attack by werewolf.</div>
-	 * 
-	 * @return the attackedDead
-	 */
-	public int getAttackedDead() {
-		return attackedDead;
-	}
-
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントをセットする．</div>
-	 * 
-	 * <div lang="en">Sets the agent who died last night because of the attack by werewolf.</div>
-	 * 
-	 * @param attackedDead
-	 *            the attackedDead to set
-	 */
-	public void setAttackedDead(int attackedDead) {
-		this.attackedDead = attackedDead;
-	}
-	
 	public GameInfo toGameInfo() {
 		GameInfo gi = new GameInfo();
 		gi.day = this.getDay();
@@ -365,7 +341,6 @@ public class GameInfoToSend{
 		}
 		gi.executedAgent = Agent.getAgent(this.getExecutedAgent());
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
-		gi.attackedDead = Agent.getAgent(this.getAttackedDead());
 		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 
 		gi.voteList = new ArrayList<Vote>();
