@@ -28,7 +28,6 @@ public class GameInfoToSend{
 	int executedAgent = -1;
 	int attackedAgent = -1;
 	int attackedDead = -1;
-	int cursedFox = -1;
 	int guardedAgent = -1;
 	List<VoteToSend> voteList;
 	List<VoteToSend> attackVoteList;
@@ -352,30 +351,7 @@ public class GameInfoToSend{
 	public void setAttackedDead(int attackedDead) {
 		this.attackedDead = attackedDead;
 	}
-
-	/**
-	 * <div lang="ja">呪殺された妖狐を返す．</div>
-	 * 
-	 * <div lang="en">Returns the fox killed by curse.</div>
-	 * 
-	 * @return the attackedDead
-	 */
-	public int getCursedFox() {
-		return cursedFox;
-	}
-
-	/**
-	 * <div lang="ja">呪殺された妖狐をセットする．</div>
-	 * 
-	 * <div lang="en">Sets the fox killed by curse.</div>
-	 * 
-	 * @param attackedDead
-	 *            the attackedDead to set
-	 */
-	public void setCursedFox(int cursedFox) {
-		this.cursedFox = cursedFox;
-	}
-
+	
 	public GameInfo toGameInfo() {
 		GameInfo gi = new GameInfo();
 		gi.day = this.getDay();
@@ -390,7 +366,6 @@ public class GameInfoToSend{
 		gi.executedAgent = Agent.getAgent(this.getExecutedAgent());
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
 		gi.attackedDead = Agent.getAgent(this.getAttackedDead());
-		gi.cursedFox = Agent.getAgent(this.getCursedFox());
 		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 
 		gi.voteList = new ArrayList<Vote>();
