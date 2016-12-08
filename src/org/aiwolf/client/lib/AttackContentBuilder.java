@@ -1,5 +1,5 @@
 /**
- * AttackContetnBuilder.java
+ * AttackContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -20,7 +20,11 @@ public class AttackContentBuilder extends ContentBuilder {
 	public AttackContentBuilder(Agent target) {
 		topic = Topic.ATTACK;
 		this.target = target;
-		text = String.join(" ", new String[] { Topic.ATTACK.toString(), String.valueOf(target.toString()) });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.ATTACK.toString(), String.valueOf(target.toString()) });
 	}
 
 }

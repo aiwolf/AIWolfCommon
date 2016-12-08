@@ -1,5 +1,5 @@
 /**
- * GuardContetnBuilder.java
+ * GuardContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -20,7 +20,11 @@ public class GuardContentBuilder extends ContentBuilder {
 	public GuardContentBuilder(Agent target) {
 		topic = Topic.GUARDED;
 		this.target = target;
-		text = String.join(" ", new String[] { Topic.GUARDED.toString(), String.valueOf(target.toString()) });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.GUARDED.toString(), String.valueOf(target.toString()) });
 	}
 
 }
