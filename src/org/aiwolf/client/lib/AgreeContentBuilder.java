@@ -1,5 +1,5 @@
 /**
- * AgreeContetnBuilder.java
+ * AgreeContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -26,7 +26,11 @@ public class AgreeContentBuilder extends ContentBuilder {
 		this.talkType = talkType;
 		this.talkDay = talkDay;
 		this.talkID = talkID;
-		text = String.join(" ", new String[] { Topic.AGREE.toString(), talkType.toString(), "day" + String.valueOf(talkDay), "ID:" + String.valueOf(talkID) });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.AGREE.toString(), talkType.toString(), "day" + String.valueOf(talkDay), "ID:" + String.valueOf(talkID) });
 	}
 
 }

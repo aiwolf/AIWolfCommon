@@ -1,5 +1,5 @@
 /**
- * DivineContetnBuilder.java
+ * DivineContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -22,7 +22,11 @@ public class DivineContentBuilder extends ContentBuilder {
 		topic = Topic.DIVINED;
 		this.target = target;
 		state = State.parseState(result);
-		text = String.join(" ", new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), result.toString() });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), state.toSpecies().toString() });
 	}
 
 }

@@ -1,5 +1,5 @@
 /**
- * ComingoutContetnBuilder.java
+ * ComingoutContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -22,7 +22,11 @@ public class ComingoutContentBuilder extends ContentBuilder {
 		topic = Topic.COMINGOUT;
 		this.target = target;
 		state = State.parseState(role);
-		text = String.join(" ", new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), role.toString() });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), state.toRole().toString() });
 	}
 
 }

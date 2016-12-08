@@ -1,5 +1,5 @@
 /**
- * InquestContetnBuilder.java
+ * InquestContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -22,7 +22,11 @@ public class InquestContentBuilder extends ContentBuilder {
 		topic = Topic.INQUESTED;
 		this.target = target;
 		state = State.parseState(result);
-		text = String.join(" ", new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), result.toString() });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), state.toSpecies().toString() });
 	}
 
 }

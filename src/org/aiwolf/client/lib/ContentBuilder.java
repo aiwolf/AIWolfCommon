@@ -1,5 +1,5 @@
 /**
- * ContetnBuilder.java
+ * ContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -8,16 +8,15 @@ package org.aiwolf.client.lib;
 import org.aiwolf.common.data.Agent;
 
 /**
- * <div lang="ja">発話ビルダークラス</div>
+ * <div lang="ja">発話ビルダー抽象クラス</div>
  * 
- * <div lang="en">Builder class for utterance</div>
+ * <div lang="en">Abstract builder class for utterance</div>
  * 
  * @author otsuki
  *
  */
-public class ContentBuilder {
+public abstract class ContentBuilder {
 
-	protected String text = null;
 	protected Topic topic = null;
 	protected Agent target = null;
 	protected State state = null;
@@ -26,11 +25,9 @@ public class ContentBuilder {
 	protected int talkID = -1;
 
 	/**
-	 * @return the text
+	 * @return the text of content
 	 */
-	public String getText() {
-		return text;
-	}
+	public abstract String getText();
 
 	/**
 	 * @return the topic
@@ -72,10 +69,6 @@ public class ContentBuilder {
 	 */
 	public int getTalkID() {
 		return talkID;
-	}
-
-	public Content build() {
-		return new Content(this);
 	}
 
 }

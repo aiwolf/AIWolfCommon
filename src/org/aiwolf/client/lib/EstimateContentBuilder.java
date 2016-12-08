@@ -1,5 +1,5 @@
 /**
- * EstimateContetnBuilder.java
+ * EstimateContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -22,7 +22,11 @@ public class EstimateContentBuilder extends ContentBuilder {
 		topic = Topic.ESTIMATE;
 		this.target = target;
 		state = State.parseState(role);
-		text = String.join(" ", new String[] { Topic.ESTIMATE.toString(), String.valueOf(target.toString()), role.toString() });
+	}
+
+	@Override
+	public String getText() {
+		return String.join(" ", new String[] { Topic.ESTIMATE.toString(), String.valueOf(target.toString()), state.toRole().toString() });
 	}
 
 }
