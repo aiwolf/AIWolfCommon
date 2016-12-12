@@ -40,7 +40,7 @@ public class InquestContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), result.toString() });
+		return String.join(" ", new String[] { Topic.INQUESTED.toString(), target.toString(), result.toString() });
 	}
 
 }

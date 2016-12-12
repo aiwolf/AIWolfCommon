@@ -40,7 +40,7 @@ public class ComingoutContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), role.toString() });
+		return String.join(" ", new String[] { Topic.COMINGOUT.toString(), target.toString(), role.toString() });
 	}
 
 }

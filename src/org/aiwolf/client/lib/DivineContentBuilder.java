@@ -40,7 +40,7 @@ public class DivineContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), result.toString() });
+		return String.join(" ", new String[] { Topic.DIVINED.toString(), target.toString(), result.toString() });
 	}
 
 }

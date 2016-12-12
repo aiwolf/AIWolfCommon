@@ -35,7 +35,7 @@ public class AttackContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.ATTACK.toString(), String.valueOf(target.toString()) });
+		return String.join(" ", new String[] { Topic.ATTACK.toString(), target.toString() });
 	}
 
 }

@@ -35,7 +35,7 @@ public class GuardContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.GUARDED.toString(), String.valueOf(target.toString()) });
+		return String.join(" ", new String[] { Topic.GUARDED.toString(), target.toString() });
 	}
 
 }
