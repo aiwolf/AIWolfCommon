@@ -6,6 +6,8 @@
 package org.aiwolf.client.lib;
 
 import org.aiwolf.common.data.Agent;
+import org.aiwolf.common.data.Role;
+import org.aiwolf.common.data.Species;
 
 /**
  * <div lang="ja">発話内容ビルダー抽象クラス</div>
@@ -19,7 +21,8 @@ public abstract class ContentBuilder {
 
 	Topic topic = null;
 	Agent target = null;
-	State state = null;
+	Role role = null;
+	Species result = null;
 	TalkType talkType = null;
 	int talkDay = -1;
 	int talkID = -1;
@@ -44,10 +47,17 @@ public abstract class ContentBuilder {
 	}
 
 	/**
-	 * @return the state
+	 * @return the role
 	 */
-	State getState() {
-		return state;
+	Role getRole() {
+		return role;
+	}
+
+	/**
+	 * @return the result
+	 */
+	Species getResult() {
+		return result;
 	}
 
 	/**

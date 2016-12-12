@@ -35,12 +35,12 @@ public class EstimateContentBuilder extends ContentBuilder {
 	public EstimateContentBuilder(Agent target, Role role) {
 		topic = Topic.ESTIMATE;
 		this.target = target;
-		state = State.parseState(role);
+		role = role;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.ESTIMATE.toString(), String.valueOf(target.toString()), state.toRole().toString() });
+		return String.join(" ", new String[] { Topic.ESTIMATE.toString(), String.valueOf(target.toString()), role.toString() });
 	}
 
 }

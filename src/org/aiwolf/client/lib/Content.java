@@ -22,7 +22,8 @@ public class Content {
 	String text = null;
 	Topic topic = null;
 	Agent target = null;
-	State state = null;
+	Role role = null;
+	Species result = null;
 	TalkType talkType = null;
 	int talkDay = -1;
 	int talkID = -1;
@@ -76,11 +77,7 @@ public class Content {
 	 *         <div lang="en">Role representing the referred role, or null when the topic is not COMINGOUT or ESTIMATE.</div>
 	 */
 	public Role getRole() {
-		if (state != null) {
-			return state.toRole();
-		} else {
-			return null;
-		}
+		return role;
 	}
 
 	/**
@@ -93,11 +90,7 @@ public class Content {
 	 *         <div lang="en">Species representing the result or null when the topic is not DIVINED or INQUESTED.</div>
 	 */
 	public Species getResult() {
-		if (state != null) {
-			return state.toSpecies();
-		} else {
-			return null;
-		}
+		return result;
 	}
 
 	/**
@@ -153,7 +146,8 @@ public class Content {
 		text = builder.getText();
 		topic = builder.getTopic();
 		target = builder.getTarget();
-		state = builder.getState();
+		role = builder.getRole();
+		result = builder.getResult();
 		talkType = builder.getTalkType();
 		talkDay = builder.getTalkDay();
 		talkID = builder.getTalkID();
@@ -203,14 +197,24 @@ public class Content {
 		case COMINGOUT:
 			// Topic Target Role
 			target = Agent.getAgent(agentId);
-			state = State.parseState(split[2]);
+			try {
+				role = Role.valueOf(split[2]);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				role = null;
+			}
 			break;
 
 		case DIVINED:
 		case INQUESTED:
 			// Topic Target Result
 			target = Agent.getAgent(agentId);
-			state = State.parseState(split[2]);
+			try {
+				result = Species.valueOf(split[2]);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				result = null;
+			}
 			break;
 
 		case ATTACK:
@@ -274,6 +278,21 @@ public class Content {
 
 		case ESTIMATE:
 		case COMINGOUT:
+			if (split.length != 3) {
+				return false;
+			}
+
+			if (!split[1].startsWith("Agent") || getInt(split[1]) == -1) {
+				return false;
+			}
+
+			try {
+				Role.valueOf(split[2]);
+			} catch (IllegalArgumentException e) {
+				return false;
+			}
+			return true;
+
 		case DIVINED:
 		case INQUESTED:
 			if (split.length != 3) {
@@ -284,7 +303,9 @@ public class Content {
 				return false;
 			}
 
-			if (State.parseState(split[2]) == null) {
+			try {
+				Species.valueOf(split[2]);
+			} catch (IllegalArgumentException e) {
 				return false;
 			}
 			return true;

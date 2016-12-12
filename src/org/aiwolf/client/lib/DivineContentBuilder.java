@@ -35,12 +35,12 @@ public class DivineContentBuilder extends ContentBuilder {
 	public DivineContentBuilder(Agent target, Species result) {
 		topic = Topic.DIVINED;
 		this.target = target;
-		state = State.parseState(result);
+		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), state.toSpecies().toString() });
+		return String.join(" ", new String[] { Topic.DIVINED.toString(), String.valueOf(target.toString()), result.toString() });
 	}
 
 }

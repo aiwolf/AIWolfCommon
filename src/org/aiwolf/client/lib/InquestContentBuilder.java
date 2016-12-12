@@ -35,12 +35,12 @@ public class InquestContentBuilder extends ContentBuilder {
 	public InquestContentBuilder(Agent target, Species result) {
 		topic = Topic.INQUESTED;
 		this.target = target;
-		state = State.parseState(result);
+		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), state.toSpecies().toString() });
+		return String.join(" ", new String[] { Topic.INQUESTED.toString(), String.valueOf(target.toString()), result.toString() });
 	}
 
 }

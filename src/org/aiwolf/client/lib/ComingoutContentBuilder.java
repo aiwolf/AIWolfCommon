@@ -35,12 +35,12 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	public ComingoutContentBuilder(Agent target, Role role) {
 		topic = Topic.COMINGOUT;
 		this.target = target;
-		state = State.parseState(role);
+		this.role = role;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), state.toRole().toString() });
+		return String.join(" ", new String[] { Topic.COMINGOUT.toString(), String.valueOf(target.toString()), role.toString() });
 	}
 
 }

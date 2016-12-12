@@ -7,8 +7,10 @@ import org.aiwolf.common.net.*;
 
 /**
  * 役職，陣営等を表すenum．内部の処理で用いる
+ * 
  * @author kengo
  *
+ * @deprecated
  */
 enum State {
 	/**
