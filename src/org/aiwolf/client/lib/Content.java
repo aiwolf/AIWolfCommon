@@ -12,67 +12,68 @@ import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Species;
 
-/*
- * 発話をパースしたもの
+/**
+ * <div lang="ja">発話内容クラス。ContentBuilderで生成あるいは発話テキストをparseして生成</div>
+ *
+ * <div lang="en">Class for content of utterance. Constructed by ContentBuilder or parsing uttered text.</div>
  */
 public class Content {
-	// 原文
+
 	String text = null;
-
-	// 文章のトピック
 	Topic topic = null;
-
-	// 文章上の対象プレイヤー
 	Agent target = null;
-
-	// カミングアウト結果や占い結果等
 	State state = null;
-
-	// TopicがAGREE,DISAGREEの時の対象発話のログの種類（囁きかどうか）
-	@Deprecated
 	TalkType talkType = null;
-
-	// TopicがAGREE,DISAGREEの時の対象発話の日にち
 	int talkDay = -1;
-
-	// TopicがAGREE,DISAGREEの時の対象発話のID
 	int talkID = -1;
 
 	/**
-	 * 発話全体のStringを返す
+	 * <div lang="ja">発話テキストを返す</div>
+	 *
+	 * <div lang="en">Returns the uttered text.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">発話された文字列。定義上nullはありえない</div>
+	 *
+	 *         <div lang="en">String representing the uttered text. This can't be null because of its definition.</div>
 	 */
 	public String getText() {
 		return text;
 	}
 
 	/**
-	 * 発話のトピックを返す
+	 * <div lang="ja">発話内容のトピックを返す</div>
+	 *
+	 * <div lang="en">Returns the topic of the content.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">発話内容のトピックを表すTopic。定義上nullはありえない</div>
+	 *
+	 *         <div lang="en">Topic representing the topic of the content. This can't be null because of its definition.</div>
 	 */
 	public Topic getTopic() {
 		return topic;
 	}
 
 	/**
-	 * 発話の対象を返す．対象のない発話の場合はnull
+	 * <div lang="ja">発話内容中のターゲットエージェント。Topicが(DIS)AGREE以外で有効</div>
+	 *
+	 * <div lang="en">The target agent of the utterance. Valid except when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">ターゲットを表すAgent。Topicが(DIS)AGREEのときはnull</div>
+	 *
+	 *         <div lang="en">Agent representing the target or null when the topic is (DIS)AGREE.</div>
 	 */
 	public Agent getTarget() {
-		if (target != null) {
-			return target;
-		} else {
-			return null;
-		}
+		return target;
 	}
 
 	/**
-	 * TopicがESTIMATE,COMINGOUTの場合，そのRoleを返す．それ以外はnull
+	 * <div lang="ja">発話内容中で言及されている役職。TopicがCOMINGOUTとESTIMATEのとき有効</div>
+	 *
+	 * <div lang="en">The role referred in the content. Valid when the topic is COMINGOUT or ESTIMATE.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">言及されている役職を表すRole。TopicがCOMINGOUTとESTIMATE以外のときはnull</div>
+	 *
+	 *         <div lang="en">Role representing the referred role, or null when the topic is not COMINGOUT or ESTIMATE.</div>
 	 */
 	public Role getRole() {
 		if (state != null) {
@@ -83,9 +84,13 @@ public class Content {
 	}
 
 	/**
-	 * TopicがDIVINED,INQUESTEDの場合，そのRoleを返す．それ以外はnull
+	 * <div lang="ja">発話内容中で言及されている判定結果。TopicがDIVINEDとINQUESTEDのとき有効</div>
+	 *
+	 * <div lang="en">The result of the judgment referred in the content. Valid when the topic is DIVINED or INQUESTED.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">言及されている結果を表すSpecies。TopicがDIVINEDとINQUESTED以外のときはnull</div>
+	 *
+	 *         <div lang="en">Species representing the result or null when the topic is not DIVINED or INQUESTED.</div>
 	 */
 	public Species getResult() {
 		if (state != null) {
@@ -95,28 +100,55 @@ public class Content {
 		}
 	}
 
+	/**
+	 * <div lang="ja">発話内容中で言及されている発言のタイプ。Topicが(DIS)AGREEのとき有効</div>
+	 *
+	 * <div lang="en">The type of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
+	 * 
+	 * @return <div lang="ja">言及されている発言のタイプを表すTalkType。Topicが(DIS)AGREE以外のときはnull</div>
+	 *
+	 *         <div lang="en">TalkType representing the type of utterance or null when the topic is not (DIS)AGREE.</div>
+	 */
 	public TalkType getTalkType() {
 		return talkType;
 	}
 
 	/**
-	 * TopicがAGREE,DISAGREEの時，対象発話の発話日を返す．それ以外は-1
+	 * <div lang="ja">発話内容中で言及されている発言の日。Topicが(DIS)AGREEのとき有効</div>
+	 *
+	 * <div lang="en">The day of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">言及されている発言の日を表す整数。Topicが(DIS)AGREE以外のときは-1</div>
+	 *
+	 *         <div lang="en">int representing the day of utterance or -1 when the topic is not (DIS)AGREE.</div>
 	 */
 	public int getTalkDay() {
 		return talkDay;
 	}
 
 	/**
-	 * TopicがAGREE,DISAGREEの時，対象発話の発話IDを返す．それ以外は-1 発話日と発話IDでTalkとの一意性が取れる
+	 * <div lang="ja">発話内容中で言及されている発言のID。Topicが(DIS)AGREEのとき有効</div>
+	 *
+	 * <div lang="en">The ID of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return
+	 * @return <div lang="ja">言及されている発言のIDを表す整数。Topicが(DIS)AGREE以外のときは-1</div>
+	 *
+	 *         <div lang="en">int representing the ID of utterance or -1 when the topic is not (DIS)AGREE.</div>
 	 */
 	public int getTalkID() {
 		return talkID;
 	}
 
+	/**
+	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
+	 *
+	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
+	 * 
+	 * @param builder
+	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
+	 *
+	 *            <div lang="en">The ContentBuilder for the content of utterance.</div>
+	 */
 	public Content(ContentBuilder builder) {
 		text = builder.getText();
 		topic = builder.getTopic();
@@ -128,80 +160,78 @@ public class Content {
 	}
 
 	/**
-	 * Initializes a new instance.
+	 * <div lang="ja">発話テキストによりContentを構築する</div>
 	 *
-	 * @param input
+	 * <div lang="en">Constructs a Content from the uttered text.</div>
+	 * 
+	 * @param builder
+	 *            <div lang="ja">発話テキストの文字列</div>
+	 *
+	 *            <div lang="en">String representing the uttered text.</div>
 	 */
 	public Content(String input) {
 		text = input;
 
-		// 原文を単語に分割
-		String[] split = input.split("\\s+");// 一つ以上の空白で区切る
+		String[] split = input.split("\\s+");
 
-		// Topicの取得．Topicに存在しない者ならばnullが入る
-		topic = Topic.getTopic(split[0]);
+		topic = Topic.getTopic(split[0]); // Topicに存在しない場合null
 
 		int agentId = -1;
-
 		if (split.length >= 2 && split[1].startsWith("Agent")) {
-			// int startNum = split[1].indexOf("[") + 1;
-			// int endNum = split[1].indexOf("]");
-			// agentId = Integer.parseInt(split[1].substring(startNum, endNum));
 			agentId = getInt(split[1]);
 		}
 
 		switch (topic) {
-		// 話すこと無し
 		case SKIP:
 		case OVER:
 			break;
 
-		// 同意系
 		case AGREE:
 		case DISAGREE:
-			// Talk day4 ID38 みたいな形でくるので数字だけ取得
+			// ex. TALK day4 ID:38
 			talkType = TalkType.parseTalkType(split[1]);
-			// talkDay = Integer.parseInt(split[2].substring(3));
-			// talkID = Integer.parseInt(split[3].substring(3));
 			talkDay = getInt(split[2]);
 			talkID = getInt(split[3]);
 			break;
 
-		// "Topic Agent Role"
 		case ESTIMATE:
 		case COMINGOUT:
+			// Topic Target Role
 			target = Agent.getAgent(agentId);
 			state = State.parseState(split[2]);
 			break;
 
-		// RESULT系
 		case DIVINED:
 		case INQUESTED:
-			state = State.parseState(split[2]);
-		case GUARDED:
+			// Topic Target Result
 			target = Agent.getAgent(agentId);
+			state = State.parseState(split[2]);
 			break;
 
-		// 投票系
 		case ATTACK:
+		case GUARDED:
 		case VOTE:
 			target = Agent.getAgent(agentId);
 			break;
 
 		default:
-			return;
+			break;
 		}
-
-		return;
 	}
 
 	/**
-	 * <div lang="ja">発話テキストが有効かどうかを返します．</div>
+	 * <div lang="ja">発話テキストが有効かどうかを返す．</div>
 	 * 
 	 * <div lang="en">Returns whether or not the uttered text is valid.</div>
 	 * 
 	 * @param text
-	 * @return
+	 *            <div lang="ja">被チェックテキスト</div>
+	 *
+	 *            <div lang="en">The text to be checked that it is valid.</div>
+	 * 
+	 * @return <div lang="ja">有効である場合{@code true}，そうでなければ{@code false}</div>
+	 *
+	 *         <div lang="en">{@code true} if the text is valid, otherwise {@code false}.</div>
 	 */
 	public static boolean validate(String text) {
 		String[] split = text.split("\\s+");
@@ -271,11 +301,12 @@ public class Content {
 
 	private static final Pattern intPattern = Pattern.compile("-?[\\d]+");
 
-	protected static int getInt(String text) {
+	private static int getInt(String text) {
 		Matcher m = intPattern.matcher(text);
 		if (m.find()) {
 			return Integer.parseInt(m.group());
 		}
 		return -1;
 	}
+
 }
