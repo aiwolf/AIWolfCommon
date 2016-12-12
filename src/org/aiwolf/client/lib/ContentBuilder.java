@@ -6,68 +6,78 @@
 package org.aiwolf.client.lib;
 
 import org.aiwolf.common.data.Agent;
+import org.aiwolf.common.data.Role;
+import org.aiwolf.common.data.Species;
 
 /**
- * <div lang="ja">発話ビルダー抽象クラス</div>
+ * <div lang="ja">発話内容ビルダー抽象クラス</div>
  * 
- * <div lang="en">Abstract builder class for utterance</div>
+ * <div lang="en">Abstract builder class for content of utterance.</div>
  * 
  * @author otsuki
  *
  */
 public abstract class ContentBuilder {
 
-	protected Topic topic = null;
-	protected Agent target = null;
-	protected State state = null;
-	protected TalkType talkType = null;
-	protected int talkDay = -1;
-	protected int talkID = -1;
+	Topic topic = null;
+	Agent target = null;
+	Role role = null;
+	Species result = null;
+	TalkType talkType = null;
+	int talkDay = -1;
+	int talkID = -1;
 
 	/**
 	 * @return the text of content
 	 */
-	public abstract String getText();
+	abstract String getText();
 
 	/**
 	 * @return the topic
 	 */
-	public Topic getTopic() {
+	Topic getTopic() {
 		return topic;
 	}
 
 	/**
 	 * @return the target
 	 */
-	public Agent getTarget() {
+	Agent getTarget() {
 		return target;
 	}
 
 	/**
-	 * @return the state
+	 * @return the role
 	 */
-	public State getState() {
-		return state;
+	Role getRole() {
+		return role;
+	}
+
+	/**
+	 * @return the result
+	 */
+	Species getResult() {
+		return result;
 	}
 
 	/**
 	 * @return the talkType
 	 */
-	public TalkType getTalkType() {
+	TalkType getTalkType() {
 		return talkType;
 	}
 
 	/**
 	 * @return the talkDay
 	 */
-	public int getTalkDay() {
+	int getTalkDay() {
 		return talkDay;
 	}
 
 	/**
 	 * @return the talkID
 	 */
-	public int getTalkID() {
+	int getTalkID() {
 		return talkID;
 	}
 
