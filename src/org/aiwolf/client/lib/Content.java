@@ -189,7 +189,12 @@ public class Content {
 		case AGREE:
 		case DISAGREE:
 			// ex. TALK day4 ID:38
-			talkType = TalkType.parseTalkType(split[1]);
+			try {
+				talkType = TalkType.valueOf(split[1]);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				talkType = null;
+			}
 			talkDay = getInt(split[2]);
 			talkID = getInt(split[3]);
 			break;
@@ -257,7 +262,9 @@ public class Content {
 			if (split.length != 4) {
 				return false;
 			}
-			if (TalkType.parseTalkType(split[1]) == null) {
+			try {
+				TalkType.valueOf(split[1]);
+			} catch (IllegalArgumentException e) {
 				return false;
 			}
 			if (getInt(split[2]) == -1 || getInt(split[3]) == -1) {
