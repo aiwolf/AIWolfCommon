@@ -29,6 +29,7 @@ public class GameInfoToSend{
 	int attackedAgent = -1;
 	int guardedAgent = -1;
 	List<VoteToSend> voteList;
+	List<VoteToSend> latestVoteList;
 	List<VoteToSend> attackVoteList;
 	
 	List<TalkToSend> talkList;
@@ -44,17 +45,17 @@ public class GameInfoToSend{
 	List<String> existingRoleList;
 	
 	public GameInfoToSend() {
-		voteList = new ArrayList<VoteToSend>();
-		attackVoteList = new ArrayList<VoteToSend>();
-		statusMap = new LinkedHashMap<Integer, String>();
-		roleMap = new LinkedHashMap<Integer, String>();
+		voteList = new ArrayList<>();
+		latestVoteList = new ArrayList<>();
+		attackVoteList = new ArrayList<>();
+		statusMap = new LinkedHashMap<>();
+		roleMap = new LinkedHashMap<>();
 		remainTalkMap = new LinkedHashMap<>();
 		remainWhisperMap = new LinkedHashMap<>();
-		talkList = new ArrayList<TalkToSend>();
-		whisperList = new ArrayList<TalkToSend>();
+		talkList = new ArrayList<>();
+		whisperList = new ArrayList<>();
 		lastDeadAgentList = new ArrayList<>();
 		existingRoleList = new ArrayList<>();
-		
 	}
 
 	/**
@@ -343,20 +344,24 @@ public class GameInfoToSend{
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
 		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 
-		gi.voteList = new ArrayList<Vote>();
+		gi.voteList = new ArrayList<>();
 		for(VoteToSend vote:this.getVoteList()){
 			gi.voteList.add(vote.toVote());
 		}
-		gi.attackVoteList = new ArrayList<Vote>();
+		gi.latestVoteList = new ArrayList<>();
+		for (VoteToSend vote : this.getLatestVoteList()) {
+			gi.latestVoteList.add(vote.toVote());
+		}
+		gi.attackVoteList = new ArrayList<>();
 		for(VoteToSend vote:this.getAttackVoteList()){
 			gi.attackVoteList.add(vote.toVote());
 		}
 		
-		gi.talkList = new ArrayList<Talk>();
+		gi.talkList = new ArrayList<>();
 		for(TalkToSend talk:this.getTalkList()){
 			gi.talkList.add(talk.toTalk());
 		}
-		gi.whisperList = new ArrayList<Talk>();
+		gi.whisperList = new ArrayList<>();
 		for(TalkToSend whisper:this.getWhisperList()){
 			gi.whisperList.add(whisper.toTalk());
 		}
@@ -366,19 +371,19 @@ public class GameInfoToSend{
 			gi.lastDeadAgentList.add(Agent.getAgent(agent));
 		}
 
-		gi.statusMap = new HashMap<Agent, Status>();
+		gi.statusMap = new HashMap<>();
 		for(int agent:this.getStatusMap().keySet()){
 			gi.statusMap.put(Agent.getAgent(agent), Status.valueOf(getStatusMap().get(agent)));
 		}
-		gi.roleMap = new HashMap<Agent, Role>();
+		gi.roleMap = new HashMap<>();
 		for(int agent:this.getRoleMap().keySet()){
 			gi.roleMap.put(Agent.getAgent(agent), Role.valueOf(getRoleMap().get(agent)));
 		}
-		gi.remainTalkMap = new HashMap<Agent, Integer>();
+		gi.remainTalkMap = new HashMap<>();
 		for(int agent:this.getRemainTalkMap().keySet()){
 			gi.remainTalkMap.put(Agent.getAgent(agent), getRemainTalkMap().get(agent));
 		}
-		gi.remainWhisperMap = new HashMap<Agent, Integer>();
+		gi.remainWhisperMap = new HashMap<>();
 		for(int agent:this.getRemainWhisperMap().keySet()){
 			gi.remainWhisperMap.put(Agent.getAgent(agent), getRemainWhisperMap().get(agent));
 		}
@@ -391,5 +396,31 @@ public class GameInfoToSend{
 		return gi;
 	}
 
+	/**
+	 * <div lang="ja">直近の投票リストを返す</div>
+	 *
+	 * <div lang="en">Returns the latest list of votes.</div>
+	 * 
+	 * @return <div lang="ja">投票リストを表す{@code List<VoteToSend>}</div>
+	 *
+	 *         <div lang="en">{@code List<VoteToSend>} representing the list of votes.</div>
+	 */
+	public List<VoteToSend> getLatestVoteList() {
+		return latestVoteList;
+	}
+
+	/**
+	 * <div lang="ja">直近の投票リストをセットする</div>
+	 *
+	 * <div lang="en">Sets the latest list of votes.</div>
+	 * 
+	 * @param latestVoteList
+	 *            <div lang="ja">投票リストを表す{@code List<VoteToSend>}</div>
+	 *
+	 *            <div lang="en">{@code List<VoteToSend>} representing the list of votes.</div>
+	 */
+	public void setLatestVoteList(List<VoteToSend> latestVoteList) {
+		this.latestVoteList = latestVoteList;
+	}
 	
 }

@@ -45,6 +45,7 @@ public class GameInfo {
 	Agent attackedAgent;
 	Agent guardedAgent;
 	List<Vote> voteList;
+	List<Vote> latestVoteList;
 	List<Vote> attackVoteList;
 
 	List<Talk> talkList;
@@ -79,6 +80,7 @@ public class GameInfo {
 	 */
 	public GameInfo() {
 		voteList = new ArrayList<>();
+		latestVoteList = new ArrayList<>();
 		attackVoteList = new ArrayList<>();
 		talkList = new ArrayList<>();
 		whisperList = new ArrayList<>();
@@ -535,5 +537,33 @@ public class GameInfo {
 	 */
 	public Map<Agent, Integer> getRemainWhisperMap() {
 		return remainWhisperMap;
+	}
+
+	/**
+	 * <div lang="ja">直近の投票リストを返す</div>
+	 *
+	 * <div lang="en">Returns the latest list of votes.</div>
+	 * 
+	 * @return <div lang="ja">投票リストを表す{@code List<Vote>}</div>
+	 *
+	 *         <div lang="en">{@code List<Vote>} representing the list of votes.</div>
+	 */
+	public List<Vote> getLatestVoteList() {
+		return latestVoteList;
+	}
+
+	/**
+	 * <div lang="ja">直近の投票リストをセットする</div>
+	 *
+	 * <div lang="en">Sets the latest list of votes.</div>
+	 * 
+	 * @param latestVoteList
+	 *            <div lang="ja">投票リストを表す{@code List<Vote>}</div>
+	 *
+	 *            <div lang="en">{@code List<Vote>} representing the list of votes.</div>
+	 * 
+	 */
+	public void setLatestVoteList(List<Vote> latestVoteList) {
+		this.latestVoteList = latestVoteList;
 	}
 }
