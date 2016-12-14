@@ -32,6 +32,7 @@ public class GameInfoToSend{
 	List<VoteToSend> voteList;
 	List<VoteToSend> latestVoteList;
 	List<VoteToSend> attackVoteList;
+	List<VoteToSend> latestAttackVoteList;
 	
 	List<TalkToSend> talkList;
 	List<TalkToSend> whisperList;
@@ -49,6 +50,7 @@ public class GameInfoToSend{
 		voteList = new ArrayList<>();
 		latestVoteList = new ArrayList<>();
 		attackVoteList = new ArrayList<>();
+		latestAttackVoteList = new ArrayList<>();
 		statusMap = new LinkedHashMap<>();
 		roleMap = new LinkedHashMap<>();
 		remainTalkMap = new LinkedHashMap<>();
@@ -358,6 +360,10 @@ public class GameInfoToSend{
 		for(VoteToSend vote:this.getAttackVoteList()){
 			gi.attackVoteList.add(vote.toVote());
 		}
+		gi.latestAttackVoteList = new ArrayList<>();
+		for (VoteToSend vote : this.getLatestAttackVoteList()) {
+			gi.latestAttackVoteList.add(vote.toVote());
+		}
 		
 		gi.talkList = new ArrayList<>();
 		for(TalkToSend talk:this.getTalkList()){
@@ -423,6 +429,33 @@ public class GameInfoToSend{
 	 */
 	public void setLatestVoteList(List<VoteToSend> latestVoteList) {
 		this.latestVoteList = latestVoteList;
+	}
+
+	/**
+	 * <div lang="ja">直近の襲撃投票リストを返す</div>
+	 *
+	 * <div lang="en">Returns the latest list of votes for attack.</div>
+	 * 
+	 * @return <div lang="ja">投票リストを表す{@code List<VoteToSend>}</div>
+	 *
+	 *         <div lang="en">{@code List<VoteToSend>} representing the list of votes.</div>
+	 */
+	public List<VoteToSend> getLatestAttackVoteList() {
+		return latestAttackVoteList;
+	}
+
+	/**
+	 * <div lang="ja">直近の襲撃投票リストをセットする</div>
+	 *
+	 * <div lang="en">Sets the latest list of votes for attack.</div>
+	 * 
+	 * @param latestAttackVoteList
+	 *            <div lang="ja">投票リストを表す{@code List<VoteToSend>}</div>
+	 *
+	 *            <div lang="en">{@code List<VoteToSend>} representing the list of votes.</div>
+	 */
+	public void setLatestAttackVoteList(List<VoteToSend> latestAttackVoteList) {
+		this.latestAttackVoteList = latestAttackVoteList;
 	}
 
 	/**
