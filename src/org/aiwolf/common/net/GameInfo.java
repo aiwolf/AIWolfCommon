@@ -48,6 +48,7 @@ public class GameInfo {
 	List<Vote> voteList;
 	List<Vote> latestVoteList;
 	List<Vote> attackVoteList;
+	List<Vote> latestAttackVoteList;
 
 	List<Talk> talkList;
 	List<Talk> whisperList;
@@ -83,6 +84,7 @@ public class GameInfo {
 		voteList = new ArrayList<>();
 		latestVoteList = new ArrayList<>();
 		attackVoteList = new ArrayList<>();
+		latestAttackVoteList = new ArrayList<>();
 		talkList = new ArrayList<>();
 		whisperList = new ArrayList<>();
 		statusMap = new HashMap<>();
@@ -551,6 +553,19 @@ public class GameInfo {
 	 */
 	public List<Vote> getLatestVoteList() {
 		return latestVoteList;
+	}
+
+	/**
+	 * <div lang="ja">直近の襲撃投票リストを返す</div>
+	 *
+	 * <div lang="en">Returns the latest list of votes for attack.</div>
+	 * 
+	 * @return <div lang="ja">投票リストを表す{@code List<Vote>}</div>
+	 *
+	 *         <div lang="en">{@code List<Vote>} representing the list of votes.</div>
+	 */
+	public List<Vote> getLatestAttackVoteList() {
+		return latestAttackVoteList;
 	}
 
 	/**
