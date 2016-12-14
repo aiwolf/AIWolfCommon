@@ -38,6 +38,7 @@ public class GameInfo {
 	Judge mediumResult;
 	Judge divineResult;
 	Agent executedAgent;
+	Agent latestExecutedAgent;
 
 	/**
 	 * the agent werewolves attacked last night (only werewolf can see it)
@@ -553,17 +554,16 @@ public class GameInfo {
 	}
 
 	/**
-	 * <div lang="ja">直近の投票リストをセットする</div>
+	 * <div lang="ja">直近の被追放エージェントを返す</div>
 	 *
-	 * <div lang="en">Sets the latest list of votes.</div>
+	 * <div lang="en">Returns the latest executed agent.</div>
 	 * 
-	 * @param latestVoteList
-	 *            <div lang="ja">投票リストを表す{@code List<Vote>}</div>
+	 * @return <div lang="ja">被追放エージェントを表す{@code Agent}</div>
 	 *
-	 *            <div lang="en">{@code List<Vote>} representing the list of votes.</div>
-	 * 
+	 *         <div lang="en">{@code Agent} representing the latest executed agent.</div>
 	 */
-	public void setLatestVoteList(List<Vote> latestVoteList) {
-		this.latestVoteList = latestVoteList;
+	public Agent getLatestExecutedAgent() {
+		return latestExecutedAgent;
 	}
+
 }

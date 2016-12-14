@@ -26,6 +26,7 @@ public class GameInfoToSend{
 	JudgeToSend mediumResult;
 	JudgeToSend divineResult;
 	int executedAgent = -1;
+	int latestExecutedAgent = -1;
 	int attackedAgent = -1;
 	int guardedAgent = -1;
 	List<VoteToSend> voteList;
@@ -341,6 +342,7 @@ public class GameInfoToSend{
 			gi.divineResult = this.getDivineResult().toJudge();
 		}
 		gi.executedAgent = Agent.getAgent(this.getExecutedAgent());
+		gi.latestExecutedAgent = Agent.getAgent(this.getLatestExecutedAgent());
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
 		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 
@@ -422,5 +424,32 @@ public class GameInfoToSend{
 	public void setLatestVoteList(List<VoteToSend> latestVoteList) {
 		this.latestVoteList = latestVoteList;
 	}
-	
+
+	/**
+	 * <div lang="ja">直近の被追放エージェントのインデックスを返す</div>
+	 *
+	 * <div lang="en">Returns the index of latest executed agent.</div>
+	 * 
+	 * @return <div lang="ja">被追放エージェントのインデックスを表す{@code int}</div>
+	 *
+	 *         <div lang="en">{@code int} representing the index of latest executed agent.</div>
+	 */
+	public int getLatestExecutedAgent() {
+		return latestExecutedAgent;
+	}
+
+	/**
+	 * <div lang="ja">直近の被追放エージェントのインデックスをセットする</div>
+	 *
+	 * <div lang="en">Sets the index of latest executed agent.</div>
+	 * 
+	 * @param latestExecutedAgent
+	 *            <div lang="ja">被追放エージェントのインデックスを表す{@code int}</div>
+	 *
+	 *            <div lang="en">{@code int} representing the index of latest executed agent.</div>
+	 */
+	public void setLatestExecutedAgent(int latestExecutedAgent) {
+		this.latestExecutedAgent = latestExecutedAgent;
+	}
+
 }
