@@ -155,7 +155,7 @@ public class GameSetting implements Cloneable {
 	 * 
 	 * @throws IOException
 	 */
-	static public GameSetting getCustomGame(String fileName) throws IOException {
+	static public GameSetting getCustomGame(String fileName, int agentNum) throws IOException {
 		GameSetting setting = new GameSetting();
 
 		Path src = new File(fileName).toPath();
@@ -216,6 +216,12 @@ public class GameSetting implements Cloneable {
 				}
 			}
 		}
+
+		Role[] roles = Role.values();
+		for (int i = 0; i < roles.length; i++) {
+			setting.roleNumMap.put(roles[i], roleNumArray[agentNum][i]);
+		}
+
 		return setting;
 	}
 
