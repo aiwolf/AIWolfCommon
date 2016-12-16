@@ -28,6 +28,7 @@ public class GameInfoToSend{
 	int executedAgent = -1;
 	int latestExecutedAgent = -1;
 	int attackedAgent = -1;
+	int cursedFox = -1;
 	int guardedAgent = -1;
 	List<VoteToSend> voteList;
 	List<VoteToSend> latestVoteList;
@@ -346,6 +347,7 @@ public class GameInfoToSend{
 		gi.executedAgent = Agent.getAgent(this.getExecutedAgent());
 		gi.latestExecutedAgent = Agent.getAgent(this.getLatestExecutedAgent());
 		gi.attackedAgent = Agent.getAgent(this.getAttackedAgent());
+		gi.cursedFox = Agent.getAgent(this.cursedFox);
 		gi.guardedAgent = Agent.getAgent(this.getGuardedAgent());
 
 		gi.voteList = new ArrayList<>();
@@ -483,6 +485,33 @@ public class GameInfoToSend{
 	 */
 	public void setLatestExecutedAgent(int latestExecutedAgent) {
 		this.latestExecutedAgent = latestExecutedAgent;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐のインデックスを返す</div>
+	 * 
+	 * <div lang="en">Returns the agent index of fox killed by curse.</div>
+	 * 
+	 * @return <div lang="ja">呪殺された妖狐のインデックスを表す{@code int}</div>
+	 * 
+	 *         <div lang="en">{@code int} representing the agent index of fox killed by curse.</div>
+	 */
+	public int getCursedFox() {
+		return cursedFox;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐のインデックスをセットする</div>
+	 * 
+	 * <div lang="en">Sets the agent index of fox killed by curse.</div>
+	 * 
+	 * @param cursedFox
+	 *            <div lang="ja">呪殺された妖狐のインデックスを表す{@code int}</div>
+	 * 
+	 *            <div lang="en">{@code int} representing the agent index of fox killed by curse.</div>
+	 */
+	public void setCursedFox(int cursedFox) {
+		this.cursedFox = cursedFox;
 	}
 
 }
