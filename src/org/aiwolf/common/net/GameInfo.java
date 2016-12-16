@@ -44,6 +44,7 @@ public class GameInfo {
 	 * the agent werewolves attacked last night (only werewolf can see it)
 	 */
 	Agent attackedAgent;
+	Agent cursedFox; // 呪殺された妖狐
 	Agent guardedAgent;
 	List<Vote> voteList;
 	List<Vote> latestVoteList;
@@ -579,6 +580,33 @@ public class GameInfo {
 	 */
 	public Agent getLatestExecutedAgent() {
 		return latestExecutedAgent;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐を返す</div>
+	 * 
+	 * <div lang="en">Returns the fox killed by curse.</div>
+	 * 
+	 * @return <div lang="ja">呪殺された妖狐を表す{@code Agent}</div>
+	 * 
+	 *         <div lang="en">{@code Agent} representing the fox killed by curse.</div>
+	 */
+	public Agent getCursedFox() {
+		return cursedFox;
+	}
+
+	/**
+	 * <div lang="ja">呪殺された妖狐をセットする</div>
+	 * 
+	 * <div lang="en">Sets the fox killed by curse.</div>
+	 * 
+	 * @param cursedFox
+	 *            <div lang="ja">呪殺された妖狐を表す{@code Agent}</div>
+	 * 
+	 *            <div lang="en">{@code Agent} representing the fox killed by curse.</div>
+	 */
+	public void setCursedFox(Agent cursedFox) {
+		this.cursedFox = cursedFox;
 	}
 
 }
