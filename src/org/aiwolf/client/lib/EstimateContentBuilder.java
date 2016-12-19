@@ -35,7 +35,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 	public EstimateContentBuilder(Agent target, Role role) {
 		topic = Topic.ESTIMATE;
 		this.target = target;
-		role = role;
+		this.role = role;
 	}
 
 	@Override
