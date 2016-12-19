@@ -130,7 +130,7 @@ public class GameSetting implements Cloneable {
 		setting.isWhisperBeforeRevote = false;
 		setting.timeLimit = -1; // -1: is not set yet
 		setting.maxRevote = 1;
-		setting.maxAttackRevote = 0;
+		setting.maxAttackRevote = 1;
 
 		Role[] roles = Role.values();
 		for (int i = 0; i < roles.length; i++) {
