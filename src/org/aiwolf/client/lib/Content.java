@@ -19,6 +19,9 @@ import org.aiwolf.common.data.Species;
  */
 public class Content {
 
+	public static final Content SKIP = new Content(new SkipContentBuilder());
+	public static final Content OVER = new Content(new OverContentBuilder());
+
 	String text = null;
 	Topic topic = null;
 	Agent target = null;
