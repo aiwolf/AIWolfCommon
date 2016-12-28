@@ -24,7 +24,7 @@ import org.aiwolf.common.data.Role;
  *
  */
 public class GameSetting implements Cloneable {
-	
+
 	/**
 	 * <div lang="ja">
 	 *
@@ -112,7 +112,7 @@ public class GameSetting implements Cloneable {
 			throw new IllegalArgumentException("agentNum must be bigger than 3 but " + agentNum);
 		}
 		if (agentNum > roleNumArray.length) {
-			throw new IllegalArgumentException("agentNum must be smaller than "+roleNumArray.length+" but " + agentNum);
+			throw new IllegalArgumentException("agentNum must be smaller than " + roleNumArray.length + " but " + agentNum);
 		}
 
 		GameSetting setting = new GameSetting();
@@ -290,7 +290,7 @@ public class GameSetting implements Cloneable {
 	 */
 
 	int maxSkip;
-	
+
 	/**
 	 * <div lang="ja">誰も襲撃しないのを許すかどうか</div>
 	 *
@@ -315,8 +315,7 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム</div>
 	 * 
-	 * <div lang="en">Whether or not executing nobody is allowed when the vote
-	 * ends in a tie.</div>
+	 * <div lang="en">Whether or not executing nobody is allowed when the vote ends in a tie.</div>
 	 */
 	private boolean isEnableNoExecution;
 
@@ -429,6 +428,19 @@ public class GameSetting implements Cloneable {
 		return maxTalk;
 	}
 
+	/**
+	 * <div lang="ja"> 1日あたりの発言の最大数を設定します。 </div>
+	 *
+	 * <div lang="en"> Set max number of talks. </div>
+	 *
+	 * @param maxTalk
+	 *            <div lang="ja">1日あたりの発言の最大数</div>
+	 * 
+	 *            <div lang="en">Max number of talks</div>
+	 */
+	public void setMaxTalk(int maxTalk) {
+		this.maxTalk = maxTalk;
+	}
 
 	/**
 	 * <div lang="ja">1日あたりの発言ターンの最大数を返します。</div>
@@ -442,14 +454,27 @@ public class GameSetting implements Cloneable {
 	public int getMaxTalkTurn() {
 		return this.maxTalkTurn;
 	}
-	
 
 	/**
-	 * <div lang="ja">1日あたりの発言の最大数を返します。</div>
+	 * <div lang="ja">1日あたりの発言ターンの最大数をセットする</div>
+	 *
+	 * <div lang="en">Sets the maximum number of turns of talk.</div>
+	 *
+	 * @param maxTalkTurn
+	 *            <div lang="ja">1日あたりの発言ターン最大数を表す{@code int}</div>
+	 *
+	 *            <div lang="en">{@code int} representing the maximum number of turns of talk</div>
+	 */
+	public void setMaxTalkTurn(int maxTalkTurn) {
+		this.maxTalkTurn = maxTalkTurn;
+	}
+
+	/**
+	 * <div lang="ja">1日あたりの囁きの最大数を返します。</div>
 	 *
 	 * <div lang="en">Get the max number of Whispers.</div>
 	 *
-	 * @return <div lang="ja">1日あたりの発言の最大数</div>
+	 * @return <div lang="ja">1日あたりの囁きの最大数</div>
 	 *
 	 *         <div lang="en">Max number of Whisper</div>
 	 */
@@ -457,25 +482,52 @@ public class GameSetting implements Cloneable {
 		return maxWhisper;
 	}
 
+	/**
+	 * <div lang="ja"> 1日あたりの囁きの最大数を設定します。 </div>
+	 *
+	 * <div lang="en"> Sets the maximum number of whispers a day. </div>
+	 *
+	 * @param maxWhisper
+	 *            <div lang="ja">1日あたりの囁きの最大数を表す{@code int}</div>
+	 *
+	 *            <div lang="en">{@code int} representing the maximum number of whispers a day.</div>
+	 */
+	public void setMaxWhisper(int maxWhisper) {
+		this.maxWhisper = maxWhisper;
+	}
 
 	/**
-	 * <div lang="ja">1日あたりの発言ターンの最大数を返します。</div>
+	 * <div lang="ja">1日あたりの囁きターンの最大数を返します。</div>
 	 *
 	 * <div lang="en">Get the max turn of Whispers.</div>
 	 *
-	 * @return <div lang="ja">1日あたりの発言ターン最大数</div>
+	 * @return <div lang="ja">1日あたりの囁きターン最大数</div>
 	 *
 	 *         <div lang="en">Max turn of Whisper</div>
 	 */
 	public int getMaxWhisperTurn() {
 		return this.maxWhisperTurn;
 	}
-	
-	
+
+	/**
+	 * <div lang="ja">1日あたりの囁きターンの最大数をセットする</div>
+	 *
+	 * <div lang="en">Sets the maximum number of turns of whisper.</div>
+	 *
+	 * @param maxWhisperTurn
+	 *            <div lang="ja">1日あたりの囁きターン最大数を表す{@code int}</div>
+	 *
+	 *            <div lang="en">{@code int} representing the maximum number of turns of whisper.</div>
+	 */
+	public void setMaxWhisperTurn(int maxWhisperTurn) {
+		this.maxWhisperTurn = maxWhisperTurn;
+	}
+
 	/**
 	 * <div lang="ja">Skipの最大値．これ以上のSKIPを連続するとOVERに変換される</div>
 	 *
-	 * <div lang="en">Max value of Skip. If the agent continues SKIP more than this value, it will be changed to OVER</div>
+	 * <div lang="en">Max value of Skip. If the agent continues SKIP more than this value, it will be changed to
+	 * OVER</div>
 	 *
 	 * @return <div lang="ja">1日あたりの連続SKIP最大数</div>
 	 *
@@ -485,8 +537,20 @@ public class GameSetting implements Cloneable {
 		return maxSkip;
 	}
 
+	/**
+	 * <div lang="ja">連続するSkipの最大許容長をセットする</div>
+	 *
+	 * <div lang="en">Sets the maximum length of allowable succeeding Skips.</div>
+	 * 
+	 * @param maxSkip
+	 *            <div lang="ja">最大許容長を表す{@code int}</div>
+	 *
+	 *            <div lang="en">{@code int} representing the maximum length allowable.</div>
+	 */
+	public void setMaxSkip(int maxSkip) {
+		this.maxSkip = maxSkip;
+	}
 
-	
 	/**
 	 * <div lang="ja">
 	 *
@@ -514,6 +578,29 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isEnableNoAttack() {
 		return isEnableNoAttack;
+	}
+
+	/**
+	 * <div lang="ja">
+	 *
+	 * 誰も襲撃しないのを許すかどうかを設定します。
+	 *
+	 * </div>
+	 *
+	 * <div lang="en">
+	 *
+	 * Set permission for werewolfs attack no one.
+	 *
+	 * </div>
+	 *
+	 * @param isEnableNoAttack
+	 *
+	 *            <div lang="ja">誰も襲撃しないのを許すかどうか</div>
+	 *
+	 *            <div lang="en">Permission for werewolfs attack no one</div>
+	 */
+	public void setEnableNoAttack(boolean isEnableNoAttack) {
+		this.isEnableNoAttack = isEnableNoAttack;
 	}
 
 	/**
@@ -548,6 +635,37 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">
 	 *
+	 * 誰が誰に投票したかをエージェントが確認できるかどうかを設定します。
+	 *
+	 * </div>
+	 *
+	 * <div lang="en">
+	 *
+	 * Set permission for agents see who vote to who.
+	 *
+	 * </div>
+	 *
+	 * @param isVoteVisible
+	 *
+	 *            <div lang="ja">
+	 *
+	 *            誰が誰に投票したかをエージェントが確認できるかどうか
+	 *
+	 *            </div>
+	 *
+	 *            <div lang="en">
+	 *
+	 *            Permission for agents see who vote to who
+	 *
+	 *            </div>
+	 */
+	public void setVoteVisible(boolean isVoteVisible) {
+		this.isVoteVisible = isVoteVisible;
+	}
+
+	/**
+	 * <div lang="ja">
+	 *
 	 * 初日の投票ができるかどうかを返します。
 	 *
 	 * </div>
@@ -575,6 +693,20 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja"> 初日の投票ができるかどうかをセットする </div>
+	 *
+	 * <div lang="en"> Sets whether or not there is vote on first day. </div>
+	 *
+	 * @param isVotableInFirstDay
+	 *            <div lang="ja">初日の投票ができるかどうかを表す{@code boolean} </div>
+	 *
+	 *            <div lang="en"> {@code boolean} representing whether or not there is vote on first day. </div>
+	 */
+	public void setVotableInFirstDay(boolean isVotableInFirstDay) {
+		this.isVotableInFirstDay = isVotableInFirstDay;
+	}
+
+	/**
 	 * <div lang="ja">同票数の場合に追放なしとするかどうかを返します。</div>
 	 * 
 	 * <div lang="en">Returns whether or not executing nobody is allowed.</div>
@@ -585,6 +717,20 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isEnableNoExecution() {
 		return isEnableNoExecution;
+	}
+
+	/**
+	 * <div lang="ja">同票数の場合に追放なしとするかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not executing nobody is allowed.</div>
+	 * 
+	 * @param isEnableNoExecution
+	 *            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
+	 * 
+	 *            <div lang="en">whether or not executing nobody is allowed</div>
+	 */
+	public void setEnableNoExecution(boolean isEnableNoExecution) {
+		this.isEnableNoExecution = isEnableNoExecution;
 	}
 
 	/**
@@ -601,27 +747,68 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">Day 0にtalkがあるかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not there are talks on day 0.</div>
+	 * 
+	 * @param isTalkOnFirstDay
+	 *            - <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
+	 */
+	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
+		this.isTalkOnFirstDay = isTalkOnFirstDay;
+	}
+
+	/**
 	 * <div lang="ja">発話文字列の違反チェックを行うかどうかを返します。</div>
 	 * 
 	 * <div lang="en">Returns whether or not the text in talk/whisper is validated.</div>
 	 * 
-	 * @return <div lang="ja">発話文字列の違反チェックを行うかどうか</div> <div lang="en">whether or not the text in talk/whisper is validated</div>
+	 * @return <div lang="ja">発話文字列の違反チェックを行うかどうか</div> <div lang="en">whether or not the text in talk/whisper is
+	 *         validated</div>
 	 */
 	public boolean isValidateUtterance() {
 		return isValidateUtterance;
 	}
 
 	/**
+	 * <div lang="ja">発話文字列の違反チェックを行うかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not the text in talk/whisper is validated.</div>
+	 * 
+	 * @param isValidateUtterance
+	 *            <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
+	 * 
+	 *            <div lang="en">whether or not the text in talk/whisper is validated</div>
+	 */
+	public void setValidateUtterance(boolean isValidateUtterance) {
+		this.isValidateUtterance = isValidateUtterance;
+	}
+
+	/**
 	 * <div lang="ja">再襲撃投票前にwhisperするかどうかを返します。</div>
 	 * 
-	 * <div lang="en">Returns whether or not there is whisper before the revote
-	 * for attack.</div> *
+	 * <div lang="en">Returns whether or not there is whisper before the revote for attack.</div> *
 	 * 
-	 * @return <div lang="ja">再襲撃投票前にwhisperするかどうか</div> <div lang="en">whether
-	 *         or not there is whisper before the revote for attack</div>
+	 * @return <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
+	 * 
+	 *         <div lang="en">whether or not there is whisper before the revote for attack</div>
 	 */
 	public boolean isWhisperBeforeRevote() {
 		return isWhisperBeforeRevote;
+	}
+
+	/**
+	 * <div lang="ja">再襲撃投票前にwhisperするかどうかをセットします。</div>
+	 * 
+	 * <div lang="en">Sets whether or not there is whisper before the revote for attack.</div> *
+	 * 
+	 * @param isWhisperBeforeRevote
+	 *            <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
+	 * 
+	 *            <div lang="en">whether or not there is whisper before the revote for attack</div>
+	 */
+	public void setWhisperBeforeRevote(boolean isWhisperBeforeRevote) {
+		this.isWhisperBeforeRevote = isWhisperBeforeRevote;
 	}
 
 	/**
@@ -703,137 +890,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public void setRoleNumMap(Map<Role, Integer> roleNumMap) {
 		this.roleNumMap = roleNumMap;
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 1日あたりの発言の最大数を設定します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Set max number of talks.
-	 *
-	 * </div>
-	 *
-	 * @param maxTalk
-	 *
-	 *            <div lang="ja">1日あたりの発言の最大数</div>
-	 *
-	 *            <div lang="en">Max number of talks</div>
-	 */
-	public void setMaxTalk(int maxTalk) {
-		this.maxTalk = maxTalk;
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 誰も襲撃しないのを許すかどうかを設定します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Set permission for werewolfs attack no one.
-	 *
-	 * </div>
-	 *
-	 * @param isEnableNoAttack
-	 *
-	 *            <div lang="ja">誰も襲撃しないのを許すかどうか</div>
-	 *
-	 *            <div lang="en">Permission for werewolfs attack no one</div>
-	 */
-	public void setEnableNoAttack(boolean isEnableNoAttack) {
-		this.isEnableNoAttack = isEnableNoAttack;
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 誰が誰に投票したかをエージェントが確認できるかどうかを設定します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Set permission for agents see who vote to who.
-	 *
-	 * </div>
-	 *
-	 * @param isVoteVisible
-	 *
-	 *            <div lang="ja">
-	 *
-	 *            誰が誰に投票したかをエージェントが確認できるかどうか
-	 *
-	 *            </div>
-	 *
-	 *            <div lang="en">
-	 *
-	 *            Permission for agents see who vote to who
-	 *
-	 *            </div>
-	 */
-	public void setVoteVisible(boolean isVoteVisible) {
-		this.isVoteVisible = isVoteVisible;
-	}
-
-	/**
-	 * <div lang="ja">同票数の場合に追放なしとするかどうかをセットします。</div>
-	 * 
-	 * <div lang="en">Sets whether or not executing nobody is allowed.</div>
-	 * 
-	 * @param isEnableNoExecution
-	 *            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
-	 * 
-	 *            <div lang="en">whether or not executing nobody is
-	 *            allowed</div>
-	 */
-	public void setEnableNoExecution(boolean isEnableNoExecution) {
-		this.isEnableNoExecution = isEnableNoExecution;
-	}
-
-	/**
-	 * <div lang="ja">Day 0にtalkがあるかどうかをセットします。</div>
-	 * 
-	 * <div lang="en">Sets whether or not there are talks on day 0.</div>
-	 * 
-	 * @param isTalkOnFirstDay
-	 *            - <div lang="ja">Day 0にtalkがあるかどうか</div> <div lang="en">whether or not there are talks on day 0</div>
-	 */
-	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
-		this.isTalkOnFirstDay = isTalkOnFirstDay;
-	}
-
-	/**
-	 * <div lang="ja">発話文字列の違反チェックを行うかどうかをセットします。</div>
-	 * 
-	 * <div lang="en">Sets whether or not the text in talk/whisper is validated.</div>
-	 * 
-	 * @param isValidateUtterance
-	 *            - <div lang="ja">発話文字列の違反チェックを行うかどうか</div> <div lang="en">whether or not the text in talk/whisper is validated</div>
-	 */
-	public void setValidateUtterance(boolean isValidateUtterance) {
-		this.isValidateUtterance = isValidateUtterance;
-	}
-
-	/**
-	 * <div lang="ja">再襲撃投票前にwhisperするかどうかをセットします。</div>
-	 * 
-	 * <div lang="en">Sets whether or not there is whisper before the revote for
-	 * attack.</div> *
-	 * 
-	 * @param isWhisperBeforeRevote
-	 *            -<div lang="ja">再襲撃投票前にwhisperするかどうか</div>
-	 *            <div lang="en">whether or not there is whisper before the
-	 *            revote for attack</div>
-	 */
-	public void setWhisperBeforeRevote(boolean isWhisperBeforeRevote) {
-		this.isWhisperBeforeRevote = isWhisperBeforeRevote;
 	}
 
 	/**
