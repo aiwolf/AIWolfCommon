@@ -120,7 +120,7 @@ public class GameSetting implements Cloneable {
 		setting.maxTalkTurn = 20;
 		setting.maxWhisper = 10;
 		setting.maxWhisperTurn = 20;
-		setting.maxSkip = 3;
+		setting.maxSkip = 2;
 		setting.isEnableNoAttack = false;
 		setting.isVoteVisible = true;
 		setting.isVotableInFirstDay = false;
@@ -283,6 +283,7 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Max number of talk time</div>
 	 */
 	int maxWhisperTurn;
+
 	/**
 	 * <div lang="ja">連続Skipの最大数</div>
 	 *
@@ -524,28 +525,28 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">Skipの最大値．これ以上のSKIPを連続するとOVERに変換される</div>
+	 * <div lang="ja">連続Skipの最大許容長。これを超える数のSKIPの連続はOVERに変換される</div>
 	 *
-	 * <div lang="en">Max value of Skip. If the agent continues SKIP more than this value, it will be changed to
-	 * OVER</div>
+	 * <div lang="en">The maximum permissible length of the succession of Skips. The returned Skip is converted to Over
+	 * if the succession is longer than this.</div>
 	 *
-	 * @return <div lang="ja">1日あたりの連続SKIP最大数</div>
+	 * @return <div lang="ja">最大許容長を表す{@code int}</div>
 	 *
-	 *         <div lang="en">Max contunious SKIP</div>
+	 *         <div lang="en">{@code int} representing the maximum permissible length.</div>
 	 */
 	public int getMaxSkip() {
 		return maxSkip;
 	}
 
 	/**
-	 * <div lang="ja">連続するSkipの最大許容長をセットする</div>
+	 * <div lang="ja">連続Skipの最大許容長をセットする</div>
 	 *
-	 * <div lang="en">Sets the maximum length of allowable succeeding Skips.</div>
+	 * <div lang="en">Sets the maximum permissible length of the succession of Skips.</div>
 	 * 
 	 * @param maxSkip
 	 *            <div lang="ja">最大許容長を表す{@code int}</div>
 	 *
-	 *            <div lang="en">{@code int} representing the maximum length allowable.</div>
+	 *            <div lang="en">{@code int} representing the maximum permissible length.</div>
 	 */
 	public void setMaxSkip(int maxSkip) {
 		this.maxSkip = maxSkip;
