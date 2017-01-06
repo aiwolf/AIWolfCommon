@@ -595,18 +595,4 @@ public class GameInfo {
 		return cursedFox;
 	}
 
-	/**
-	 * <div lang="ja">呪殺された妖狐をセットする</div>
-	 * 
-	 * <div lang="en">Sets the fox killed by curse.</div>
-	 * 
-	 * @param cursedFox
-	 *            <div lang="ja">呪殺された妖狐を表す{@code Agent}</div>
-	 * 
-	 *            <div lang="en">{@code Agent} representing the fox killed by curse.</div>
-	 */
-	public void setCursedFox(Agent cursedFox) {
-		this.cursedFox = cursedFox;
-	}
-
 }
