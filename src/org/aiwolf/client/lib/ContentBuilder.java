@@ -20,6 +20,7 @@ import org.aiwolf.common.data.Species;
 public abstract class ContentBuilder {
 
 	Topic topic = null;
+	Agent subject = null;
 	Agent target = null;
 	Role role = null;
 	Species result = null;
@@ -37,6 +38,13 @@ public abstract class ContentBuilder {
 	 */
 	Topic getTopic() {
 		return topic;
+	}
+
+	/**
+	 * @return the subject
+	 */
+	Agent getSubject() {
+		return subject;
 	}
 
 	/**

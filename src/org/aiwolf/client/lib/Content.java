@@ -19,11 +19,9 @@ import org.aiwolf.common.data.Species;
  */
 public class Content {
 
-	public static final Content SKIP = new Content(new SkipContentBuilder());
-	public static final Content OVER = new Content(new OverContentBuilder());
-
 	String text = null;
 	Topic topic = null;
+	Agent subject = null;
 	Agent target = null;
 	Role role = null;
 	Species result = null;
@@ -58,9 +56,22 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話内容中のターゲットエージェント。Topicが(DIS)AGREE以外で有効</div>
+	 * <div lang="ja">発話内容中の主語を返す</div>
 	 *
-	 * <div lang="en">The target agent of the utterance. Valid except when the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the subject of the utterance.</div>
+	 * 
+	 * @return <div lang="ja">主語を表すAgent</div>
+	 *
+	 *         <div lang="en">Agent representing the subject.</div>
+	 */
+	public Agent getSubject() {
+		return subject;
+	}
+
+	/**
+	 * <div lang="ja">発話内容中のターゲットエージェントを返す。Topicが(DIS)AGREE以外で有効</div>
+	 *
+	 * <div lang="en">Returns the target agent of the utterance. Valid except when the topic is (DIS)AGREE.</div>
 	 * 
 	 * @return <div lang="ja">ターゲットを表すAgent。Topicが(DIS)AGREEのときはnull</div>
 	 *
@@ -71,9 +82,9 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話内容中で言及されている役職。TopicがCOMINGOUTとESTIMATEのとき有効</div>
+	 * <div lang="ja">発話内容中で言及されている役職を返す。TopicがCOMINGOUTとESTIMATEのとき有効</div>
 	 *
-	 * <div lang="en">The role referred in the content. Valid when the topic is COMINGOUT or ESTIMATE.</div>
+	 * <div lang="en">Returns the role referred in the content. Valid when the topic is COMINGOUT or ESTIMATE.</div>
 	 * 
 	 * @return <div lang="ja">言及されている役職を表すRole。TopicがCOMINGOUTとESTIMATE以外のときはnull</div>
 	 *
@@ -84,9 +95,9 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話内容中で言及されている判定結果。TopicがDIVINEDとINQUESTEDのとき有効</div>
+	 * <div lang="ja">発話内容中で言及されている判定結果を返す。TopicがDIVINEDとINQUESTEDのとき有効</div>
 	 *
-	 * <div lang="en">The result of the judgment referred in the content. Valid when the topic is DIVINED or INQUESTED.</div>
+	 * <div lang="en">Returns the result of the judgment referred in the content. Valid when the topic is DIVINED or INQUESTED.</div>
 	 * 
 	 * @return <div lang="ja">言及されている結果を表すSpecies。TopicがDIVINEDとINQUESTED以外のときはnull</div>
 	 *
@@ -97,9 +108,9 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話内容中で言及されている発言のタイプ。Topicが(DIS)AGREEのとき有効</div>
+	 * <div lang="ja">発話内容中で言及されている発言のタイプを返す。Topicが(DIS)AGREEのとき有効</div>
 	 *
-	 * <div lang="en">The type of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the type of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
 	 * @return <div lang="ja">言及されている発言のタイプを表すTalkType。Topicが(DIS)AGREE以外のときはnull</div>
 	 *
@@ -110,9 +121,9 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話内容中で言及されている発言の日。Topicが(DIS)AGREEのとき有効</div>
+	 * <div lang="ja">発話内容中で言及されている発言の日を返す。Topicが(DIS)AGREEのとき有効</div>
 	 *
-	 * <div lang="en">The day of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the day of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
 	 * @return <div lang="ja">言及されている発言の日を表す整数。Topicが(DIS)AGREE以外のときは-1</div>
 	 *
@@ -123,9 +134,9 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話内容中で言及されている発言のID。Topicが(DIS)AGREEのとき有効</div>
+	 * <div lang="ja">発話内容中で言及されている発言のIDを返す。Topicが(DIS)AGREEのとき有効</div>
 	 *
-	 * <div lang="en">The ID of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the ID of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
 	 * @return <div lang="ja">言及されている発言のIDを表す整数。Topicが(DIS)AGREE以外のときは-1</div>
 	 *
@@ -148,6 +159,7 @@ public class Content {
 	public Content(ContentBuilder builder) {
 		text = builder.getText();
 		topic = builder.getTopic();
+		subject = builder.getSubject();
 		target = builder.getTarget();
 		role = builder.getRole();
 		result = builder.getResult();
@@ -161,21 +173,31 @@ public class Content {
 	 *
 	 * <div lang="en">Constructs a Content from the uttered text.</div>
 	 * 
-	 * @param builder
+	 * @param utterer
+	 *            <div lang="ja">発話者を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the utterer.</div>
+	 * @param input
 	 *            <div lang="ja">発話テキストの文字列</div>
 	 *
 	 *            <div lang="en">String representing the uttered text.</div>
 	 */
-	public Content(String input) {
-		text = input;
+	public Content(Agent utterer, String input) {
+		if (input.startsWith("Agent")) { // Explicit subject.
+			text = input;
+		} else { // Implicit subject which equals to the utterer.
+			text = utterer + " " + input;
+		}
 
-		String[] split = input.split("\\s+");
+		String[] split = text.split("\\s+");
+		int subjectId = getInt(split[0]);
+		subject = Agent.getAgent(subjectId);
 
-		topic = Topic.getTopic(split[0]); // Topicに存在しない場合null
+		topic = Topic.getTopic(split[1]);
 
-		int agentId = -1;
-		if (split.length >= 2 && split[1].startsWith("Agent")) {
-			agentId = getInt(split[1]);
+		int targetId = -1;
+		if (split.length >= 3 && split[2].startsWith("Agent")) {
+			targetId = getInt(split[2]);
 		}
 
 		switch (topic) {
@@ -187,21 +209,21 @@ public class Content {
 		case DISAGREE:
 			// ex. TALK day4 ID:38
 			try {
-				talkType = TalkType.valueOf(split[1]);
+				talkType = TalkType.valueOf(split[2]);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 				talkType = null;
 			}
-			talkDay = getInt(split[2]);
-			talkID = getInt(split[3]);
+			talkDay = getInt(split[3]);
+			talkID = getInt(split[4]);
 			break;
 
 		case ESTIMATE:
 		case COMINGOUT:
 			// Topic Target Role
-			target = Agent.getAgent(agentId);
+			target = Agent.getAgent(targetId);
 			try {
-				role = Role.valueOf(split[2]);
+				role = Role.valueOf(split[3]);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 				role = null;
@@ -211,9 +233,9 @@ public class Content {
 		case DIVINED:
 		case INQUESTED:
 			// Topic Target Result
-			target = Agent.getAgent(agentId);
+			target = Agent.getAgent(targetId);
 			try {
-				result = Species.valueOf(split[2]);
+				result = Species.valueOf(split[3]);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 				result = null;
@@ -223,7 +245,7 @@ public class Content {
 		case ATTACK:
 		case GUARDED:
 		case VOTE:
-			target = Agent.getAgent(agentId);
+			target = Agent.getAgent(targetId);
 			break;
 
 		default:
@@ -252,7 +274,12 @@ public class Content {
 			return false;
 		}
 
-		Topic topic = Topic.getTopic(split[0]);
+		int offset = 0;
+		if (text.startsWith("Agent")) {
+			offset = 1;
+		}
+
+		Topic topic = Topic.getTopic(split[offset]);
 		if (topic == null) {
 			return false;
 		}
@@ -260,37 +287,37 @@ public class Content {
 		switch (topic) {
 		case SKIP:
 		case OVER:
-			if (split.length != 1) {
+			if (split.length != 1 + offset) {
 				return false;
 			}
 			return true;
 		case AGREE:
 		case DISAGREE:
-			if (split.length != 4) {
+			if (split.length != 4 + offset) {
 				return false;
 			}
 			try {
-				TalkType.valueOf(split[1]);
+				TalkType.valueOf(split[1 + offset]);
 			} catch (IllegalArgumentException e) {
 				return false;
 			}
-			if (getInt(split[2]) == -1 || getInt(split[3]) == -1) {
+			if (getInt(split[2 + offset]) == -1 || getInt(split[3 + offset]) == -1) {
 				return false;
 			}
 			return true;
 
 		case ESTIMATE:
 		case COMINGOUT:
-			if (split.length != 3) {
+			if (split.length != 3 + offset) {
 				return false;
 			}
 
-			if (!split[1].startsWith("Agent") || getInt(split[1]) == -1) {
+			if (!split[1 + offset].startsWith("Agent") || getInt(split[1 + offset]) == -1) {
 				return false;
 			}
 
 			try {
-				Role.valueOf(split[2]);
+				Role.valueOf(split[2 + offset]);
 			} catch (IllegalArgumentException e) {
 				return false;
 			}
@@ -298,16 +325,16 @@ public class Content {
 
 		case DIVINED:
 		case INQUESTED:
-			if (split.length != 3) {
+			if (split.length != 3 + offset) {
 				return false;
 			}
 
-			if (!split[1].startsWith("Agent") || getInt(split[1]) == -1) {
+			if (!split[1 + offset].startsWith("Agent") || getInt(split[1 + offset]) == -1) {
 				return false;
 			}
 
 			try {
-				Species.valueOf(split[2]);
+				Species.valueOf(split[2 + offset]);
 			} catch (IllegalArgumentException e) {
 				return false;
 			}
@@ -316,11 +343,11 @@ public class Content {
 		case GUARDED:
 		case ATTACK:
 		case VOTE:
-			if (split.length != 2) {
+			if (split.length != 2 + offset) {
 				return false;
 			}
 
-			if (!split[1].startsWith("Agent") || getInt(split[1]) == -1) {
+			if (!split[1 + offset].startsWith("Agent") || getInt(split[1 + offset]) == -1) {
 				return false;
 			}
 			return true;

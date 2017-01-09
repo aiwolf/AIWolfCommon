@@ -23,6 +23,10 @@ public class DivineContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an DivineContentBuilder for reporting that the utterer divined that {@code target} is {@code result}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">占われたエージェント</div>
 	 * 
@@ -32,15 +36,16 @@ public class DivineContentBuilder extends ContentBuilder {
 	 * 
 	 *            <div lang="en">The species of {@code target} divined by the utterer.</div>
 	 */
-	public DivineContentBuilder(Agent target, Species result) {
+	public DivineContentBuilder(Agent subject, Agent target, Species result) {
 		topic = Topic.DIVINED;
+		this.subject = subject;
 		this.target = target;
 		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.DIVINED.toString(), target.toString(), result.toString() });
+		return String.join(" ", new String[] { subject.toString(), Topic.DIVINED.toString(), target.toString(), result.toString() });
 	}
 
 }

@@ -5,6 +5,8 @@
  */
 package org.aiwolf.client.lib;
 
+import org.aiwolf.common.data.Agent;
+
 /**
  * <div lang="ja">不同意発話ビルダークラス</div>
  * 
@@ -20,6 +22,10 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an DisagreeContentBuilder for the disagreement with the {@code talkID}-th {@code talkType} utterance on {@code talkDay}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param talkType
 	 *            <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>
 	 *
@@ -34,8 +40,9 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The ID of the utterance the utterer disagrees with.</div>
 	 * 
 	 */
-	public DisagreeContentBuilder(TalkType talkType, int talkDay, int talkID) {
+	public DisagreeContentBuilder(Agent subject, TalkType talkType, int talkDay, int talkID) {
 		topic = Topic.DISAGREE;
+		this.subject = subject;
 		this.talkType = talkType;
 		this.talkDay = talkDay;
 		this.talkID = talkID;
@@ -43,7 +50,7 @@ public class DisagreeContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.DISAGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID });
+		return String.join(" ", new String[] { subject.toString(), Topic.DISAGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID });
 	}
 
 }

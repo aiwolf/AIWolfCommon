@@ -22,20 +22,25 @@ public class VoteContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an VoteContentBuilder for the declaration of voting for execution of {@code target}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被投票エージェント</div>
 	 * 
 	 *            <div lang="en">The agent the utterer will vote for.</div>
 	 * 
 	 */
-	public VoteContentBuilder(Agent target) {
+	public VoteContentBuilder(Agent subject, Agent target) {
 		topic = Topic.VOTE;
+		this.subject = subject;
 		this.target = target;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.VOTE.toString(), target.toString() });
+		return String.join(" ", new String[] { subject.toString(), Topic.VOTE.toString(), target.toString() });
 	}
 
 }

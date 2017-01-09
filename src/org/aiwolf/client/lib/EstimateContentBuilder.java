@@ -23,6 +23,10 @@ public class EstimateContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an EstimateContentBuilder for estimating that {@code target} acts as {@code role}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被推測エージェント</div>
 	 * 
@@ -32,15 +36,16 @@ public class EstimateContentBuilder extends ContentBuilder {
 	 * 
 	 *            <div lang="en">The role estimated by the utterer.</div>
 	 */
-	public EstimateContentBuilder(Agent target, Role role) {
+	public EstimateContentBuilder(Agent subject, Agent target, Role role) {
 		topic = Topic.ESTIMATE;
+		this.subject = subject;
 		this.target = target;
 		this.role = role;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.ESTIMATE.toString(), target.toString(), role.toString() });
+		return String.join(" ", new String[] { subject.toString(), Topic.ESTIMATE.toString(), target.toString(), role.toString() });
 	}
 
 }

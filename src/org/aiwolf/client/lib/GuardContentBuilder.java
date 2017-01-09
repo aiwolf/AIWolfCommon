@@ -22,20 +22,25 @@ public class GuardContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an GuardContentBuilder for reporting that the utterer guarded {@code target}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被護衛エージェント</div>
 	 * 
 	 *            <div lang="en">The agent the utterer guarded.</div>
 	 * 
 	 */
-	public GuardContentBuilder(Agent target) {
+	public GuardContentBuilder(Agent subject, Agent target) {
 		topic = Topic.GUARDED;
+		this.subject = subject;
 		this.target = target;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.GUARDED.toString(), target.toString() });
+		return String.join(" ", new String[] { subject.toString(), Topic.GUARDED.toString(), target.toString() });
 	}
 
 }

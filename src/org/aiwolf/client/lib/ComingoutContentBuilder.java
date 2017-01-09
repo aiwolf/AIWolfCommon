@@ -23,6 +23,10 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an ComingoutContentBuilder for coming out with that {@code target} acts as {@code role}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被カミングアウトエージェント</div>
 	 * 
@@ -32,15 +36,16 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	 * 
 	 *            <div lang="en">The role the utterer comes out with.</div>
 	 */
-	public ComingoutContentBuilder(Agent target, Role role) {
+	public ComingoutContentBuilder(Agent subject, Agent target, Role role) {
 		topic = Topic.COMINGOUT;
+		this.subject = subject;
 		this.target = target;
 		this.role = role;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.COMINGOUT.toString(), target.toString(), role.toString() });
+		return String.join(" ", new String[] { subject.toString(), Topic.COMINGOUT.toString(), target.toString(), role.toString() });
 	}
 
 }
