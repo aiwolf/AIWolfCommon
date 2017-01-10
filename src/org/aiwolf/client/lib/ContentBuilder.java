@@ -5,6 +5,9 @@
  */
 package org.aiwolf.client.lib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Species;
@@ -19,6 +22,7 @@ import org.aiwolf.common.data.Species;
  */
 public abstract class ContentBuilder {
 
+	Operator operator = null;
 	Topic topic = null;
 	Agent subject = null;
 	Agent target = null;
@@ -27,11 +31,19 @@ public abstract class ContentBuilder {
 	TalkType talkType = null;
 	int talkDay = -1;
 	int talkID = -1;
+	List<Content> contentList = null;
 
 	/**
 	 * @return the text of content
 	 */
 	abstract String getText();
+
+	/**
+	 * @return the operator
+	 */
+	Operator getOperator() {
+		return operator;
+	}
 
 	/**
 	 * @return the topic
@@ -87,6 +99,13 @@ public abstract class ContentBuilder {
 	 */
 	int getTalkID() {
 		return talkID;
+	}
+
+	/**
+	 * @return the contentList
+	 */
+	List<Content> getContentList() {
+		return contentList;
 	}
 
 }
