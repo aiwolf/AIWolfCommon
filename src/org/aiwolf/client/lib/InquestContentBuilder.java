@@ -23,6 +23,10 @@ public class InquestContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs an InquestContentBuilder for reporting that the inquest revealed that {@code target} is {@code result}.</div>
 	 * 
+	 * @param subject
+	 *            <div lang="ja">主語を表す{@code Agent}</div>
+	 *
+	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被霊媒エージェント</div>
 	 * 
@@ -32,15 +36,16 @@ public class InquestContentBuilder extends ContentBuilder {
 	 * 
 	 *            <div lang="en">The species of {@code target} the inquest revealed.</div>
 	 */
-	public InquestContentBuilder(Agent target, Species result) {
+	public InquestContentBuilder(Agent subject, Agent target, Species result) {
 		topic = Topic.INQUESTED;
+		this.subject = subject;
 		this.target = target;
 		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.INQUESTED.toString(), target.toString(), result.toString() });
+		return String.join(" ", new String[] { subject.toString(), Topic.INQUESTED.toString(), target.toString(), result.toString() });
 	}
 
 }
