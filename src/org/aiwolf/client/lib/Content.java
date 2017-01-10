@@ -34,9 +34,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the uttered text.</div>
 	 * 
-	 * @return <div lang="ja">発話された文字列。定義上nullはありえない</div>
+	 * @return <div lang="ja">発話テキストを表す{@code String}</div>
 	 *
-	 *         <div lang="en">String representing the uttered text. This can't be null because of its definition.</div>
+	 *         <div lang="en">{@code String} representing the uttered text.</div>
 	 */
 	public String getText() {
 		return text;
@@ -47,22 +47,22 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the topic of the content.</div>
 	 * 
-	 * @return <div lang="ja">発話内容のトピックを表すTopic。定義上nullはありえない</div>
+	 * @return <div lang="ja">発話内容のトピックを表す{@code Topic}</div>
 	 *
-	 *         <div lang="en">Topic representing the topic of the content. This can't be null because of its definition.</div>
+	 *         <div lang="en">{@code Topic} representing the topic of the content.</div>
 	 */
 	public Topic getTopic() {
 		return topic;
 	}
 
 	/**
-	 * <div lang="ja">発話内容中の主語を返す</div>
+	 * <div lang="ja">発話内容の主語を返す</div>
 	 *
 	 * <div lang="en">Returns the subject of the utterance.</div>
 	 * 
-	 * @return <div lang="ja">主語を表すAgent</div>
+	 * @return <div lang="ja">主語を表す{@code Agent}</div>
 	 *
-	 *         <div lang="en">Agent representing the subject.</div>
+	 *         <div lang="en">{@code Agent} representing the subject.</div>
 	 */
 	public Agent getSubject() {
 		return subject;
@@ -73,9 +73,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the target agent of the utterance. Valid except when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">ターゲットを表すAgent。Topicが(DIS)AGREEのときはnull</div>
+	 * @return <div lang="ja">ターゲットを表す{@code Agent}。Topicが(DIS)AGREEのときは{@code null}</div>
 	 *
-	 *         <div lang="en">Agent representing the target or null when the topic is (DIS)AGREE.</div>
+	 *         <div lang="en">{@code Agent} representing the target or {@code null} when the topic is (DIS)AGREE.</div>
 	 */
 	public Agent getTarget() {
 		return target;
@@ -86,9 +86,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the role referred in the content. Valid when the topic is COMINGOUT or ESTIMATE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている役職を表すRole。TopicがCOMINGOUTとESTIMATE以外のときはnull</div>
+	 * @return <div lang="ja">言及されている役職を表す{@code Role}。TopicがCOMINGOUTとESTIMATE以外のときは{@code null}</div>
 	 *
-	 *         <div lang="en">Role representing the referred role, or null when the topic is not COMINGOUT or ESTIMATE.</div>
+	 *         <div lang="en">{@code Role} representing the referred role, or {@code null} when the topic is not COMINGOUT or ESTIMATE.</div>
 	 */
 	public Role getRole() {
 		return role;
@@ -99,9 +99,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the result of the judgment referred in the content. Valid when the topic is DIVINED or INQUESTED.</div>
 	 * 
-	 * @return <div lang="ja">言及されている結果を表すSpecies。TopicがDIVINEDとINQUESTED以外のときはnull</div>
+	 * @return <div lang="ja">言及されている結果を表す{@code Species}。TopicがDIVINEDとINQUESTED以外のときは{@code null}</div>
 	 *
-	 *         <div lang="en">Species representing the result or null when the topic is not DIVINED or INQUESTED.</div>
+	 *         <div lang="en">{@code Species} representing the result or {@code null} when the topic is not DIVINED or INQUESTED.</div>
 	 */
 	public Species getResult() {
 		return result;
@@ -112,9 +112,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the type of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている発言のタイプを表すTalkType。Topicが(DIS)AGREE以外のときはnull</div>
+	 * @return <div lang="ja">言及されている発言のタイプを表す{@code TalkType}。Topicが(DIS)AGREE以外のときは{@code null}</div>
 	 *
-	 *         <div lang="en">TalkType representing the type of utterance or null when the topic is not (DIS)AGREE.</div>
+	 *         <div lang="en">{@code TalkType} representing the type of utterance or {@code null} when the topic is not (DIS)AGREE.</div>
 	 */
 	public TalkType getTalkType() {
 		return talkType;
@@ -125,9 +125,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the day of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている発言の日を表す整数。Topicが(DIS)AGREE以外のときは-1</div>
+	 * @return <div lang="ja">言及されている発言の日を表す{@code int}。Topicが(DIS)AGREE以外のときは-1</div>
 	 *
-	 *         <div lang="en">int representing the day of utterance or -1 when the topic is not (DIS)AGREE.</div>
+	 *         <div lang="en">{@code int} representing the day of utterance or -1 when the topic is not (DIS)AGREE.</div>
 	 */
 	public int getTalkDay() {
 		return talkDay;
@@ -138,23 +138,23 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the ID of utterance referred in the content. Valid when the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている発言のIDを表す整数。Topicが(DIS)AGREE以外のときは-1</div>
+	 * @return <div lang="ja">言及されている発言のIDを表す{@code int}。Topicが(DIS)AGREE以外のときは-1</div>
 	 *
-	 *         <div lang="en">int representing the ID of utterance or -1 when the topic is not (DIS)AGREE.</div>
+	 *         <div lang="en">{@code int} representing the ID of utterance or -1 when the topic is not (DIS)AGREE.</div>
 	 */
 	public int getTalkID() {
 		return talkID;
 	}
 
 	/**
-	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
+	 * <div lang="ja">指定した{@code ContentBuilder}により{@code Content}を構築する</div>
 	 *
-	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
+	 * <div lang="en">Constructs a {@code Content} by the given {@code ContentBuilder}.</div>
 	 * 
 	 * @param builder
-	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
+	 *            <div lang="ja">発話内容に応じた{@code ContentBuilder}</div>
 	 *
-	 *            <div lang="en">The ContentBuilder for the content of utterance.</div>
+	 *            <div lang="en">{@code ContentBuilder} for the content of utterance.</div>
 	 */
 	public Content(ContentBuilder builder) {
 		text = builder.getText();
@@ -169,18 +169,18 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話テキストによりContentを構築する</div>
+	 * <div lang="ja">発話テキストにより{@code Content}を構築する</div>
 	 *
-	 * <div lang="en">Constructs a Content from the uttered text.</div>
+	 * <div lang="en">Constructs a {@code Content} from the uttered text.</div>
 	 * 
 	 * @param utterer
 	 *            <div lang="ja">発話者を表す{@code Agent}</div>
 	 *
 	 *            <div lang="en">{@code Agent} representing the utterer.</div>
 	 * @param input
-	 *            <div lang="ja">発話テキストの文字列</div>
+	 *            <div lang="ja">発話テキストを表す{@code String}</div>
 	 *
-	 *            <div lang="en">String representing the uttered text.</div>
+	 *            <div lang="en">{@code String} representing the uttered text.</div>
 	 */
 	public Content(Agent utterer, String input) {
 		if (input.startsWith("Agent")) { // Explicit subject.
@@ -243,6 +243,8 @@ public class Content {
 			break;
 
 		case ATTACK:
+		case DIVINE:
+		case GUARD:
 		case GUARDED:
 		case VOTE:
 			target = Agent.getAgent(targetId);
@@ -340,8 +342,10 @@ public class Content {
 			}
 			return true;
 
-		case GUARDED:
 		case ATTACK:
+		case DIVINE:
+		case GUARD:
+		case GUARDED:
 		case VOTE:
 			if (split.length != 2 + offset) {
 				return false;
