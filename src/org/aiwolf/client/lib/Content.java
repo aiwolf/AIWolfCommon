@@ -429,4 +429,12 @@ public class Content {
 		return null;
 	}
 
+	@Override
+	public boolean equals(Object content) {
+		if (text != null) {
+			return text.equals(content);
+		}
+		return false;
+	}
+
 }
