@@ -431,8 +431,8 @@ public class Content {
 
 	@Override
 	public boolean equals(Object content) {
-		if (text != null) {
-			return text.equals(content);
+		if (content instanceof Content && text != null) {
+			return text.equals(((Content) content).getText());
 		}
 		return false;
 	}
