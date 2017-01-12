@@ -15,11 +15,14 @@ import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Species;
 
 /**
- * <div lang="ja">発話内容クラス。{@code ContentBuilder}で生成あるいは発話テキストをparseして生成</div>
+ * <div lang="ja">発話内容クラス。ContentBuilderで生成あるいは発話テキストをparseして生成</div>
  *
- * <div lang="en">Class for content of utterance. Constructed by {@code ContentBuilder} or parsing uttered text.</div>
+ * <div lang="en">Class for the content of a utterance. Constructed by ContentBuilder, or parsing the uttered text.</div>
  */
 public class Content {
+
+	public static final Content SKIP = new Content(new SkipContentBuilder());
+	public static final Content OVER = new Content(new OverContentBuilder());
 
 	String text = null;
 	Operator operator = null;
@@ -38,9 +41,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the uttered text.</div>
 	 * 
-	 * @return <div lang="ja">テキストを表す{@code String}</div>
+	 * @return <div lang="ja">発話テキスト</div>
 	 *
-	 *         <div lang="en">{@code String} representing the text.</div>
+	 *         <div lang="en">The uttered text.</div>
 	 */
 	public String getText() {
 		return text;
@@ -51,9 +54,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the operator of this content.</div>
 	 * 
-	 * @return <div lang="ja">演算子を表す{@code Operator}。単文の場合は{@code null}</div>
+	 * @return <div lang="ja">演算子。単文の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code Operator} representing the operator, or {@code null} when it is a simple sentence.</div>
+	 *         <div lang="en">The operator, or {@code null} when it is a simple sentence.</div>
 	 */
 	public Operator getOperator() {
 		return operator;
@@ -64,9 +67,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the subject of this content.</div>
 	 * 
-	 * @return <div lang="ja">主語を表す{@code Agent}</div>
+	 * @return <div lang="ja">主語。省略された場合{@code null}</div>
 	 *
-	 *         <div lang="en">{@code Agent} representing the subject.</div>
+	 *         <div lang="en">The subject, or {@code null} if omitted.</div>
 	 */
 	public Agent getSubject() {
 		return subject;
@@ -77,9 +80,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the topic of this content.</div>
 	 * 
-	 * @return <div lang="ja">トピックを表す{@code Topic}。複文の場合は{@code null}</div>
+	 * @return <div lang="ja">トピック。複文の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code Topic} representing the topic, or {@code null} when it is a complex sentence.</div>
+	 *         <div lang="en">The topic, or {@code null} when it is a complex sentence.</div>
 	 */
 	public Topic getTopic() {
 		return topic;
@@ -90,9 +93,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the objective agent of this content. Valid when it is a simple sentence and the topic is other than (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">目的エージェントを表す{@code Agent}。無効の場合は{@code null}</div>
+	 * @return <div lang="ja">目的エージェント。無効の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code Agent} representing the objective agent, or {@code null} when it is invalid.</div>
+	 *         <div lang="en">The objective agent, or {@code null} when it is invalid.</div>
 	 */
 	public Agent getTarget() {
 		return target;
@@ -103,9 +106,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the role referred in this content. Valid when it is a simple sentence and the topic is COMINGOUT or ESTIMATE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている役職を表す{@code Role}。無効の場合は{@code null}</div>
+	 * @return <div lang="ja">言及されている役職。無効の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code Role} representing the referred role, or {@code null} when it is invalid.</div>
+	 *         <div lang="en">The referred role, or {@code null} when it is invalid.</div>
 	 */
 	public Role getRole() {
 		return role;
@@ -116,9 +119,9 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the result of the judgment referred in this content. Valid when it is a simple sentence and the topic is DIVINED or INQUESTED.</div>
 	 * 
-	 * @return <div lang="ja">言及されている結果を表す{@code Species}。無効の場合は{@code null}</div>
+	 * @return <div lang="ja">言及されている判定結果。無効の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code Species} representing the result, or {@code null} when it is invalid.</div>
+	 *         <div lang="en">The referred result, or {@code null} when it is invalid.</div>
 	 */
 	public Species getResult() {
 		return result;
@@ -127,11 +130,11 @@ public class Content {
 	/**
 	 * <div lang="ja">発話内容中で言及されている発言のタイプを返す。発話が単文で，かつTopicが(DIS)AGREEのとき有効</div>
 	 *
-	 * <div lang="en">Returns the type of utterance referred in this content. Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the type of the utterance referred in this content. Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている発言のタイプを表す{@code TalkType}。無効の場合は{@code null}</div>
+	 * @return <div lang="ja">言及されている発言のタイプ。無効の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code TalkType} representing the type of utterance, or {@code null} when it is invalid.</div>
+	 *         <div lang="en">The type of utterance, or {@code null} when it is invalid.</div>
 	 */
 	public TalkType getTalkType() {
 		return talkType;
@@ -140,11 +143,11 @@ public class Content {
 	/**
 	 * <div lang="ja">発話内容中で言及されている発言の日を返す。発話が単文で，かつTopicが(DIS)AGREEのとき有効</div>
 	 *
-	 * <div lang="en">Returns the day of utterance referred in the content. Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the day of the utterance referred in this content. Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている発言の日を表す{@code int}。無効の場合は-1</div>
+	 * @return <div lang="ja">言及されている発言の日。無効の場合は-1</div>
 	 *
-	 *         <div lang="en">{@code int} representing the day of utterance, or -1 when it is invalid.</div>
+	 *         <div lang="en">The day of the referred utterance, or -1 when it is invalid.</div>
 	 */
 	public int getTalkDay() {
 		return talkDay;
@@ -153,11 +156,11 @@ public class Content {
 	/**
 	 * <div lang="ja">発話内容中で言及されている発言のIDを返す。発話が単文で，かつTopicが(DIS)AGREEのとき有効</div>
 	 *
-	 * <div lang="en">Returns the ID of utterance referred in the content. Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
+	 * <div lang="en">Returns the ID of the utterance referred in this content. Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
 	 * 
-	 * @return <div lang="ja">言及されている発言のIDを表す{@code int}。無効の場合は-1</div>
+	 * @return <div lang="ja">言及されている発言のID。無効の場合は-1</div>
 	 *
-	 *         <div lang="en">{@code int} representing the ID of utterance, or -1 when it is invalid.</div>
+	 *         <div lang="en">The ID of the referred utterance, or -1 when it is invalid.</div>
 	 */
 	public int getTalkID() {
 		return talkID;
@@ -168,23 +171,23 @@ public class Content {
 	 *
 	 * <div lang="en">Returns the list of clauses in case of complex or compound sentence.</div>
 	 * 
-	 * @return <div lang="ja">節のリストを表す{@code List<Content>}。単文の場合は{@code null}</div>
+	 * @return <div lang="ja">節のリスト。単文の場合は{@code null}</div>
 	 *
-	 *         <div lang="en">{@code int} representing the list of clauses, or {@code null} in case of simple sentence.</div>
+	 *         <div lang="en">The list of clauses, or {@code null} in case of simple sentence.</div>
 	 */
 	public List<Content> getContentList() {
 		return contentList;
 	}
 
 	/**
-	 * <div lang="ja">指定した{@code ContentBuilder}により{@code Content}を構築する</div>
+	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
 	 *
-	 * <div lang="en">Constructs a {@code Content} by the given {@code ContentBuilder}.</div>
+	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
 	 * 
 	 * @param builder
-	 *            <div lang="ja">発話内容に応じた{@code ContentBuilder}</div>
+	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
 	 *
-	 *            <div lang="en">{@code ContentBuilder} for the content of utterance.</div>
+	 *            <div lang="en">ContentBuilder for the content.</div>
 	 */
 	public Content(ContentBuilder builder) {
 		operator = builder.getOperator();
@@ -204,42 +207,34 @@ public class Content {
 	}
 
 	/**
-	 * <div lang="ja">発話テキストにより{@code Content}を構築する</div>
+	 * <div lang="ja">発話テキストによりContentを構築する</div>
 	 *
-	 * <div lang="en">Constructs a {@code Content} from the uttered text.</div>
+	 * <div lang="en">Constructs a Content from the uttered text.</div>
 	 * 
-	 * @param utterer
-	 *            <div lang="ja">発話者を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the utterer.</div>
 	 * @param input
-	 *            <div lang="ja">発話テキストを表す{@code String}</div>
+	 *            <div lang="ja">発話テキスト</div>
 	 *
-	 *            <div lang="en">{@code String} representing the uttered text.</div>
+	 *            <div lang="en">The uttered text.</div>
 	 */
-	public Content(Agent utterer, String input) {
-		subject = utterer;
+	public Content(String input) {
 		text = input;
 		String s = getSentence(input);
 		if (s != null) { // Complex sentence.
 			operator = Operator.REQUEST;
-			contentList.add(new Content(utterer, s));
-		} else { // Simple sentence.
-			if (input.startsWith("Agent")) { // Explicit subject.
-				text = input;
-			} else { // Implicit subject which equals to the utterer.
-				text = utterer + " " + input;
+			contentList.add(new Content(s));
+		} else { // Simple sentence. Implicit subject means it equals to the utterer.
+			String[] split = text.split("\\s+");
+			int offset = 0;
+			if (split[0].startsWith("Agent")) { // Explicit subject.
+				subject = Agent.getAgent(getInt(split[0]));
+				offset = 1;
 			}
 
-			String[] split = text.split("\\s+");
-			int subjectId = getInt(split[0]);
-			subject = Agent.getAgent(subjectId);
-
-			topic = Topic.getTopic(split[1]);
+			topic = Topic.getTopic(split[0 + offset]);
 
 			int targetId = -1;
-			if (split.length >= 3 && split[2].startsWith("Agent")) {
-				targetId = getInt(split[2]);
+			if (split.length >= 2 + offset && split[1 + offset].startsWith("Agent")) {
+				targetId = getInt(split[1 + offset]);
 			}
 
 			switch (topic) {
@@ -251,13 +246,13 @@ public class Content {
 			case DISAGREE:
 				// ex. TALK day4 ID:38
 				try {
-					talkType = TalkType.valueOf(split[2]);
+					talkType = TalkType.valueOf(split[1 + offset]);
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 					talkType = null;
 				}
-				talkDay = getInt(split[3]);
-				talkID = getInt(split[4]);
+				talkDay = getInt(split[2 + offset]);
+				talkID = getInt(split[3 + offset]);
 				break;
 
 			case ESTIMATE:
@@ -265,7 +260,7 @@ public class Content {
 				// Topic Target Role
 				target = Agent.getAgent(targetId);
 				try {
-					role = Role.valueOf(split[3]);
+					role = Role.valueOf(split[2 + offset]);
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 					role = null;
@@ -277,7 +272,7 @@ public class Content {
 				// Topic Target Result
 				target = Agent.getAgent(targetId);
 				try {
-					result = Species.valueOf(split[3]);
+					result = Species.valueOf(split[2 + offset]);
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 					result = null;
@@ -306,7 +301,7 @@ public class Content {
 	 * @param input
 	 *            <div lang="ja">被チェックテキスト</div>
 	 *
-	 *            <div lang="en">The text to be checked that it is valid.</div>
+	 *            <div lang="en">The text to be checked.</div>
 	 * 
 	 * @return <div lang="ja">有効である場合{@code true}，そうでなければ{@code false}</div>
 	 *
@@ -324,11 +319,11 @@ public class Content {
 			}
 
 			int offset = 0;
-			if (input.startsWith("Agent")) {
+			if (split[0].startsWith("Agent")) {
 				offset = 1;
 			}
 
-			Topic topic = Topic.getTopic(split[offset]);
+			Topic topic = Topic.getTopic(split[0 + offset]);
 			if (topic == null) {
 				return false;
 			}

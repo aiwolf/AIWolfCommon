@@ -10,7 +10,7 @@ import org.aiwolf.common.data.Agent;
 /**
  * <div lang="ja">護衛発話ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the utterance of guard.</div>
+ * <div lang="en">Builder class for the utterance of a guard.</div>
  * 
  * @author otsuki
  *
@@ -18,29 +18,24 @@ import org.aiwolf.common.data.Agent;
 public class GuardContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">{@code target}の護衛発話のためのGuardContentBuilderを構築する</div>
+	 * <div lang="ja">護衛行為について発話するためのGuardContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an GuardContentBuilder for the guard of {@code target}.</div>
+	 * <div lang="en">Constructs a GuardContentBuilder to utter a guard.</div>
 	 * 
-	 * @param subject
-	 *            <div lang="ja">主語を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被護衛エージェント</div>
 	 * 
-	 *            <div lang="en">The guarded agent.</div>
+	 *            <div lang="en">The agent to be guarded.</div>
 	 * 
 	 */
-	public GuardContentBuilder(Agent subject, Agent target) {
+	public GuardContentBuilder(Agent target) {
 		topic = Topic.GUARD;
-		this.subject = subject;
 		this.target = target;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject.toString(), Topic.GUARD.toString(), target.toString() });
+		return String.join(" ", new String[] { Topic.GUARD.toString(), target.toString() });
 	}
 
 }

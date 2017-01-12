@@ -11,7 +11,7 @@ import org.aiwolf.common.data.Species;
 /**
  * <div lang="ja">占い結果報告ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the report of the divination.</div>
+ * <div lang="en">Builder class for the report of a divination.</div>
  * 
  * @author otsuki
  *
@@ -19,33 +19,28 @@ import org.aiwolf.common.data.Species;
 public class DivinedContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">占いの結果{@code target}が{@code result}であるとの報告のためのDivinedContentBuilderを構築する</div>
+	 * <div lang="ja">占いの結果報告のためのDivinedContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an DivinedContentBuilder for reporting that the utterer divined that {@code target} is {@code result}.</div>
+	 * <div lang="en">Constructs a DivinedContentBuilder to report the result of a divination.</div>
 	 * 
-	 * @param subject
-	 *            <div lang="ja">主語を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
-	 *            <div lang="ja">占われたエージェント</div>
+	 *            <div lang="ja">被占いエージェント</div>
 	 * 
-	 *            <div lang="en">The agent divined by the utterer.</div>
+	 *            <div lang="en">The agent divined.</div>
 	 * @param result
-	 *            <div lang="ja">占いの結果</div>
+	 *            <div lang="ja">{@code target}の種族</div>
 	 * 
-	 *            <div lang="en">The species of {@code target} divined by the utterer.</div>
+	 *            <div lang="en">The species of {@code target}.</div>
 	 */
-	public DivinedContentBuilder(Agent subject, Agent target, Species result) {
+	public DivinedContentBuilder(Agent target, Species result) {
 		topic = Topic.DIVINED;
-		this.subject = subject;
 		this.target = target;
 		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject.toString(), Topic.DIVINED.toString(), target.toString(), result.toString() });
+		return String.join(" ", new String[] { Topic.DIVINED.toString(), target.toString(), result.toString() });
 	}
 
 }

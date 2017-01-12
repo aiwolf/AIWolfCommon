@@ -11,7 +11,7 @@ import org.aiwolf.common.data.Species;
 /**
  * <div lang="ja">霊媒結果発話ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the utterance of inquest</div>
+ * <div lang="en">Builder class for the report of a inquest.</div>
  * 
  * @author otsuki
  *
@@ -19,14 +19,10 @@ import org.aiwolf.common.data.Species;
 public class InquestContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">霊媒の結果{@code target}が{@code result}であるとの報告のためのInquestContentBuilderを構築する</div>
+	 * <div lang="ja">霊媒結果の報告のためのInquetContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an InquestContentBuilder for reporting that the inquest revealed that {@code target} is {@code result}.</div>
+	 * <div lang="en">Constructs an InquestContentBuilder to report a inquest.</div>
 	 * 
-	 * @param subject
-	 *            <div lang="ja">主語を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被霊媒エージェント</div>
 	 * 
@@ -34,18 +30,17 @@ public class InquestContentBuilder extends ContentBuilder {
 	 * @param result
 	 *            <div lang="ja">霊媒の結果</div>
 	 * 
-	 *            <div lang="en">The species of {@code target} the inquest revealed.</div>
+	 *            <div lang="en">The species of {@code target}.</div>
 	 */
-	public InquestContentBuilder(Agent subject, Agent target, Species result) {
+	public InquestContentBuilder(Agent target, Species result) {
 		topic = Topic.INQUESTED;
-		this.subject = subject;
 		this.target = target;
 		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject.toString(), Topic.INQUESTED.toString(), target.toString(), result.toString() });
+		return String.join(" ", new String[] { Topic.INQUESTED.toString(), target.toString(), result.toString() });
 	}
 
 }
