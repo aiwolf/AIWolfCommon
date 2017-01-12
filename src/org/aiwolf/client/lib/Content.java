@@ -268,7 +268,7 @@ public class Content {
 				break;
 
 			case DIVINED:
-			case INQUESTED:
+			case IDENTIFIED:
 				// Topic Target Result
 				target = Agent.getAgent(targetId);
 				try {
@@ -368,7 +368,7 @@ public class Content {
 				return true;
 
 			case DIVINED:
-			case INQUESTED:
+			case IDENTIFIED:
 				if (split.length != 3 + offset) {
 					return false;
 				}

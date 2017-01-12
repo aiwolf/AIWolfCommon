@@ -1,5 +1,5 @@
 /**
- * InquestContentBuilder.java
+ * IdentContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -11,30 +11,28 @@ import org.aiwolf.common.data.Species;
 /**
  * <div lang="ja">霊媒結果発話ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the report of a inquest.</div>
+ * <div lang="en">Builder class for the report of a identification.</div>
  * 
  * @author otsuki
- * 
- * @deprecated
  *
  */
-public class InquestContentBuilder extends ContentBuilder {
+public class IdentContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">霊媒結果の報告のためのInquetContentBuilderを構築する</div>
+	 * <div lang="ja">霊媒結果の報告のためのIdentContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an InquestContentBuilder to report a inquest.</div>
+	 * <div lang="en">Constructs an IdentContentBuilder to report a identification.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被霊媒エージェント</div>
 	 * 
-	 *            <div lang="en">The agent who the inquest was hold on.</div>
+	 *            <div lang="en">The identified agent.</div>
 	 * @param result
 	 *            <div lang="ja">霊媒の結果</div>
 	 * 
 	 *            <div lang="en">The species of {@code target}.</div>
 	 */
-	public InquestContentBuilder(Agent target, Species result) {
+	public IdentContentBuilder(Agent target, Species result) {
 		topic = Topic.IDENTIFIED;
 		this.target = target;
 		this.result = result;

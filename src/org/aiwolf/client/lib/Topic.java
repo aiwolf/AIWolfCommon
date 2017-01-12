@@ -21,7 +21,12 @@ public enum Topic {
 
 	DIVINED,
 
+	/**
+	 * @deprecated
+	 */
 	INQUESTED,
+
+	IDENTIFIED,
 
 	GUARD,
 
@@ -40,6 +45,9 @@ public enum Topic {
 	SKIP;
 
 	public static Topic getTopic(String string) {
+		if (string.equalsIgnoreCase(INQUESTED.toString())) {
+			return IDENTIFIED;
+		}
 		for (Topic topic : Topic.values()) {
 			if (topic.toString().equalsIgnoreCase(string)) {
 				return topic;
