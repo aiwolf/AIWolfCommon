@@ -1,5 +1,5 @@
 /**
- * DivineContentBuilder.java
+ * DivinationContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -15,19 +15,19 @@ import org.aiwolf.common.data.Agent;
  * @author otsuki
  *
  */
-public class DivineContentBuilder extends ContentBuilder {
+public class DivinationContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">占い行為について発話するためのDivineContentBuilderを構築する</div>
+	 * <div lang="ja">占い行為について発話するためのDivinationContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a DivineContentBuilder to utter a divination.</div>
+	 * <div lang="en">Constructs a DivinationContentBuilder to utter a divination.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被占いエージェント</div>
 	 * 
 	 *            <div lang="en">The agent to be divined.</div>
 	 */
-	public DivineContentBuilder(Agent target) {
+	public DivinationContentBuilder(Agent target) {
 		topic = Topic.DIVINE;
 		this.target = target;
 	}

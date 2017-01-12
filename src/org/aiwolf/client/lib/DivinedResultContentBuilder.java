@@ -1,5 +1,5 @@
 /**
- * DivinedContentBuilder.java
+ * DivinedResultContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -16,12 +16,12 @@ import org.aiwolf.common.data.Species;
  * @author otsuki
  *
  */
-public class DivinedContentBuilder extends ContentBuilder {
+public class DivinedResultContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">占いの結果報告のためのDivinedContentBuilderを構築する</div>
+	 * <div lang="ja">占いの結果報告のためのDivinedResultContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a DivinedContentBuilder to report the result of a divination.</div>
+	 * <div lang="en">Constructs a DivinedResultContentBuilder to report the result of a divination.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被占いエージェント</div>
@@ -32,7 +32,7 @@ public class DivinedContentBuilder extends ContentBuilder {
 	 * 
 	 *            <div lang="en">The species of {@code target}.</div>
 	 */
-	public DivinedContentBuilder(Agent target, Species result) {
+	public DivinedResultContentBuilder(Agent target, Species result) {
 		topic = Topic.DIVINED;
 		this.target = target;
 		this.result = result;

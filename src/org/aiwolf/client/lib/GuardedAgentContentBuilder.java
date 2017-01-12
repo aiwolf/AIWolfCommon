@@ -1,5 +1,5 @@
 /**
- * GuardedContentBuilder.java
+ * GuardedAgentContentBuilder.java
  * 
  * Copyright (c) 2016 人狼知能プロジェクト
  */
@@ -15,12 +15,12 @@ import org.aiwolf.common.data.Agent;
  * @author otsuki
  *
  */
-public class GuardedContentBuilder extends ContentBuilder {
+public class GuardedAgentContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">護衛報告のためのGuardedContentBuilderを構築する</div>
+	 * <div lang="ja">護衛報告のためのGuardedAgentContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a GuardedContentBuilder to report a guard.</div>
+	 * <div lang="en">Constructs a GuardedAgentContentBuilder to report a guard.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被護衛エージェント</div>
@@ -28,7 +28,7 @@ public class GuardedContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The guarded agent.</div>
 	 * 
 	 */
-	public GuardedContentBuilder(Agent target) {
+	public GuardedAgentContentBuilder(Agent target) {
 		topic = Topic.GUARDED;
 		this.target = target;
 	}
