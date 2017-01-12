@@ -7,6 +7,8 @@ package org.aiwolf.client.lib;
 
 import java.util.ArrayList;
 
+import org.aiwolf.common.data.Agent;
+
 /**
  * <div lang="ja">要求発話ビルダークラス</div>
  * 
@@ -22,13 +24,18 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
 	 * 
+	 * @param agent
+	 *            <div lang="ja">要求先のエージェント</div>
+	 *
+	 *            <div lang="en">The requested agent.</div>
 	 * @param content
 	 *            <div lang="ja">要求される行動を表す{@code Content}</div>
 	 *
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
-	public RequestContentBuilder(Content content) {
+	public RequestContentBuilder(Agent agent, Content content) {
 		operator = Operator.REQUEST;
+		content.subject = agent;
 		contentList = new ArrayList<>();
 		contentList.add(content);
 	}
