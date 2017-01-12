@@ -11,7 +11,7 @@ import org.aiwolf.common.data.Role;
 /**
  * <div lang="ja">推測発話ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the utterance of estimation.</div>
+ * <div lang="en">Builder class for the utterance of a estimation.</div>
  * 
  * @author otsuki
  *
@@ -19,33 +19,28 @@ import org.aiwolf.common.data.Role;
 public class EstimateContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">{@code target}の役職が{@code role}であるとの推測のためのEstimateContentBuilderを構築する</div>
+	 * <div lang="ja">推測のためのEstimateContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an EstimateContentBuilder for estimating that {@code target} acts as {@code role}.</div>
+	 * <div lang="en">Constructs an EstimateContentBuilder to utter an estimation.</div>
 	 * 
-	 * @param subject
-	 *            <div lang="ja">主語を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被推測エージェント</div>
 	 * 
-	 *            <div lang="en">The agent estimated by the utterer.</div>
+	 *            <div lang="en">The agent estimated.</div>
 	 * @param role
 	 *            <div lang="ja">被推測役職</div>
 	 * 
-	 *            <div lang="en">The role estimated by the utterer.</div>
+	 *            <div lang="en">The role estimated.</div>
 	 */
-	public EstimateContentBuilder(Agent subject, Agent target, Role role) {
+	public EstimateContentBuilder(Agent target, Role role) {
 		topic = Topic.ESTIMATE;
-		this.subject = subject;
 		this.target = target;
 		this.role = role;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject.toString(), Topic.ESTIMATE.toString(), target.toString(), role.toString() });
+		return String.join(" ", new String[] { Topic.ESTIMATE.toString(), target.toString(), role.toString() });
 	}
 
 }

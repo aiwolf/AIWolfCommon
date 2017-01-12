@@ -5,13 +5,12 @@
  */
 package org.aiwolf.client.lib;
 
-import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Talk;
 
 /**
- * <div lang="ja">{@code OVER}ビルダークラス</div>
+ * <div lang="ja">OVERビルダークラス</div>
  * 
- * <div lang="en">Builder class for {@code OVER}.</div>
+ * <div lang="en">Builder class for OVER.</div>
  * 
  * @author otsuki
  *
@@ -19,23 +18,17 @@ import org.aiwolf.common.data.Talk;
 public class OverContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">{@code OVER}のためのOverContentBuilderを構築する</div>
+	 * <div lang="ja">OVERのためのOverContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an OverContentBuilder for {@code OVER}.</div>
-	 * 
-	 * @param subject
-	 *            <div lang="ja">主語を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the subject.</div>
+	 * <div lang="en">Constructs an OverContentBuilder for OVER.</div>
 	 */
-	public OverContentBuilder(Agent subject) {
+	public OverContentBuilder() {
 		topic = Topic.OVER;
-		this.subject = subject;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject.toString(), Talk.OVER });
+		return Talk.OVER;
 	}
 
 }

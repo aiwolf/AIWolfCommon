@@ -10,7 +10,7 @@ import org.aiwolf.common.data.Agent;
 /**
  * <div lang="ja">襲撃発話ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the utterance of attack.</div>
+ * <div lang="en">Builder class for the utterance of an attack.</div>
  * 
  * @author otsuki
  *
@@ -18,29 +18,24 @@ import org.aiwolf.common.data.Agent;
 public class AttackContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">{@code target}を襲撃する意思表明のためのAttackContentBuilderを構築する</div>
+	 * <div lang="ja">襲撃意思表明のためのAttackContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an AttackContentBuilder for the declaration of attacking {@code target}.</div>
+	 * <div lang="en">Constructs an AttackContentBuilder to declare an attack.</div>
 	 * 
-	 * @param subject
-	 *            <div lang="ja">主語を表す{@code Agent}</div>
-	 *
-	 *            <div lang="en">{@code Agent} representing the subject.</div>
 	 * @param target
 	 *            <div lang="ja">被襲撃エージェント</div>
 	 * 
-	 *            <div lang="en">The agent the utterer will attack.</div>
+	 *            <div lang="en">The agent to be attacked.</div>
 	 * 
 	 */
-	public AttackContentBuilder(Agent subject, Agent target) {
+	public AttackContentBuilder(Agent target) {
 		topic = Topic.ATTACK;
-		this.subject = subject;
 		this.target = target;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject.toString(), Topic.ATTACK.toString(), target.toString() });
+		return String.join(" ", new String[] { Topic.ATTACK.toString(), target.toString() });
 	}
 
 }

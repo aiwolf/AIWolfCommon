@@ -5,7 +5,6 @@
  */
 package org.aiwolf.client.lib;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.aiwolf.common.data.Agent;
@@ -15,7 +14,7 @@ import org.aiwolf.common.data.Species;
 /**
  * <div lang="ja">発話内容ビルダー抽象クラス</div>
  * 
- * <div lang="en">Abstract builder class for content of utterance.</div>
+ * <div lang="en">Abstract builder class for the content of a utterance.</div>
  * 
  * @author otsuki
  *
