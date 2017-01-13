@@ -42,7 +42,9 @@ public enum Topic {
 
 	OVER,
 
-	SKIP;
+	SKIP,
+
+	OPERATOR;
 
 	public static Topic getTopic(String string) {
 		if (string.equalsIgnoreCase(INQUESTED.toString())) {
