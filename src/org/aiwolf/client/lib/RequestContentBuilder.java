@@ -8,6 +8,7 @@ package org.aiwolf.client.lib;
 import java.util.ArrayList;
 
 import org.aiwolf.common.data.Agent;
+import org.aiwolf.common.data.Talk;
 
 /**
  * <div lang="ja">要求発話ビルダークラス</div>
@@ -36,13 +37,14 @@ public class RequestContentBuilder extends ContentBuilder {
 	public RequestContentBuilder(Agent agent, Content content) {
 		operator = Operator.REQUEST;
 		content.subject = agent;
+		content.text = String.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();
 		contentList = new ArrayList<>();
 		contentList.add(content);
 	}
 
 	@Override
 	String getText() {
-		return Operator.REQUEST + "(" + contentList.get(0).getText() + ")";
+		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Operator.REQUEST + "(" + contentList.get(0).getText() + ")" }).trim();
 	}
 
 }
