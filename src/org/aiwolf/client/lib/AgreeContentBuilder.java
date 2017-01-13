@@ -43,7 +43,7 @@ public class AgreeContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { Topic.AGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID });
+		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.AGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID }).trim();
 	}
 
 }
