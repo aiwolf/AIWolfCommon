@@ -35,6 +35,7 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
 	public RequestContentBuilder(Agent agent, Content content) {
+		topic = Topic.OPERATOR;
 		operator = Operator.REQUEST;
 		content.subject = agent;
 		content.text = String.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();

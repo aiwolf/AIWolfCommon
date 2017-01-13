@@ -220,6 +220,7 @@ public class Content {
 		text = input;
 		String s = getSentence(input);
 		if (s != null) { // Complex sentence.
+			topic = Topic.OPERATOR;
 			operator = Operator.REQUEST;
 			contentList.add(new Content(s));
 		} else { // Simple sentence. Implicit subject means it equals to the utterer.
