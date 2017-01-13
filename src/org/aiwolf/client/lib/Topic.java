@@ -17,7 +17,7 @@ public enum Topic {
 
 	COMINGOUT,
 
-	DIVINE,
+	DIVINATION,
 
 	DIVINED,
 

@@ -281,7 +281,7 @@ public class Content {
 				break;
 
 			case ATTACK:
-			case DIVINE:
+			case DIVINATION:
 			case GUARD:
 			case GUARDED:
 			case VOTE:
@@ -386,7 +386,7 @@ public class Content {
 				return true;
 
 			case ATTACK:
-			case DIVINE:
+			case DIVINATION:
 			case GUARD:
 			case GUARDED:
 			case VOTE:

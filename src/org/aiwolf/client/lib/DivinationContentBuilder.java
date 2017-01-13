@@ -28,13 +28,13 @@ public class DivinationContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The agent to be divined.</div>
 	 */
 	public DivinationContentBuilder(Agent target) {
-		topic = Topic.DIVINE;
+		topic = Topic.DIVINATION;
 		this.target = target;
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DIVINE.toString(), target.toString() }).trim();
+		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DIVINATION.toString(), target.toString() }).trim();
 	}
 
 }
