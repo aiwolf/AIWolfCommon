@@ -159,7 +159,7 @@ public class Utterance {
 
 			//RESULT系
 		case DIVINED:
-		case INQUESTED:
+		case IDENTIFIED:
 			state = State.parseState(split[2]);
 		case GUARDED:
 			target = Agent.getAgent(agentId);

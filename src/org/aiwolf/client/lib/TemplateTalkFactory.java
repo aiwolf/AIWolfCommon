@@ -54,7 +54,7 @@ public class TemplateTalkFactory {
 	 * @return
 	 */
 	public static String inquested(Agent target, Species species){
-		String[] split = {Topic.INQUESTED.toString(), String.valueOf(target.toString()), species.toString()};
+		String[] split = {Topic.IDENTIFIED.toString(), String.valueOf(target.toString()), species.toString()};
 		return wordAttachment(split);
 	}
 
