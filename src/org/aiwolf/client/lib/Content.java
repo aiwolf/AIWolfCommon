@@ -19,7 +19,7 @@ import org.aiwolf.common.data.Species;
  *
  * <div lang="en">Class for the content of a utterance. Constructed by ContentBuilder, or parsing the uttered text.</div>
  */
-public class Content {
+public class Content implements Cloneable {
 
 	public static final Content SKIP = new Content(new SkipContentBuilder());
 	public static final Content OVER = new Content(new OverContentBuilder());
@@ -35,6 +35,18 @@ public class Content {
 	int talkDay = -1;
 	int talkID = -1;
 	List<Content> contentList = new ArrayList<>();
+
+	@Override
+	public Content clone() {
+		Content clone = null;
+		try {
+			clone = (Content) super.clone();
+			// clone.contentList = new ArrayList<Content>(contentList);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return clone;
+	}
 
 	/**
 	 * <div lang="ja">発話テキストを返す</div>
