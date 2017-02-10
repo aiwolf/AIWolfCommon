@@ -11,7 +11,7 @@ import org.aiwolf.common.data.Species;
 /**
  * <div lang="ja">霊媒結果発話ビルダークラス</div>
  * 
- * <div lang="en">Builder class for the report of a identification.</div>
+ * <div lang="en">Builder class for the report of an identification.</div>
  * 
  * @author otsuki
  *
@@ -21,7 +21,7 @@ public class IdentContentBuilder extends ContentBuilder {
 	/**
 	 * <div lang="ja">霊媒結果の報告のためのIdentContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an IdentContentBuilder to report a identification.</div>
+	 * <div lang="en">Constructs an IdentContentBuilder to report an identification.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被霊媒エージェント</div>
