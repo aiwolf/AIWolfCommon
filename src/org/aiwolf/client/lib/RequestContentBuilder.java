@@ -7,6 +7,7 @@ package org.aiwolf.client.lib;
 
 import java.util.ArrayList;
 
+import org.aiwolf.common.AIWolfRuntimeException;
 import org.aiwolf.common.data.Agent;
 
 /**
@@ -34,6 +35,9 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
 	public RequestContentBuilder(Agent agent, Content content) {
+		if (content.getOperator() != null) {
+			throw new AIWolfRuntimeException("RequestContentBuilder: Can not build a request for" + content.getOperator() + ".");
+		}
 		topic = Topic.OPERATOR;
 		operator = Operator.REQUEST;
 		Content newContent = content.clone();
