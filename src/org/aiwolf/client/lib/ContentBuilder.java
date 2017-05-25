@@ -5,7 +5,10 @@
  */
 package org.aiwolf.client.lib;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
@@ -20,6 +23,23 @@ import org.aiwolf.common.data.Species;
  *
  */
 public abstract class ContentBuilder {
+
+	static String join(CharSequence delimiter, CharSequence... elements) {
+		return join(delimiter, Arrays.asList(elements));
+	}
+
+	static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements) {
+		Objects.requireNonNull(delimiter);
+		Objects.requireNonNull(elements);
+		StringBuilder sb = new StringBuilder();
+		Iterator<? extends CharSequence> it = elements.iterator();
+		sb.append(it.next());
+		while (it.hasNext()) {
+			sb.append(delimiter);
+			sb.append(it.next());
+		}
+		return sb.toString();
+	}
 
 	Operator operator = null;
 	Topic topic = null;

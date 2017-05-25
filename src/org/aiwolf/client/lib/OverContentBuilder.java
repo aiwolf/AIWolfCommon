@@ -28,7 +28,7 @@ public class OverContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Talk.OVER }).trim();
+		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Talk.OVER }).trim();
 	}
 
 }

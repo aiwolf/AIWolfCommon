@@ -34,7 +34,7 @@ public class DivinationContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DIVINATION.toString(), target.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DIVINATION.toString(), target.toString() }).trim();
 	}
 
 }

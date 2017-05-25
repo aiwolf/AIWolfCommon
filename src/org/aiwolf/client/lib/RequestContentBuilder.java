@@ -42,14 +42,14 @@ public class RequestContentBuilder extends ContentBuilder {
 		operator = Operator.REQUEST;
 		Content newContent = content.clone();
 		newContent.subject = agent;
-		newContent.text = String.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();
+		newContent.text = ContentBuilder.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();
 		contentList = new ArrayList<>();
 		contentList.add(newContent);
 	}
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Operator.REQUEST + "(" + contentList.get(0).getText() + ")" }).trim();
+		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Operator.REQUEST + "(" + contentList.get(0).getText() + ")" }).trim();
 	}
 
 }

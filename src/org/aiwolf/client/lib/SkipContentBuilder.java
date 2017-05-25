@@ -28,7 +28,7 @@ public class SkipContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Talk.SKIP }).trim();
+		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Talk.SKIP }).trim();
 	}
 
 }

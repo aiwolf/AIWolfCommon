@@ -40,7 +40,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return String.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.ESTIMATE.toString(), target.toString(), role.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.ESTIMATE.toString(), target.toString(), role.toString() }).trim();
 	}
 
 }
