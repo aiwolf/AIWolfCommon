@@ -9,8 +9,6 @@ import java.util.Map;
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
 import org.aiwolf.common.data.Status;
-import org.aiwolf.common.data.Talk;
-import org.aiwolf.common.data.Vote;
 
 
 /**
@@ -38,7 +36,7 @@ public class GameInfoToSend{
 	List<TalkToSend> talkList;
 	List<TalkToSend> whisperList;
 
-	LinkedHashMap<Integer, String> statusMap;
+	Map<Integer, String> statusMap;
 	LinkedHashMap<Integer, String> roleMap;
 	LinkedHashMap<Integer, Integer> remainTalkMap;
 	LinkedHashMap<Integer, Integer> remainWhisperMap;
@@ -52,7 +50,7 @@ public class GameInfoToSend{
 		latestVoteList = new ArrayList<>();
 		attackVoteList = new ArrayList<>();
 		latestAttackVoteList = new ArrayList<>();
-		statusMap = new LinkedHashMap<>();
+		statusMap = new HashMap<>();
 		roleMap = new LinkedHashMap<>();
 		remainTalkMap = new LinkedHashMap<>();
 		remainWhisperMap = new LinkedHashMap<>();
@@ -254,7 +252,9 @@ public class GameInfoToSend{
 	 * @param statusMap セットする statusMap
 	 */
 	public void setStatusMap(LinkedHashMap<Integer, String> statusMap) {
-		this.statusMap = statusMap;
+		for (int i : statusMap.keySet()) {
+			this.statusMap.put(i, statusMap.get(i));
+		}
 	}
 
 	/**
