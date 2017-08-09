@@ -321,6 +321,10 @@ public class Content implements Cloneable {
 	 *         <div lang="en">{@code true} if the text is valid, otherwise {@code false}.</div>
 	 */
 	public static boolean validate(String input) {
+		if (input == null) {
+			return false;
+		}
+
 		String s = getSentence(input);
 		if (s != null) {
 			return validate(s);
