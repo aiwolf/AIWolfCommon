@@ -33,7 +33,30 @@ public class EstimateContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The role estimated.</div>
 	 */
 	public EstimateContentBuilder(Agent target, Role role) {
+		this(null, target, role);
+	}
+
+	/**
+	 * <div lang="ja">推測のためのEstimateContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs an EstimateContentBuilder to utter an estimation.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">推測をするエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who estimates.</div>
+	 * @param target
+	 *            <div lang="ja">被推測エージェント</div>
+	 * 
+	 *            <div lang="en">The agent estimated.</div>
+	 * @param role
+	 *            <div lang="ja">被推測役職</div>
+	 * 
+	 *            <div lang="en">The role estimated.</div>
+	 */
+	public EstimateContentBuilder(Agent subject, Agent target, Role role) {
 		topic = Topic.ESTIMATE;
+		this.subject = subject;
 		this.target = target;
 		this.role = role;
 	}

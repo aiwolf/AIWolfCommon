@@ -29,7 +29,27 @@ public class AttackContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public AttackContentBuilder(Agent target) {
+		this(null, target);
+	}
+
+	/**
+	 * <div lang="ja">襲撃意思表明のためのAttackContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs an AttackContentBuilder to declare an attack.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">襲撃意志を表明するエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who declares.</div>
+	 * @param target
+	 *            <div lang="ja">被襲撃エージェント</div>
+	 * 
+	 *            <div lang="en">The agent to be attacked.</div>
+	 * 
+	 */
+	public AttackContentBuilder(Agent subject, Agent target) {
 		topic = Topic.ATTACK;
+		this.subject = subject;
 		this.target = target;
 	}
 

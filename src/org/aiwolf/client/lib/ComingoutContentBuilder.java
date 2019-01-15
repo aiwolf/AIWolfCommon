@@ -33,7 +33,30 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The role come out with.</div>
 	 */
 	public ComingoutContentBuilder(Agent target, Role role) {
+		this(null, target, role);
+	}
+
+	/**
+	 * <div lang="ja">カミングアウトのためのComingoutContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a ComingoutContentBuilder for a coming-out.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">カミングアウトをするエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who does coming-out.</div>
+	 * @param target
+	 *            <div lang="ja">被カミングアウトエージェント</div>
+	 * 
+	 *            <div lang="en">The agent whose role is come out with.</div>
+	 * @param role
+	 *            <div lang="ja">被カミングアウト役職</div>
+	 * 
+	 *            <div lang="en">The role come out with.</div>
+	 */
+	public ComingoutContentBuilder(Agent subject, Agent target, Role role) {
 		topic = Topic.COMINGOUT;
+		this.subject = subject;
 		this.target = target;
 		this.role = role;
 	}

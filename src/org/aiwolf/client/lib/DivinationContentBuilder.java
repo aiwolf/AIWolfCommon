@@ -28,7 +28,26 @@ public class DivinationContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The agent to be divined.</div>
 	 */
 	public DivinationContentBuilder(Agent target) {
+		this(null, target);
+	}
+
+	/**
+	 * <div lang="ja">占い行為について発話するためのDivinationContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a DivinationContentBuilder to utter a divination.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">占いをするエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who divines.</div>
+	 * @param target
+	 *            <div lang="ja">被占いエージェント</div>
+	 * 
+	 *            <div lang="en">The agent to be divined.</div>
+	 */
+	public DivinationContentBuilder(Agent subject, Agent target) {
 		topic = Topic.DIVINATION;
+		this.subject = subject;
 		this.target = target;
 	}
 

@@ -35,11 +35,34 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
 	public RequestContentBuilder(Agent agent, Content content) {
+		this(null, agent, content);
+	}
+
+	/**
+	 * <div lang="ja">他エージェントの行動を要求するためのRequestContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">要求をするエージェント</div>
+	 *
+	 *            <div lang="en">The agent who requests.</div>
+	 * @param agent
+	 *            <div lang="ja">要求先のエージェント</div>
+	 *
+	 *            <div lang="en">The requested agent.</div>
+	 * @param content
+	 *            <div lang="ja">要求される行動を表す{@code Content}</div>
+	 *
+	 *            <div lang="en">{@code Content} representing the requested action.</div>
+	 */
+	public RequestContentBuilder(Agent subject, Agent agent, Content content) {
 		if (content.getOperator() != null) {
 			throw new AIWolfRuntimeException("RequestContentBuilder: Can not build a request for" + content.getOperator() + ".");
 		}
 		topic = Topic.OPERATOR;
 		operator = Operator.REQUEST;
+		this.subject = subject;
 		Content newContent = content.clone();
 		newContent.subject = agent;
 		newContent.text = ContentBuilder.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();
