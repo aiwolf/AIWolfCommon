@@ -230,79 +230,88 @@ public class Content implements Cloneable {
 	 */
 	public Content(String input) {
 		text = input;
-		String s = getSentence(input);
-		if (s != null) { // Complex sentence.
+		Matcher m = requestPattern.matcher(input);
+		if (m.find()) { // REQUEST operator
 			topic = Topic.OPERATOR;
 			operator = Operator.REQUEST;
-			contentList.add(new Content(s));
-		} else { // Simple sentence. Implicit subject means it equals to the utterer.
-			String[] split = text.split("\\s+");
-			int offset = 0;
-			if (split[0].startsWith("Agent")) { // Explicit subject.
-				subject = Agent.getAgent(getInt(split[0]));
-				offset = 1;
+			contentList.add(new Content(m.group(1)));
+			return;
+		}
+		m = becausePattern.matcher(input);
+		if (m.find()) {// BECAUSE operator
+			topic = Topic.OPERATOR;
+			operator = Operator.BECAUSE;
+			contentList.add(new Content(m.group(1)));
+			contentList.add(new Content(m.group(2)));
+			return;
+		}
+		// Simple sentence. Implicit subject means it equals to the utterer.
+		String[] split = text.split("\\s+");
+		int offset = 0;
+		if (split[0].startsWith("Agent")) { // Explicit subject.
+			subject = Agent.getAgent(getInt(split[0]));
+			offset = 1;
+		}
+
+		topic = Topic.getTopic(split[0 + offset]);
+
+		int targetId = -1;
+		if (split.length >= 2 + offset && split[1 + offset].startsWith("Agent")) {
+			targetId = getInt(split[1 + offset]);
+		}
+
+		switch (topic) {
+		case SKIP:
+		case OVER:
+			break;
+
+		case AGREE:
+		case DISAGREE:
+			// ex. TALK day4 ID:38
+			try {
+				talkType = TalkType.valueOf(split[1 + offset]);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				talkType = null;
 			}
+			talkDay = getInt(split[2 + offset]);
+			talkID = getInt(split[3 + offset]);
+			break;
 
-			topic = Topic.getTopic(split[0 + offset]);
-
-			int targetId = -1;
-			if (split.length >= 2 + offset && split[1 + offset].startsWith("Agent")) {
-				targetId = getInt(split[1 + offset]);
+		case ESTIMATE:
+		case COMINGOUT:
+			// Topic Target Role
+			target = Agent.getAgent(targetId);
+			try {
+				role = Role.valueOf(split[2 + offset]);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				role = null;
 			}
+			break;
 
-			switch (topic) {
-			case SKIP:
-			case OVER:
-				break;
-
-			case AGREE:
-			case DISAGREE:
-				// ex. TALK day4 ID:38
-				try {
-					talkType = TalkType.valueOf(split[1 + offset]);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					talkType = null;
-				}
-				talkDay = getInt(split[2 + offset]);
-				talkID = getInt(split[3 + offset]);
-				break;
-
-			case ESTIMATE:
-			case COMINGOUT:
-				// Topic Target Role
-				target = Agent.getAgent(targetId);
-				try {
-					role = Role.valueOf(split[2 + offset]);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					role = null;
-				}
-				break;
-
-			case DIVINED:
-			case IDENTIFIED:
-				// Topic Target Result
-				target = Agent.getAgent(targetId);
-				try {
-					result = Species.valueOf(split[2 + offset]);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					result = null;
-				}
-				break;
-
-			case ATTACK:
-			case DIVINATION:
-			case GUARD:
-			case GUARDED:
-			case VOTE:
-				target = Agent.getAgent(targetId);
-				break;
-
-			default:
-				break;
+		case DIVINED:
+		case IDENTIFIED:
+			// Topic Target Result
+			target = Agent.getAgent(targetId);
+			try {
+				result = Species.valueOf(split[2 + offset]);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				result = null;
 			}
+			break;
+
+		case ATTACK:
+		case DIVINATION:
+		case GUARD:
+		case GUARDED:
+		case VOTE:
+			target = Agent.getAgent(targetId);
+			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -325,9 +334,13 @@ public class Content implements Cloneable {
 			return false;
 		}
 
-		String s = getSentence(input);
-		if (s != null) {
-			return validate(s);
+		Matcher m = requestPattern.matcher(input);
+		if (m.find()) {
+			return validate(m.group(1));
+		}
+		m = becausePattern.matcher(input);
+		if (m.find()) {
+			return validate(m.group(1)) && validate(m.group(2));
 		} else { // Simple sentence.
 			String[] split = input.split("\\s+");
 			int length = split.length;
@@ -432,14 +445,7 @@ public class Content implements Cloneable {
 	}
 
 	private static final Pattern requestPattern = Pattern.compile("REQUEST\\((.+?)\\)");
-
-	private static String getSentence(String text) {
-		Matcher m = requestPattern.matcher(text);
-		if (m.find()) {
-			return m.group(1);
-		}
-		return null;
-	}
+	private static final Pattern becausePattern = Pattern.compile("BECAUSE\\((.+?)\\)\\((.+?)\\)");
 
 	@Override
 	public boolean equals(Object content) {
