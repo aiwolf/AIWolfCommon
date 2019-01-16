@@ -7,7 +7,6 @@ package org.aiwolf.client.lib;
 
 import java.util.ArrayList;
 
-import org.aiwolf.common.AIWolfRuntimeException;
 import org.aiwolf.common.data.Agent;
 
 /**
@@ -57,12 +56,6 @@ public class BecauseContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the action.</div>
 	 */
 	public BecauseContentBuilder(Agent subject, Content reason, Content action) {
-		if (reason.getOperator() != null) {
-			throw new AIWolfRuntimeException("BecauseContentBuilder: Can not build a content for a reason " + reason.getText() + ".");
-		}
-		if (action.getOperator() != null) {
-			throw new AIWolfRuntimeException("BecauseContentBuilder: Can not build a content for a action " + action.getText() + ".");
-		}
 		topic = Topic.OPERATOR;
 		operator = Operator.BECAUSE;
 		this.subject = subject;
