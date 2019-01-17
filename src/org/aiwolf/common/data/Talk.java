@@ -9,7 +9,7 @@ package org.aiwolf.common.data;
  *
  */
 public class Talk {
-	
+
 	/**
 	 * <div lang="ja">
 	 *
@@ -58,6 +58,10 @@ public class Talk {
 	 *            <div lang="ja">話した日</div>
 	 *
 	 *            <div lang="en">Tald day</div>
+	 * @param turn
+	 *            <div lang="ja">発言のターン</div>
+	 *
+	 *            <div lang="en">Turn of talk</div>
 	 * @param agent
 	 *            <div lang="ja">話したエージェント</div>
 	 *
@@ -106,7 +110,6 @@ public class Talk {
 		return day;
 	}
 
-
 	/**
 	 * <div lang="ja">話した時間を返します。</div>
 	 *
@@ -118,11 +121,10 @@ public class Talk {
 	 *
 	 *         <div lang="en">Tald time</div>
 	 */
-	public int getTurn(){
+	public int getTurn() {
 		return turn;
 	}
 
-	
 	/**
 	 * <div lang="ja">話したエージェントを返します。</div>
 	 *
@@ -235,6 +237,5 @@ public class Talk {
 	public String toString() {
 		return String.format("Day%02d %02d[%03d]\t%s\t%s", day, turn, idx, agent, text);
 	}
-
 
 }
