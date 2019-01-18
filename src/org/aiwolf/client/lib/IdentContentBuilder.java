@@ -63,7 +63,12 @@ public class IdentContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.IDENTIFIED.toString(), target.toString(), result.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				Topic.IDENTIFIED.toString(),
+				target == null ? "ANY" : target.toString(),
+				result.toString()
+		}).trim();
 	}
 
 }

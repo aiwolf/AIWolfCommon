@@ -53,7 +53,11 @@ public class DivinationContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DIVINATION.toString(), target.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				Topic.DIVINATION.toString(),
+				target == null ? "ANY" : target.toString()
+		}).trim();
 	}
 
 }

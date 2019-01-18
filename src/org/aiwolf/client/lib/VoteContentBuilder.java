@@ -55,7 +55,11 @@ public class VoteContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.VOTE.toString(), target.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				Topic.VOTE.toString(),
+				target == null ? "ANY" : target.toString()
+		}).trim();
 	}
 
 }
