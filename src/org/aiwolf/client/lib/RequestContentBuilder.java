@@ -7,7 +7,6 @@ package org.aiwolf.client.lib;
 
 import java.util.ArrayList;
 
-import org.aiwolf.common.AIWolfRuntimeException;
 import org.aiwolf.common.data.Agent;
 
 /**
@@ -25,7 +24,7 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
 	 * 
-	 * @param agent
+	 * @param target
 	 *            <div lang="ja">要求先のエージェント</div>
 	 *
 	 *            <div lang="en">The requested agent.</div>
@@ -34,8 +33,8 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
-	public RequestContentBuilder(Agent agent, Content content) {
-		this(null, agent, content);
+	public RequestContentBuilder(Agent target, Content content) {
+		this(null, target, content);
 	}
 
 	/**
@@ -43,11 +42,11 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
 	 * 
-	 * @param subject
+	 * @param requester
 	 *            <div lang="ja">要求をするエージェント</div>
 	 *
 	 *            <div lang="en">The agent who requests.</div>
-	 * @param agent
+	 * @param accepter
 	 *            <div lang="ja">要求先のエージェント</div>
 	 *
 	 *            <div lang="en">The requested agent.</div>
@@ -56,23 +55,27 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
-	public RequestContentBuilder(Agent subject, Agent agent, Content content) {
-		if (content.getOperator() != null) {
-			throw new AIWolfRuntimeException("RequestContentBuilder: Can not build a request for" + content.getOperator() + ".");
-		}
+	public RequestContentBuilder(Agent requester, Agent accepter, Content content) {
 		topic = Topic.OPERATOR;
 		operator = Operator.REQUEST;
-		this.subject = subject;
+		subject = requester;
+		target = accepter;
 		Content newContent = content.clone();
-		newContent.subject = agent;
-		newContent.text = ContentBuilder.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();
+		if (target == null && newContent.subject != null) {
+			target = newContent.subject;
+		}
 		contentList = new ArrayList<>();
 		contentList.add(newContent);
 	}
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Operator.REQUEST + "(" + contentList.get(0).getText() + ")" }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				Operator.REQUEST.toString(),
+				target == null ? "ANY" : target.toString(),
+				"(" + contentList.get(0).getText() + ")"
+		}).trim();
 	}
 
 }
