@@ -36,6 +36,7 @@ public class Content implements Cloneable {
 	private int talkDay = -1;
 	private int talkID = -1;
 	private List<Content> contentList = new ArrayList<>();
+	private int day = -1;
 
 	/**
 	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
@@ -61,6 +62,7 @@ public class Content implements Cloneable {
 			talkID = builder.getTalkID();
 		} else {
 			contentList = builder.getContentList();
+			day = builder.getDay();
 		}
 	}
 
@@ -84,6 +86,7 @@ public class Content implements Cloneable {
 	private static final Pattern orPattern = Pattern.compile("^(" + regAgent + ")\\s*OR\\s+(\\(.*\\))$");
 	private static final Pattern xorPattern = Pattern.compile("^(" + regAgent + ")\\s*XOR\\s+(\\(.*\\))$");
 	private static final Pattern notPattern = Pattern.compile("^(" + regAgent + ")\\s*NOT\\s+\\((.*)\\)$");
+	private static final Pattern dayPattern = Pattern.compile("^(" + regAgent + ")\\s*DAY\\s+(\\d+)\\s+\\((.*)\\)$");
 
 	// かっこで囲んだ2つのContentの文字列から，2つのContentを抽出する
 	static List<Content> getContents(String input) {
@@ -333,6 +336,17 @@ public class Content implements Cloneable {
 			makeText();
 			return;
 		}
+		// DAY
+		m = dayPattern.matcher(trimmed);
+		if (m.find()) {
+			topic = Topic.OPERATOR;
+			operator = Operator.DAY;
+			subject = Agent.getAgent(getInt(m.group(1)));
+			day = getInt(m.group(2));
+			contentList.add(new Content(m.group(3)));
+			makeText();
+			return;
+		}
 	}
 
 	/**
@@ -479,6 +493,19 @@ public class Content implements Cloneable {
 	}
 
 	/**
+	 * <div lang="ja">発話の日付を返す</div>
+	 *
+	 * <div lang="en">Returns the date of content.</div>
+	 * 
+	 * @return <div lang="ja">日付</div>
+	 *
+	 *         <div lang="en">Date.</div>
+	 */
+	public int getDay() {
+		return day;
+	}
+
+	/**
 	 * <div lang="ja">発話テキストが有効かどうかを返す．</div>
 	 * 
 	 * <div lang="en">Returns whether or not the uttered text is valid.</div>
@@ -594,6 +621,11 @@ public class Content implements Cloneable {
 		if (m.find()) {
 			return true;
 		}
+		// DAY
+		m = dayPattern.matcher(trimmed);
+		if (m.find()) {
+			return true;
+		}
 
 		return false;
 	}
@@ -658,6 +690,9 @@ public class Content implements Cloneable {
 				break;
 			case NOT:
 				text = new NotContentBuilder(subject, contentList.get(0)).getText();
+				break;
+			case DAY:
+				text = new DayContentBuilder(subject, day, contentList.get(0)).getText();
 				break;
 			default:
 				break;
