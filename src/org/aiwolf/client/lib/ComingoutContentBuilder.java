@@ -65,7 +65,7 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
 				subject == null ? "" : subject.toString(),
-				Topic.COMINGOUT.toString(),
+				topic.toString(),
 				target == null ? "ANY" : target.toString(),
 				role == null ? "ANY" : role.toString()
 		}).trim();

@@ -73,7 +73,13 @@ public class DisagreeContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DISAGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				topic.toString(),
+				talkType.toString(),
+				"day" + talkDay,
+				"ID:" + talkID
+		}).trim();
 	}
 
 }

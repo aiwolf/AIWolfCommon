@@ -57,7 +57,7 @@ public class GuardedAgentContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
 				subject == null ? "" : subject.toString(),
-				Topic.GUARDED.toString(),
+				topic.toString(),
 				target == null ? "ANY" : target.toString()
 		}).trim();
 	}

@@ -1,11 +1,12 @@
 /**
- * RequestContentBuilder.java
+ * BecauseContentBuilder.java
  * 
- * Copyright (c) 2016 人狼知能プロジェクト
+ * Copyright (c) 2019 人狼知能プロジェクト
  */
 package org.aiwolf.client.lib;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.aiwolf.common.data.Agent;
 
@@ -59,17 +60,17 @@ public class BecauseContentBuilder extends ContentBuilder {
 		topic = Topic.OPERATOR;
 		operator = Operator.BECAUSE;
 		this.subject = subject;
-		Content newReason = reason.clone();
-		Content newAction = action.clone();
-		contentList = new ArrayList<>();
-		contentList.add(newReason);
-		contentList.add(newAction);
+		contentList = new ArrayList<>(Arrays.asList(reason.clone(), action.clone()));
 	}
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Operator.BECAUSE + "(" + contentList.get(0).getText() + ")(" + contentList.get(1).getText() + ")" })
-				.trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				operator.toString(),
+				"(" + contentList.get(0).getText() + ")",
+				"(" + contentList.get(1).getText() + ")"
+		}).trim();
 	}
 
 }

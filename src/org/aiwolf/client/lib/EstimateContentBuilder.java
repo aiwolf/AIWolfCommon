@@ -66,7 +66,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 		return ContentBuilder
 				.join(" ", new String[] {
 						subject == null ? "" : subject.toString(),
-						Topic.ESTIMATE.toString(),
+						topic.toString(),
 						target == null ? "ANY" : target.toString(),
 						role == null ? "ANY" : role.toString()
 				}).trim();

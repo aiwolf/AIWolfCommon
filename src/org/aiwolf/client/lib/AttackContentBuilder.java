@@ -57,7 +57,7 @@ public class AttackContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
 				subject == null ? "" : subject.toString(),
-				Topic.ATTACK.toString(),
+				topic.toString(),
 				target == null ? "ANY" : target.toString()
 		}).trim();
 	}

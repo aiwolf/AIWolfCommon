@@ -57,7 +57,7 @@ public class GuardCandidateContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
 				subject == null ? "" : subject.toString(),
-				Topic.GUARD.toString(),
+				topic.toString(),
 				target == null ? "ANY" : target.toString()
 		}).trim();
 	}

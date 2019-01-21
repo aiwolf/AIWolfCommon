@@ -65,7 +65,7 @@ public class IdentContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
 				subject == null ? "" : subject.toString(),
-				Topic.IDENTIFIED.toString(),
+				topic.toString(),
 				target == null ? "ANY" : target.toString(),
 				result.toString()
 		}).trim();
