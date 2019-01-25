@@ -29,13 +29,37 @@ public class GuardCandidateContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public GuardCandidateContentBuilder(Agent target) {
+		this(null, target);
+	}
+
+	/**
+	 * <div lang="ja">護衛行為について発話するためのGuardCandidateContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a GuardCandidateContentBuilder to utter a guard.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">護衛をするエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who guards.</div>
+	 * @param target
+	 *            <div lang="ja">被護衛エージェント</div>
+	 * 
+	 *            <div lang="en">The agent to be guarded.</div>
+	 * 
+	 */
+	public GuardCandidateContentBuilder(Agent subject, Agent target) {
 		topic = Topic.GUARD;
+		this.subject = subject;
 		this.target = target;
 	}
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.GUARD.toString(), target.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				topic.toString(),
+				target == null ? "ANY" : target.toString()
+		}).trim();
 	}
 
 }

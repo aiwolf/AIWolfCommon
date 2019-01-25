@@ -41,14 +41,22 @@ public enum Topic {
 
 	OPERATOR;
 
-	public static Topic getTopic(String string) {
-//		if (string.equalsIgnoreCase(INQUESTED.toString())) {
-//			return IDENTIFIED;
-//		}
+	public static Topic getTopic(String s) {
 		for (Topic topic : Topic.values()) {
-			if (topic.toString().equalsIgnoreCase(string)) {
+			if (topic.toString().equalsIgnoreCase(s)) {
 				return topic;
 			}
+		}
+		switch (s) {
+		case "REQUEST":
+		case "BECAUSE":
+		case "AND":
+		case "OR":
+		case "XOR":
+		case "NOT":
+			return Topic.OPERATOR;
+		default:
+			break;
 		}
 		return null;
 	}

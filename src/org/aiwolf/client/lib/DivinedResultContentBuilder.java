@@ -33,14 +33,42 @@ public class DivinedResultContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public DivinedResultContentBuilder(Agent target, Species result) {
+		this(null, target, result);
+	}
+
+	/**
+	 * <div lang="ja">占いの結果報告のためのDivinedResultContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a DivinedResultContentBuilder to report the result of a divination.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">占いを行ったエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who divined.</div>
+	 * @param target
+	 *            <div lang="ja">被占いエージェント</div>
+	 * 
+	 *            <div lang="en">The divined agent.</div>
+	 * @param result
+	 *            <div lang="ja">{@code target}の種族</div>
+	 * 
+	 *            <div lang="en">The species of {@code target}.</div>
+	 */
+	public DivinedResultContentBuilder(Agent subject, Agent target, Species result) {
 		topic = Topic.DIVINED;
+		this.subject = subject;
 		this.target = target;
 		this.result = result;
 	}
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DIVINED.toString(), target.toString(), result.toString() }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				topic.toString(),
+				target == null ? "ANY" : target.toString(),
+				result.toString()
+		}).trim();
 	}
 
 }

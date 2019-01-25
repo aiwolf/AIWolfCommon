@@ -6,8 +6,8 @@
 package org.aiwolf.client.lib;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import org.aiwolf.common.AIWolfRuntimeException;
 import org.aiwolf.common.data.Agent;
 
 /**
@@ -25,7 +25,7 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
 	 * 
-	 * @param agent
+	 * @param target
 	 *            <div lang="ja">要求先のエージェント</div>
 	 *
 	 *            <div lang="en">The requested agent.</div>
@@ -34,22 +34,44 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
-	public RequestContentBuilder(Agent agent, Content content) {
-		if (content.getOperator() != null) {
-			throw new AIWolfRuntimeException("RequestContentBuilder: Can not build a request for" + content.getOperator() + ".");
-		}
+	public RequestContentBuilder(Agent target, Content content) {
+		this(null, target, content);
+	}
+
+	/**
+	 * <div lang="ja">他エージェントの行動を要求するためのRequestContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">要求をするエージェント</div>
+	 *
+	 *            <div lang="en">The agent who requests.</div>
+	 * @param target
+	 *            <div lang="ja">要求先のエージェント</div>
+	 *
+	 *            <div lang="en">The requested agent.</div>
+	 * @param content
+	 *            <div lang="ja">要求される行動を表す{@code Content}</div>
+	 *
+	 *            <div lang="en">{@code Content} representing the requested action.</div>
+	 */
+	public RequestContentBuilder(Agent subject, Agent target, Content content) {
 		topic = Topic.OPERATOR;
 		operator = Operator.REQUEST;
-		Content newContent = content.clone();
-		newContent.subject = agent;
-		newContent.text = ContentBuilder.join(" ", new String[] { agent == null ? "" : agent.toString(), content.text }).trim();
-		contentList = new ArrayList<>();
-		contentList.add(newContent);
+		this.subject = subject;
+		this.target = target;
+		contentList = new ArrayList<>(Arrays.asList(content.clone()));
 	}
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Operator.REQUEST + "(" + contentList.get(0).getText() + ")" }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				operator.toString(),
+				target == null ? "ANY" : target.toString(),
+				"(" + contentList.get(0).getText() + ")"
+		}).trim();
 	}
 
 }

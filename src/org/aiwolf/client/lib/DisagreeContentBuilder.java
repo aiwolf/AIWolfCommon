@@ -5,6 +5,8 @@
  */
 package org.aiwolf.client.lib;
 
+import org.aiwolf.common.data.Agent;
+
 /**
  * <div lang="ja">不同意発話ビルダークラス</div>
  * 
@@ -35,7 +37,35 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public DisagreeContentBuilder(TalkType talkType, int talkDay, int talkID) {
+		this(null, talkType, talkDay, talkID);
+	}
+
+	/**
+	 * <div lang="ja">他の発話への不同意を発話するためのDisagreeContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs a DisagreeContentBuilder to utter the disagreement with the other utterance.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">不同意を表明しているエージェント</div>
+	 *
+	 *            <div lang="en">Type agent who disagrees.</div>
+	 * @param talkType
+	 *            <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>
+	 *
+	 *            <div lang="en">Type of the utterance disagreed with. TALK or WHISPER.</div>
+	 * @param talkDay
+	 *            <div lang="ja">被不同意発話の日</div>
+	 *
+	 *            <div lang="en">The day of the utterance disagreed with.</div>
+	 * @param talkID
+	 *            <div lang="ja">被不同意発話のID</div>
+	 *
+	 *            <div lang="en">The ID of the utterance disagreed with.</div>
+	 * 
+	 */
+	public DisagreeContentBuilder(Agent subject, TalkType talkType, int talkDay, int talkID) {
 		topic = Topic.DISAGREE;
+		this.subject = subject;
 		this.talkType = talkType;
 		this.talkDay = talkDay;
 		this.talkID = talkID;
@@ -43,7 +73,13 @@ public class DisagreeContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.DISAGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				topic.toString(),
+				talkType.toString(),
+				"day" + talkDay,
+				"ID:" + talkID
+		}).trim();
 	}
 
 }

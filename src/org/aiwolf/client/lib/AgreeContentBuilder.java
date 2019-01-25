@@ -5,6 +5,8 @@
  */
 package org.aiwolf.client.lib;
 
+import org.aiwolf.common.data.Agent;
+
 /**
  * <div lang="ja">同意発話ビルダークラス</div>
  * 
@@ -35,7 +37,35 @@ public class AgreeContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public AgreeContentBuilder(TalkType talkType, int talkDay, int talkID) {
+		this(null, talkType, talkDay, talkID);
+	}
+
+	/**
+	 * <div lang="ja">他の発話への同意を発話するためのAgreeContentBuilderを構築する</div>
+	 *
+	 * <div lang="en">Constructs an AgreeContentBuilder to utter the agreement with the other utterance.</div>
+	 * 
+	 * @param subject
+	 *            <div lang="ja">同意を表明しているエージェント</div>
+	 * 
+	 *            <div lang="en">The agent who agrees.</div>
+	 * @param talkType
+	 *            <div lang="ja">被同意発話のタイプ。TALKあるいはWHISPER</div>
+	 *
+	 *            <div lang="en">Type of the utterance agreed with. TALK or WHISPER.</div>
+	 * @param talkDay
+	 *            <div lang="ja">被同意発話の日</div>
+	 *
+	 *            <div lang="en">The day of the utterance agreed with.</div>
+	 * @param talkID
+	 *            <div lang="ja">被同意発話のID</div>
+	 *
+	 *            <div lang="en">The ID of the utterance agreed with.</div>
+	 * 
+	 */
+	public AgreeContentBuilder(Agent subject, TalkType talkType, int talkDay, int talkID) {
 		topic = Topic.AGREE;
+		this.subject = subject;
 		this.talkType = talkType;
 		this.talkDay = talkDay;
 		this.talkID = talkID;
@@ -43,6 +73,12 @@ public class AgreeContentBuilder extends ContentBuilder {
 
 	@Override
 	String getText() {
-		return ContentBuilder.join(" ", new String[] { subject == null ? "" : subject.toString(), Topic.AGREE.toString(), talkType.toString(), "day" + talkDay, "ID:" + talkID }).trim();
+		return ContentBuilder.join(" ", new String[] {
+				subject == null ? "" : subject.toString(),
+				topic.toString(),
+				talkType.toString(),
+				"day" + talkDay,
+				"ID:" + talkID
+		}).trim();
 	}
 }

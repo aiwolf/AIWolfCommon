@@ -33,6 +33,20 @@ public enum Operator {
 	 *
 	 * <div lang="en"></div>
 	 */
+	DAY,
+
+	/**
+	 * <div lang="ja"></div>
+	 *
+	 * <div lang="en"></div>
+	 */
+	NOT,
+
+	/**
+	 * <div lang="ja"></div>
+	 *
+	 * <div lang="en"></div>
+	 */
 	AND,
 
 	/**
@@ -40,5 +54,12 @@ public enum Operator {
 	 *
 	 * <div lang="en"></div>
 	 */
-	OR
+	OR,
+
+	/**
+	 * <div lang="ja"></div>
+	 *
+	 * <div lang="en"></div>
+	 */
+	XOR
 }

@@ -51,6 +51,7 @@ public abstract class ContentBuilder {
 	int talkDay = -1;
 	int talkID = -1;
 	List<Content> contentList = null;
+	int day = -1;
 
 	/**
 	 * @return the text of content
@@ -125,6 +126,13 @@ public abstract class ContentBuilder {
 	 */
 	List<Content> getContentList() {
 		return contentList;
+	}
+
+	/**
+	 * @return the day
+	 */
+	int getDay() {
+		return day;
 	}
 
 }
