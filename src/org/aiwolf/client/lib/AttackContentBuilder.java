@@ -18,33 +18,33 @@ import org.aiwolf.common.data.Agent;
 public class AttackContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">襲撃意思表明のためのAttackContentBuilderを構築する</div>
+	 * <div lang="ja">襲撃発話のためのAttackContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an AttackContentBuilder to declare an attack.</div>
+	 * <div lang="en">Constructs an AttackContentBuilder for the utterance of an attack.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被襲撃エージェント</div>
 	 * 
-	 *            <div lang="en">The agent to be attacked.</div>
+	 *            <div lang="en">The attacked agent.</div>
 	 * 
 	 */
 	public AttackContentBuilder(Agent target) {
-		this(null, target);
+		this(Agent.UNSPEC, target);
 	}
 
 	/**
-	 * <div lang="ja">襲撃意思表明のためのAttackContentBuilderを構築する</div>
+	 * <div lang="ja">襲撃発話のためのAttackContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs an AttackContentBuilder to declare an attack.</div>
+	 * <div lang="en">Constructs an AttackContentBuilder for the utterance of an attack.</div>
 	 * 
 	 * @param subject
-	 *            <div lang="ja">襲撃意志を表明するエージェント</div>
+	 *            <div lang="ja">襲撃をするエージェント</div>
 	 * 
-	 *            <div lang="en">The agent who declares.</div>
+	 *            <div lang="en">The agent who attacks.</div>
 	 * @param target
 	 *            <div lang="ja">被襲撃エージェント</div>
 	 * 
-	 *            <div lang="en">The agent to be attacked.</div>
+	 *            <div lang="en">The attacked agent.</div>
 	 * 
 	 */
 	public AttackContentBuilder(Agent subject, Agent target) {
@@ -56,9 +56,9 @@ public class AttackContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
-				target == null ? "ANY" : target.toString()
+				target.toString()
 		}).trim();
 	}
 

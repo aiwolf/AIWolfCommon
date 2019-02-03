@@ -33,7 +33,7 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The role come out with.</div>
 	 */
 	public ComingoutContentBuilder(Agent target, Role role) {
-		this(null, target, role);
+		this(Agent.UNSPEC, target, role);
 	}
 
 	/**
@@ -64,10 +64,10 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
-				target == null ? "ANY" : target.toString(),
-				role == null ? "ANY" : role.toString()
+				target.toString(),
+				role.toString()
 		}).trim();
 	}
 

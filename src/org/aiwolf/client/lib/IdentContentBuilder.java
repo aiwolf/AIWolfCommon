@@ -33,7 +33,7 @@ public class IdentContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public IdentContentBuilder(Agent target, Species result) {
-		this(null, target, result);
+		this(Agent.UNSPEC, target, result);
 	}
 
 	/**
@@ -64,9 +64,9 @@ public class IdentContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
-				target == null ? "ANY" : target.toString(),
+				target.toString(),
 				result.toString()
 		}).trim();
 	}

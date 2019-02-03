@@ -35,7 +35,7 @@ public class BecauseContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the action.</div>
 	 */
 	public BecauseContentBuilder(Content reason, Content action) {
-		this(null, reason, action);
+		this(Agent.UNSPEC, reason, action);
 	}
 
 	/**
@@ -60,13 +60,13 @@ public class BecauseContentBuilder extends ContentBuilder {
 		topic = Topic.OPERATOR;
 		operator = Operator.BECAUSE;
 		this.subject = subject;
-		contentList = new ArrayList<>(Arrays.asList(reason.clone(), action.clone()));
+		contentList = new ArrayList<>(Arrays.asList(reason, action));
 	}
 
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				"(" + contentList.get(0).getText() + ")",
 				"(" + contentList.get(1).getText() + ")"

@@ -37,7 +37,7 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public DisagreeContentBuilder(TalkType talkType, int talkDay, int talkID) {
-		this(null, talkType, talkDay, talkID);
+		this(Agent.UNSPEC, talkType, talkDay, talkID);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
 				talkType.toString(),
 				"day" + talkDay,

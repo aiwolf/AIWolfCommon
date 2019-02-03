@@ -35,7 +35,7 @@ public class DayContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} given the date information.</div>
 	 */
 	public DayContentBuilder(int day, Content content) {
-		this(null, day, content);
+		this(Agent.UNSPEC, day, content);
 	}
 
 	/**
@@ -61,13 +61,13 @@ public class DayContentBuilder extends ContentBuilder {
 		operator = Operator.DAY;
 		this.subject = subject;
 		this.day = day;
-		contentList = new ArrayList<>(Arrays.asList(content.clone()));
+		contentList = new ArrayList<>(Arrays.asList(content));
 	}
 
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				String.valueOf(day),
 				"(" + contentList.get(0).getText() + ")"
