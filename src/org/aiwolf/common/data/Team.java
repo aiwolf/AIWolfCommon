@@ -1,3 +1,8 @@
+/**
+ * Team.java
+ * 
+ * Copyright (c) 2014 人狼知能プロジェクト
+ */
 package org.aiwolf.common.data;
 
 /**
@@ -5,7 +10,7 @@ package org.aiwolf.common.data;
  * 
  * <div lang="en">Teams.</div>
  * 
- * @author tori
+ * @author tori and otsuki
  */
 public enum Team {
 	/**
@@ -27,5 +32,12 @@ public enum Team {
 	 * <div lang="en">The third team.</div>
 	 */
 	OTHERS,
+
+	/**
+	 * <div lang="ja">陣営不定</div>
+	 * 
+	 * <div lang="en">An arbitrary team.</div>
+	 */
+	ANY,
 
 }
