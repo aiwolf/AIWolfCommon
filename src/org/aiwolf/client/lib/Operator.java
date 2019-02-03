@@ -6,60 +6,67 @@
 package org.aiwolf.client.lib;
 
 /**
- * <div lang="ja">{@code Content}どうしの関係を表す演算子の列挙型</div>
+ * <div lang="ja">{@code Content}の演算子の列挙型</div>
  *
- * <div lang="en">Enum type of operators representing the relationship among {@code Content}s.</div>
+ * <div lang="en">Enum type of operators of {@code Content}s.</div>
  * 
  * @author otsuki
  */
 public enum Operator {
 
 	/**
-	 * <div lang="ja">行動の要求</div>
+	 * <div lang="ja">要求</div>
 	 *
-	 * <div lang="en">Request for the action.</div>
+	 * <div lang="en">Request</div>
 	 */
 	REQUEST,
 
 	/**
-	 * <div lang="ja">行動の理由</div>
+	 * <div lang="ja">照会</div>
 	 *
-	 * <div lang="en">Reason for the action.</div>
+	 * <div lang="en">Inquiry</div>
+	 */
+	INQUIRE,
+
+	/**
+	 * <div lang="ja">理由</div>
+	 *
+	 * <div lang="en">Reason</div>
 	 */
 	BECAUSE,
 
 	/**
-	 * <div lang="ja"></div>
+	 * <div lang="ja">日付</div>
 	 *
-	 * <div lang="en"></div>
+	 * <div lang="en">Day</div>
 	 */
 	DAY,
 
 	/**
-	 * <div lang="ja"></div>
+	 * <div lang="ja">NOT</div>
 	 *
-	 * <div lang="en"></div>
+	 * <div lang="en">NOT</div>
 	 */
 	NOT,
 
 	/**
-	 * <div lang="ja"></div>
+	 * <div lang="ja">AND</div>
 	 *
-	 * <div lang="en"></div>
+	 * <div lang="en">AND</div>
 	 */
 	AND,
 
 	/**
-	 * <div lang="ja"></div>
+	 * <div lang="ja">OR</div>
 	 *
-	 * <div lang="en"></div>
+	 * <div lang="en">OR</div>
 	 */
 	OR,
 
 	/**
-	 * <div lang="ja"></div>
+	 * <div lang="ja">XOR</div>
 	 *
-	 * <div lang="en"></div>
+	 * <div lang="en">XOR</div>
 	 */
 	XOR
 }
