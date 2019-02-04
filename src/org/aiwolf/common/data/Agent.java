@@ -1,3 +1,8 @@
+/**
+ * Agent.java
+ * 
+ * Copyright (c) 2014 人狼知能プロジェクト
+ */
 package org.aiwolf.common.data;
 
 import java.util.HashMap;
@@ -18,12 +23,26 @@ import java.util.Map;
  * 
  * </div>
  * 
- * @author tori
+ * @author tori and otsuki
  *
  */
 final public class Agent implements Comparable<Agent> {
 
 	private static Map<Integer, Agent> agentIndexMap = new HashMap<>();
+
+	/**
+	 * <div lang="ja">不特定のエージェントを表す定数</div>
+	 * 
+	 * <div lang="en">Constant representing an arbitrary agent.</div>
+	 */
+	public static final Agent ANY = getAgent(0);
+
+	/**
+	 * <div lang="ja">エージェント未特定であることを表す定数</div>
+	 * 
+	 * <div lang="en">Constant representing an unspecified agent.</div>
+	 */
+	public static final Agent UNSPEC = null;
 
 	/**
 	 * <div lang="ja">指定されたインデックスのエージェントを取得します。</div>
@@ -42,7 +61,7 @@ final public class Agent implements Comparable<Agent> {
 	 */
 	static public Agent getAgent(int idx) {
 		if (idx < 0) {
-			return null;
+			return UNSPEC;
 		}
 		if (!agentIndexMap.containsKey(idx)) {
 			Agent agent = new Agent(idx);
@@ -52,14 +71,6 @@ final public class Agent implements Comparable<Agent> {
 	}
 
 	int agentIdx;
-
-	// TODO コメントアウトされたコンストラクター
-	/**
-	 * 
-	 * @param agentIdx
-	 */
-	// public Agent(){
-	// }
 
 	/**
 	 * <div lang="ja">新しいエージェントを構築します。</div>
@@ -92,9 +103,7 @@ final public class Agent implements Comparable<Agent> {
 
 	@Override
 	public String toString() {
-		// TODO コメントアウトされた行
-		// return String.format("{\"agentIdx\":%02d}", agentIdx);
-		return String.format("Agent[%02d]", agentIdx);
+		return agentIdx == 0 ? "ANY" : String.format("Agent[%02d]", agentIdx);
 	}
 
 	@Override

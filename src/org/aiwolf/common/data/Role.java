@@ -1,3 +1,8 @@
+/**
+ * Role.java
+ * 
+ * Copyright (c) 2014 人狼知能プロジェクト
+ */
 package org.aiwolf.common.data;
 
 /**
@@ -6,7 +11,7 @@ package org.aiwolf.common.data;
  * 
  * <div lang="en">Roles of Player.</div>
  * 
- * @author tori
+ * @author tori and otsuki
  */
 public enum Role {
 
@@ -68,7 +73,14 @@ public enum Role {
 	 * 
 	 * <div lang="en">The role FOX.</div>
 	 */
-	FOX(Team.OTHERS, Species.HUMAN);
+	FOX(Team.OTHERS, Species.HUMAN),
+
+	/**
+	 * <div lang="ja">役職不定</div>
+	 * 
+	 * <div lang="en">An arbitrary role.</div>
+	 */
+	ANY(Team.ANY, Species.ANY);
 
 	private Team teamType;
 	private Species species;

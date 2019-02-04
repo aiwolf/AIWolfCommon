@@ -31,7 +31,7 @@ public class NotContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The negated {@code Content}.</div>
 	 */
 	public NotContentBuilder(Content content) {
-		this(null, content);
+		this(Agent.UNSPEC, content);
 	}
 
 	/**
@@ -52,13 +52,13 @@ public class NotContentBuilder extends ContentBuilder {
 		topic = Topic.OPERATOR;
 		operator = Operator.NOT;
 		this.subject = subject;
-		contentList = new ArrayList<>(Arrays.asList(content.clone()));
+		contentList = new ArrayList<>(Arrays.asList(content));
 	}
 
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				"(" + contentList.get(0).getText() + ")"
 		}).trim();

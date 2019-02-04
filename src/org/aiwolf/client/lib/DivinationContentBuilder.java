@@ -28,7 +28,7 @@ public class DivinationContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The agent to be divined.</div>
 	 */
 	public DivinationContentBuilder(Agent target) {
-		this(null, target);
+		this(Agent.UNSPEC, target);
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class DivinationContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
-				target == null ? "ANY" : target.toString()
+				target.toString()
 		}).trim();
 	}
 

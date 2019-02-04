@@ -29,7 +29,7 @@ public class GuardedAgentContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public GuardedAgentContentBuilder(Agent target) {
-		this(null, target);
+		this(Agent.UNSPEC, target);
 	}
 
 	/**
@@ -56,9 +56,9 @@ public class GuardedAgentContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
-				target == null ? "ANY" : target.toString()
+				target.toString()
 		}).trim();
 	}
 

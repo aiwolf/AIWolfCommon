@@ -1,3 +1,8 @@
+/**
+ * Talk.java
+ * 
+ * Copyright (c) 2014 人狼知能プロジェクト
+ */
 package org.aiwolf.common.data;
 
 /**
@@ -5,7 +10,7 @@ package org.aiwolf.common.data;
  *
  * <div lang="en">AI Wolf Talk.</div>
  *
- * @author tori
+ * @author tori and otsuki
  *
  */
 public class Talk {
@@ -156,26 +161,6 @@ public class Talk {
 	 *         <div lang="en">Uttered text of talk</div>
 	 */
 	public String getText() {
-		return text;
-	}
-
-	/**
-	 * <div lang="ja">話の内容を返します。</div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Get the content of talk, Werewolf language.
-	 *
-	 * </div>
-	 *
-	 * @return
-	 *
-	 * 		<div lang="ja">話の内容</div>
-	 *
-	 *         <div lang="en">Content of talk</div>
-	 * @deprecated
-	 */
-	public String getContent() {
 		return text;
 	}
 

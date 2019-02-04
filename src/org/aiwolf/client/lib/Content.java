@@ -16,9 +16,9 @@ import org.aiwolf.common.data.Species;
 import org.aiwolf.common.data.Talk;
 
 /**
- * <div lang="ja">発話内容クラス。ContentBuilderで生成あるいは発話テキストをparseして生成</div>
+ * <div lang="ja">発話内容クラス。ContentBuilderあるいは発話テキストから生成</div>
  *
- * <div lang="en">Class for the content of a utterance. Constructed by ContentBuilder, or parsing the uttered text.</div>
+ * <div lang="en">Class for the content of a utterance. Constructed by giving a ContentBuilder or the uttered text.</div>
  */
 public class Content implements Cloneable {
 
@@ -52,7 +52,7 @@ public class Content implements Cloneable {
 		operator = builder.getOperator();
 		subject = builder.getSubject();
 		text = builder.getText();
-		if (operator == null) {
+		if (null == operator) {
 			topic = builder.getTopic();
 			target = builder.getTarget();
 			role = builder.getRole();
@@ -66,43 +66,37 @@ public class Content implements Cloneable {
 		}
 	}
 
-	private static final String regAgent = "\\p{Upper}?\\p{Lower}*\\[?\\d*\\]?";
-	private static final Pattern skipPattern = Pattern.compile("^" + Talk.SKIP + "$");
-	private static final Pattern overPattern = Pattern.compile("^" + Talk.OVER + "$");
-	private static final Pattern agreePattern = Pattern.compile("^(" + regAgent + ")\\s*AGREE\\s+(\\p{Upper}+)\\s+day(\\d+)\\s+ID:(\\d+)$");
-	private static final Pattern disagreePattern = Pattern.compile("^(" + regAgent + ")\\s*DISAGREE\\s+(\\p{Upper}+)\\s+day(\\d+)\\s+ID:(\\d+)$");
-	private static final Pattern estimatePattern = Pattern.compile("^(" + regAgent + ")\\s*ESTIMATE\\s+(" + regAgent + "|ANY)\\s+(\\p{Upper}+)$");
-	private static final Pattern comingoutPattern = Pattern.compile("^(" + regAgent + ")\\s*COMINGOUT\\s+(" + regAgent + "|ANY)\\s+(\\p{Upper}+)$");
-	private static final Pattern divinedPattern = Pattern.compile("^(" + regAgent + ")\\s*DIVINED\\s+(" + regAgent + "|ANY)\\s+(\\p{Upper}+)$");
-	private static final Pattern identifiedPattern = Pattern.compile("^(" + regAgent + ")\\s*IDENTIFIED\\s+(" + regAgent + "|ANY)\\s+(\\p{Upper}+)$");
-	private static final Pattern attackPattern = Pattern.compile("^(" + regAgent + ")\\s*ATTACK\\s+(" + regAgent + "|ANY)$");
-	private static final Pattern divinationPattern = Pattern.compile("^(" + regAgent + ")\\s*DIVINATION\\s+(" + regAgent + "|ANY)$");
-	private static final Pattern guardPattern = Pattern.compile("^(" + regAgent + ")\\s*GUARD\\s+(" + regAgent + "|ANY)$");
-	private static final Pattern guardedPattern = Pattern.compile("^(" + regAgent + ")\\s*GUARDED\\s+(" + regAgent + "|ANY)$");
-	private static final Pattern votePattern = Pattern.compile("^(" + regAgent + ")\\s*VOTE\\s+(" + regAgent + "|ANY)$");
-	private static final Pattern requestPattern = Pattern.compile("^(" + regAgent + ")\\s*REQUEST\\s*(" + regAgent + "|ANY)\\s+\\((.*)\\)$");
-	private static final Pattern becausePattern = Pattern.compile("^(" + regAgent + ")\\s*BECAUSE\\s+(\\(.*\\))$");
-	private static final Pattern andPattern = Pattern.compile("^(" + regAgent + ")\\s*AND\\s+(\\(.*\\))$");
-	private static final Pattern orPattern = Pattern.compile("^(" + regAgent + ")\\s*OR\\s+(\\(.*\\))$");
-	private static final Pattern xorPattern = Pattern.compile("^(" + regAgent + ")\\s*XOR\\s+(\\(.*\\))$");
-	private static final Pattern notPattern = Pattern.compile("^(" + regAgent + ")\\s*NOT\\s+\\((.*)\\)$");
-	private static final Pattern dayPattern = Pattern.compile("^(" + regAgent + ")\\s*DAY\\s+(\\d+)\\s+\\((.*)\\)$");
+	private static final String regAgent = "\\s+(Agent\\[\\d+\\]|ANY)";
+	private static final String regSubject = "^(Agent\\[\\d+\\]|ANY|)\\s*";
+	private static final String regTalk = "\\s+(\\p{Upper}+)\\s+day(\\d+)\\s+ID:(\\d+)";
+	private static final String regRoleResult = "\\s+(\\p{Upper}+)";
+	private static final String regParen = "(\\(.*\\))";
+	private static final String regDigit = "(\\d+)";
+	private static final String TERM = "$";
+	private static final String SP = "\\s+";
+	private static final Pattern agreePattern = Pattern.compile(regSubject + "(AGREE|DISAGREE)" + regTalk + TERM);
+	private static final Pattern estimatePattern = Pattern.compile(regSubject + "(ESTIMATE|COMINGOUT)" + regAgent + regRoleResult + TERM);
+	private static final Pattern divinedPattern = Pattern.compile(regSubject + "(DIVINED|IDENTIFIED)" + regAgent + regRoleResult + TERM);
+	private static final Pattern attackPattern = Pattern.compile(regSubject + "(ATTACK|ATTACKED|DIVINATION|GUARD|GUARDED|VOTE|VOTED)" + regAgent + TERM);
+	private static final Pattern requestPattern = Pattern.compile(regSubject + "(REQUEST|INQUIRE)" + regAgent + SP + regParen + TERM);
+	private static final Pattern becausePattern = Pattern.compile(regSubject + "(BECAUSE|AND|OR|XOR|NOT|REQUEST)" + SP + regParen + TERM);
+	private static final Pattern dayPattern = Pattern.compile(regSubject + "DAY" + SP + regDigit + SP + regParen + TERM);
 
-	// かっこで囲んだ2つのContentの文字列から，2つのContentを抽出する
+	// かっこで囲んだContent文字列の並びをContentのリストに変換する
 	static List<Content> getContents(String input) {
 		List<Content> contents = new ArrayList<>();
 		int length = input.length();
 		int stackPtr = 0;
 		int start = 0;
 		for (int i = 0; i < length; i++) {
-			if (input.charAt(i) == '(') {
-				if (stackPtr == 0) {
+			if ('(' == input.charAt(i)) {
+				if (0 == stackPtr) {
 					start = i;
 				}
 				stackPtr++;
-			} else if (input.charAt(i) == ')') {
+			} else if (')' == input.charAt(i)) {
 				stackPtr--;
-				if (stackPtr == 0) {
+				if (0 == stackPtr) {
 					contents.add(new Content(input.substring(start + 1, i)));
 				}
 			}
@@ -123,216 +117,78 @@ public class Content implements Cloneable {
 	public Content(String input) {
 		String trimmed = input.trim();
 		// SKIP
-		Matcher m = skipPattern.matcher(trimmed);
-		if (m.find()) {
+		if (trimmed.equals(Talk.SKIP)) {
 			topic = Topic.SKIP;
-			makeText();
+			text = Talk.SKIP;
 			return;
 		}
 		// OVER
-		m = overPattern.matcher(trimmed);
-		if (m.find()) {
+		if (trimmed.equals(Talk.OVER)) {
 			topic = Topic.OVER;
-			makeText();
+			text = Talk.OVER;
 			return;
 		}
-		// AGREE
-		m = agreePattern.matcher(trimmed);
+		// AGREE,DISAGREE
+		Matcher m = agreePattern.matcher(trimmed);
 		if (m.find()) {
-			topic = Topic.AGREE;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			try {
-				talkType = TalkType.valueOf(m.group(2));
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-			talkDay = getInt(m.group(3));
-			talkID = getInt(m.group(4));
+			subject = toAgent(m.group(1));
+			topic = Topic.valueOf(m.group(2));
+			talkType = TalkType.valueOf(m.group(3));
+			talkDay = Integer.parseInt(m.group(4));
+			talkID = Integer.parseInt(m.group(5));
 			makeText();
 			return;
 		}
-		// DISAGREE
-		m = disagreePattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.DISAGREE;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			try {
-				talkType = TalkType.valueOf(m.group(2));
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-			talkDay = getInt(m.group(3));
-			talkID = getInt(m.group(4));
-			makeText();
-			return;
-		}
-		// ESTIMATE
+		// ESTIMATE,COMINGOUT
 		m = estimatePattern.matcher(trimmed);
 		if (m.find()) {
-			topic = Topic.ESTIMATE;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			if (!m.group(3).equals("ANY")) {
-				try {
-					role = Role.valueOf(m.group(3));
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				}
-			}
+			subject = toAgent(m.group(1));
+			topic = Topic.valueOf(m.group(2));
+			target = toAgent(m.group(3));
+			role = Role.valueOf(m.group(4));
 			makeText();
 			return;
 		}
-		// COMINGOUT
-		m = comingoutPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.COMINGOUT;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			if (!m.group(3).equals("ANY")) {
-				try {
-					role = Role.valueOf(m.group(3));
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				}
-			}
-			makeText();
-			return;
-		}
-		// DIVINED
+		// DIVINED,IDENTIFIED
 		m = divinedPattern.matcher(trimmed);
 		if (m.find()) {
-			topic = Topic.DIVINED;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			try {
-				result = Species.valueOf(m.group(3));
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
+			subject = toAgent(m.group(1));
+			topic = Topic.valueOf(m.group(2));
+			target = toAgent(m.group(3));
+			result = Species.valueOf(m.group(4));
 			makeText();
 			return;
 		}
-		// IDENTIFIED
-		m = identifiedPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.IDENTIFIED;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			try {
-				result = Species.valueOf(m.group(3));
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-			makeText();
-			return;
-		}
-		// ATTACK
+		// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
 		m = attackPattern.matcher(trimmed);
 		if (m.find()) {
-			topic = Topic.ATTACK;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
+			subject = toAgent(m.group(1));
+			topic = Topic.valueOf(m.group(2));
+			target = toAgent(m.group(3));
 			makeText();
 			return;
 		}
-		// DIVINATION
-		m = divinationPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.DIVINATION;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			makeText();
-			return;
-		}
-		// GUARD
-		m = guardPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.GUARD;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			makeText();
-			return;
-		}
-		// GUARDED
-		m = guardedPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.GUARDED;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			makeText();
-			return;
-		}
-		// VOTE
-		m = votePattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.VOTE;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			makeText();
-			return;
-		}
-		// REQUEST
+		// REQUEST,INQUIRE
 		m = requestPattern.matcher(trimmed);
 		if (m.find()) {
 			topic = Topic.OPERATOR;
-			operator = Operator.REQUEST;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			target = Agent.getAgent(getInt(m.group(2)));
-			Content newContent = new Content(m.group(3));
-			if (target == null && !m.group(2).equals("ANY")) {// AIWolf protocol ver2
-				target = newContent.subject;
-			}
-			contentList.add(newContent);
+			subject = toAgent(m.group(1));
+			operator = Operator.valueOf(m.group(2));
+			target = toAgent(m.group(3));
+			contentList = getContents(m.group(4));
 			makeText();
 			return;
 		}
-		// BECAUSE
+		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
 		m = becausePattern.matcher(trimmed);
 		if (m.find()) {
 			topic = Topic.OPERATOR;
-			operator = Operator.BECAUSE;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			contentList = getContents(m.group(2));
-			makeText();
-			return;
-		}
-		// AND
-		m = andPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.OPERATOR;
-			operator = Operator.AND;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			contentList = getContents(m.group(2));
-			makeText();
-			return;
-		}
-		// OR
-		m = orPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.OPERATOR;
-			operator = Operator.OR;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			contentList = getContents(m.group(2));
-			makeText();
-			return;
-		}
-		// XOR
-		m = xorPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.OPERATOR;
-			operator = Operator.XOR;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			contentList = getContents(m.group(2));
-			makeText();
-			return;
-		}
-		// NOT
-		m = notPattern.matcher(trimmed);
-		if (m.find()) {
-			topic = Topic.OPERATOR;
-			operator = Operator.NOT;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			contentList.add(new Content(m.group(2)));
+			subject = toAgent(m.group(1));
+			operator = Operator.valueOf(m.group(2));
+			contentList = getContents(m.group(3));
+			if (Operator.REQUEST == operator) {
+				target = Agent.UNSPEC == contentList.get(0).subject ? Agent.ANY : contentList.get(0).subject;
+			}
 			makeText();
 			return;
 		}
@@ -341,9 +197,9 @@ public class Content implements Cloneable {
 		if (m.find()) {
 			topic = Topic.OPERATOR;
 			operator = Operator.DAY;
-			subject = Agent.getAgent(getInt(m.group(1)));
-			day = getInt(m.group(2));
-			contentList.add(new Content(m.group(3)));
+			subject = toAgent(m.group(1));
+			day = Integer.parseInt(m.group(2));
+			contentList = getContents(m.group(3));
 			makeText();
 			return;
 		}
@@ -521,109 +377,45 @@ public class Content implements Cloneable {
 	 */
 	public static boolean validate(String input) {
 
-		if (input == null) {
+		if (null == input) {
 			return false;
 		}
 
 		String trimmed = input.trim();
 		// SKIP
-		Matcher m = skipPattern.matcher(trimmed);
-		if (m.find()) {
+		if (trimmed.equals(Talk.SKIP)) {
 			return true;
 		}
 		// OVER
-		m = overPattern.matcher(trimmed);
-		if (m.find()) {
+		if (trimmed.equals(Talk.OVER)) {
 			return true;
 		}
-		// AGREE
-		m = agreePattern.matcher(trimmed);
-		if (m.find()) {
+		// AGREE,DISAGREE
+		if (agreePattern.matcher(trimmed).find()) {
 			return true;
 		}
-		// DISAGREE
-		m = disagreePattern.matcher(trimmed);
-		if (m.find()) {
+		// ESTIMATE,COMINGOUT
+		if (estimatePattern.matcher(trimmed).find()) {
 			return true;
 		}
-		// ESTIMATE
-		m = estimatePattern.matcher(trimmed);
-		if (m.find()) {
+		// DIVINED,IDENTIFIED
+		if (divinedPattern.matcher(trimmed).find()) {
 			return true;
 		}
-		// COMINGOUT
-		m = comingoutPattern.matcher(trimmed);
-		if (m.find()) {
+		// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
+		if (attackPattern.matcher(trimmed).find()) {
 			return true;
 		}
-		// DIVINED
-		m = divinedPattern.matcher(trimmed);
-		if (m.find()) {
+		// REQUEST,INQUIRE
+		if (requestPattern.matcher(trimmed).find()) {
 			return true;
 		}
-		// IDENTIFIED
-		m = identifiedPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// ATTACK
-		m = attackPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// DIVINATION
-		m = divinationPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// GUARD
-		m = guardPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// GUARDED
-		m = guardedPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// VOTE
-		m = votePattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// REQUEST
-		m = requestPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// BECAUSE
-		m = becausePattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// AND
-		m = andPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// OR
-		m = orPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// XOR
-		m = xorPattern.matcher(trimmed);
-		if (m.find()) {
-			return true;
-		}
-		// NOT
-		m = notPattern.matcher(trimmed);
-		if (m.find()) {
+		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
+		if (becausePattern.matcher(trimmed).find()) {
 			return true;
 		}
 		// DAY
-		m = dayPattern.matcher(trimmed);
-		if (m.find()) {
+		if (dayPattern.matcher(trimmed).find()) {
 			return true;
 		}
 
@@ -633,10 +425,10 @@ public class Content implements Cloneable {
 	private void makeText() {
 		switch (topic) {
 		case SKIP:
-			text = SKIP.getText();
+			text = Talk.SKIP;
 			break;
 		case OVER:
-			text = OVER.getText();
+			text = Talk.OVER;
 			break;
 		case AGREE:
 			text = new AgreeContentBuilder(subject, talkType, talkDay, talkID).getText();
@@ -659,6 +451,9 @@ public class Content implements Cloneable {
 		case ATTACK:
 			text = new AttackContentBuilder(subject, target).getText();
 			break;
+		case ATTACKED:
+			text = new AttackedContentBuilder(subject, target).getText();
+			break;
 		case DIVINATION:
 			text = new DivinationContentBuilder(subject, target).getText();
 			break;
@@ -671,19 +466,25 @@ public class Content implements Cloneable {
 		case VOTE:
 			text = new VoteContentBuilder(subject, target).getText();
 			break;
+		case VOTED:
+			text = new VotedContentBuilder(subject, target).getText();
+			break;
 		case OPERATOR:
 			switch (operator) {
 			case REQUEST:
 				text = new RequestContentBuilder(subject, target, contentList.get(0)).getText();
 				break;
+			case INQUIRE:
+				text = new InquiryContentBuilder(subject, target, contentList.get(0)).getText();
+				break;
 			case BECAUSE:
 				text = new BecauseContentBuilder(subject, contentList.get(0), contentList.get(1)).getText();
 				break;
 			case AND:
-				text = new AndContentBuilder(subject, contentList.get(0), contentList.get(1)).getText();
+				text = new AndContentBuilder(subject, contentList).getText();
 				break;
 			case OR:
-				text = new OrContentBuilder(subject, contentList.get(0), contentList.get(1)).getText();
+				text = new OrContentBuilder(subject, contentList).getText();
 				break;
 			case XOR:
 				text = new XorContentBuilder(subject, contentList.get(0), contentList.get(1)).getText();
@@ -703,14 +504,18 @@ public class Content implements Cloneable {
 		}
 	}
 
-	private static final Pattern intPattern = Pattern.compile("-?[\\d]+");
+	private static final Pattern agentPattern = Pattern.compile("\\s?(Agent\\[(\\d+)\\]|ANY)\\s?");
 
-	private static int getInt(String text) {
-		Matcher m = intPattern.matcher(text);
+	private static Agent toAgent(String s) {
+		Matcher m = agentPattern.matcher(s);
 		if (m.find()) {
-			return Integer.parseInt(m.group());
+			if (m.group(1).equals("ANY")) {
+				return Agent.ANY;
+			} else {
+				return Agent.getAgent(Integer.parseInt(m.group(2)));
+			}
 		}
-		return -1;
+		return Agent.UNSPEC;
 	}
 
 	@Override
@@ -718,7 +523,6 @@ public class Content implements Cloneable {
 		Content clone = null;
 		try {
 			clone = (Content) super.clone();
-			// clone.contentList = new ArrayList<Content>(contentList);
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}

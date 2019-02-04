@@ -10,6 +10,7 @@ package org.aiwolf.client.lib;
  *
  * <div lang="en">Enum type representing the topic of the sentence.</div>
  * 
+ * @author otsuki
  */
 public enum Topic {
 
@@ -29,7 +30,11 @@ public enum Topic {
 
 	VOTE,
 
+	VOTED,
+
 	ATTACK,
+
+	ATTACKED,
 
 	AGREE,
 
@@ -50,10 +55,12 @@ public enum Topic {
 		switch (s) {
 		case "REQUEST":
 		case "BECAUSE":
+		case "INQUIRE":
 		case "AND":
 		case "OR":
 		case "XOR":
 		case "NOT":
+		case "DAY":
 			return Topic.OPERATOR;
 		default:
 			break;

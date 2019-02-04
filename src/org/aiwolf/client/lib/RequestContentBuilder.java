@@ -35,7 +35,7 @@ public class RequestContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the requested action.</div>
 	 */
 	public RequestContentBuilder(Agent target, Content content) {
-		this(null, target, content);
+		this(Agent.UNSPEC, target, content);
 	}
 
 	/**
@@ -61,15 +61,18 @@ public class RequestContentBuilder extends ContentBuilder {
 		operator = Operator.REQUEST;
 		this.subject = subject;
 		this.target = target;
-		contentList = new ArrayList<>(Arrays.asList(content.clone()));
+		if (Agent.UNSPEC == this.target) {
+			this.target = Agent.UNSPEC == content.getSubject() ? Agent.ANY : content.getSubject();
+		}
+		contentList = new ArrayList<>(Arrays.asList(content));
 	}
 
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
-				target == null ? "ANY" : target.toString(),
+				target.toString(),
 				"(" + contentList.get(0).getText() + ")"
 		}).trim();
 	}

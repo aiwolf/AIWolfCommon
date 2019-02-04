@@ -11,9 +11,9 @@ import java.util.Arrays;
 import org.aiwolf.common.data.Agent;
 
 /**
- * <div lang="ja">排他的論理和ビルダークラス</div>
+ * <div lang="ja">XOR演算子ビルダークラス</div>
  * 
- * <div lang="en">Builder class for exclusive OR.</div>
+ * <div lang="en">Builder class for XOR operator.</div>
  * 
  * @author otsuki
  *
@@ -35,13 +35,13 @@ public class XorContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The second {@code Content}.</div>
 	 */
 	public XorContentBuilder(Content content1, Content content2) {
-		this(null, content1, content2);
+		this(Agent.UNSPEC, content1, content2);
 	}
 
 	/**
 	 * <div lang="ja">排他的論理和のためのXorContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a XorContentBuilder for exclusive OR.</div>
+	 * <div lang="en">Constructs a XorContentBuilder for XOR operator.</div>
 	 * 
 	 * @param subject
 	 *            <div lang="ja">発話エージェント</div>
@@ -60,13 +60,13 @@ public class XorContentBuilder extends ContentBuilder {
 		topic = Topic.OPERATOR;
 		operator = Operator.XOR;
 		this.subject = subject;
-		contentList = new ArrayList<>(Arrays.asList(content1.clone(), content2.clone()));
+		contentList = new ArrayList<>(Arrays.asList(content1, content2));
 	}
 
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				"(" + contentList.get(0).getText() + ")",
 				"(" + contentList.get(1).getText() + ")"

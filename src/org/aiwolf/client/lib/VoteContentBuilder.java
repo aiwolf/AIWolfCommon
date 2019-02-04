@@ -18,24 +18,24 @@ import org.aiwolf.common.data.Agent;
 public class VoteContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">追放投票意思表明のためのVoteContentBuilderを構築する</div>
+	 * <div lang="ja">投票発話のためのVoteContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a VoteContentBuilder to declare the vote of execution.</div>
+	 * <div lang="en">Constructs a VoteContentBuilder for the utterance of a vote.</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被投票エージェント</div>
 	 * 
-	 *            <div lang="en">The agent to be voted for.</div>
+	 *            <div lang="en">The voted agent.</div>
 	 * 
 	 */
 	public VoteContentBuilder(Agent target) {
-		this(null, target);
+		this(Agent.UNSPEC, target);
 	}
 
 	/**
-	 * <div lang="ja">追放投票意思表明のためのVoteContentBuilderを構築する</div>
+	 * <div lang="ja">投票発話のためのVoteContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a VoteContentBuilder to declare the vote of execution.</div>
+	 * <div lang="en">Constructs a VoteContentBuilder for the utterance of a vote.</div>
 	 * 
 	 * @param subject
 	 *            <div lang="ja">投票をするエージェント</div>
@@ -44,7 +44,7 @@ public class VoteContentBuilder extends ContentBuilder {
 	 * @param target
 	 *            <div lang="ja">被投票エージェント</div>
 	 * 
-	 *            <div lang="en">The agent to be voted for.</div>
+	 *            <div lang="en">The voted agent.</div>
 	 * 
 	 */
 	public VoteContentBuilder(Agent subject, Agent target) {
@@ -56,9 +56,9 @@ public class VoteContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == null ? "" : subject.toString(),
+				Agent.UNSPEC == subject ? "" : subject.toString(),
 				topic.toString(),
-				target == null ? "ANY" : target.toString()
+				target.toString()
 		}).trim();
 	}
 
