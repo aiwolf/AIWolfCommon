@@ -35,14 +35,14 @@ final public class Agent implements Comparable<Agent> {
 	 * 
 	 * <div lang="en">Constant representing an arbitrary agent.</div>
 	 */
-	public static Agent ANY = getAgent(0);
+	public static final Agent ANY = getAgent(0);
 
 	/**
 	 * <div lang="ja">エージェント未特定であることを表す定数</div>
 	 * 
 	 * <div lang="en">Constant representing an unspecified agent.</div>
 	 */
-	public static Agent UNSPEC = null;
+	public static final Agent UNSPEC = null;
 
 	/**
 	 * <div lang="ja">指定されたインデックスのエージェントを取得します。</div>
