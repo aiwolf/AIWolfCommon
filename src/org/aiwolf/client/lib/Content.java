@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
@@ -29,14 +30,63 @@ public class Content implements Cloneable {
 	private Operator operator = null;
 	private Topic topic = null;
 	private Agent subject = Agent.UNSPEC;
-	private Agent target = null;
+	private Agent target = Agent.ANY;
 	private Role role = null;
 	private Species result = null;
 	private TalkType talkType = null;
 	private int talkDay = -1;
 	private int talkID = -1;
-	private List<Content> contentList = new ArrayList<>();
+	private List<Content> contentList = null;
 	private int day = -1;
+
+	// かっこで囲んだContent文字列の並びをContentのリストに変換する
+	private List<Content> getContents(String input) {
+		List<Content> contents = new ArrayList<>();
+		int length = input.length();
+		int stackPtr = 0;
+		int start = 0;
+		for (int i = 0; i < length; i++) {
+			if ('(' == input.charAt(i)) {
+				if (0 == stackPtr) {
+					start = i;
+				}
+				stackPtr++;
+			} else if (')' == input.charAt(i)) {
+				stackPtr--;
+				if (0 == stackPtr) {
+					contents.add(new Content(input.substring(start + 1, i)));
+				}
+			}
+		}
+		return contents;
+	}
+
+	// 内側の文のsubjectを補完する
+	private void completeInnerSubject() {
+		if (null == contentList) {
+			return;
+		}
+		contentList = contentList.stream().map(c -> {
+			if (c.isUnspecSubject()) {
+				Content cl = c.clone();
+				if (Operator.INQUIRE == operator || Operator.REQUEST == operator) {
+					cl.subject = target;
+				} else {
+					cl.subject = subject;
+				}
+				cl.normalizeText();
+				cl.completeInnerSubject();
+				return cl;
+			}
+			c.completeInnerSubject();
+			return c;
+		}).collect(Collectors.toList());
+	}
+
+	// subjectが未指定のときtrue
+	private boolean isUnspecSubject() {
+		return Agent.UNSPEC == subject;
+	}
 
 	/**
 	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
@@ -61,6 +111,7 @@ public class Content implements Cloneable {
 		talkID = builder.getTalkID();
 		contentList = builder.getContentList();
 		day = builder.getDay();
+		completeInnerSubject();
 	}
 
 	private static final String regAgent = "\\s+(Agent\\[\\d+\\]|ANY)";
@@ -78,28 +129,6 @@ public class Content implements Cloneable {
 	private static final Pattern requestPattern = Pattern.compile(regSubject + "(REQUEST|INQUIRE)" + regAgent + SP + regParen + TERM);
 	private static final Pattern becausePattern = Pattern.compile(regSubject + "(BECAUSE|AND|OR|XOR|NOT|REQUEST)" + SP + regParen + TERM);
 	private static final Pattern dayPattern = Pattern.compile(regSubject + "DAY" + SP + regDigit + SP + regParen + TERM);
-
-	// かっこで囲んだContent文字列の並びをContentのリストに変換する
-	static List<Content> getContents(String input) {
-		List<Content> contents = new ArrayList<>();
-		int length = input.length();
-		int stackPtr = 0;
-		int start = 0;
-		for (int i = 0; i < length; i++) {
-			if ('(' == input.charAt(i)) {
-				if (0 == stackPtr) {
-					start = i;
-				}
-				stackPtr++;
-			} else if (')' == input.charAt(i)) {
-				stackPtr--;
-				if (0 == stackPtr) {
-					contents.add(new Content(input.substring(start + 1, i)));
-				}
-			}
-		}
-		return contents;
-	}
 
 	/**
 	 * <div lang="ja">発話テキストによりContentを構築する</div>
@@ -133,73 +162,55 @@ public class Content implements Cloneable {
 			talkType = TalkType.valueOf(m.group(3));
 			talkDay = Integer.parseInt(m.group(4));
 			talkID = Integer.parseInt(m.group(5));
-			makeText();
-			return;
 		}
 		// ESTIMATE,COMINGOUT
-		m = estimatePattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = estimatePattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			target = toAgent(m.group(3));
 			role = Role.valueOf(m.group(4));
-			makeText();
-			return;
 		}
 		// DIVINED,IDENTIFIED
-		m = divinedPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = divinedPattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			target = toAgent(m.group(3));
 			result = Species.valueOf(m.group(4));
-			makeText();
-			return;
 		}
 		// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
-		m = attackPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = attackPattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			target = toAgent(m.group(3));
-			makeText();
-			return;
 		}
 		// REQUEST,INQUIRE
-		m = requestPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = requestPattern.matcher(trimmed)).find()) {
 			topic = Topic.OPERATOR;
 			subject = toAgent(m.group(1));
 			operator = Operator.valueOf(m.group(2));
 			target = toAgent(m.group(3));
 			contentList = getContents(m.group(4));
-			makeText();
-			return;
 		}
 		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
-		m = becausePattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = becausePattern.matcher(trimmed)).find()) {
 			topic = Topic.OPERATOR;
 			subject = toAgent(m.group(1));
 			operator = Operator.valueOf(m.group(2));
 			contentList = getContents(m.group(3));
 			if (Operator.REQUEST == operator) {
-				target = Agent.UNSPEC == contentList.get(0).subject ? Agent.ANY : contentList.get(0).subject;
+				target = contentList.get(0).isUnspecSubject() ? Agent.ANY : contentList.get(0).subject;
 			}
-			makeText();
-			return;
 		}
 		// DAY
-		m = dayPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = dayPattern.matcher(trimmed)).find()) {
 			topic = Topic.OPERATOR;
 			operator = Operator.DAY;
 			subject = toAgent(m.group(1));
 			day = Integer.parseInt(m.group(2));
 			contentList = getContents(m.group(3));
-			makeText();
-			return;
 		}
+		completeInnerSubject();
+		normalizeText();
 	}
 
 	/**
@@ -246,9 +257,9 @@ public class Content implements Cloneable {
 	 *
 	 * <div lang="en">Returns the topic of this content.</div>
 	 * 
-	 * @return <div lang="ja">トピック。複文の場合は{@code null}</div>
+	 * @return <div lang="ja">トピック</div>
 	 *
-	 *         <div lang="en">The topic, or {@code null} when it is a complex sentence.</div>
+	 *         <div lang="en">The topic.</div>
 	 */
 	public Topic getTopic() {
 		return topic;
@@ -419,7 +430,8 @@ public class Content implements Cloneable {
 		return false;
 	}
 
-	private void makeText() {
+	// textをContentBuilderで正規化する
+	private void normalizeText() {
 		switch (topic) {
 		case SKIP:
 			text = Talk.SKIP;
