@@ -28,7 +28,7 @@ public class Content implements Cloneable {
 	private String text = null;
 	private Operator operator = null;
 	private Topic topic = null;
-	private Agent subject = null;
+	private Agent subject = Agent.UNSPEC;
 	private Agent target = null;
 	private Role role = null;
 	private Species result = null;
@@ -49,21 +49,18 @@ public class Content implements Cloneable {
 	 *            <div lang="en">ContentBuilder for the content.</div>
 	 */
 	public Content(ContentBuilder builder) {
-		operator = builder.getOperator();
-		subject = builder.getSubject();
 		text = builder.getText();
-		if (null == operator) {
-			topic = builder.getTopic();
-			target = builder.getTarget();
-			role = builder.getRole();
-			result = builder.getResult();
-			talkType = builder.getTalkType();
-			talkDay = builder.getTalkDay();
-			talkID = builder.getTalkID();
-		} else {
-			contentList = builder.getContentList();
-			day = builder.getDay();
-		}
+		operator = builder.getOperator();
+		topic = builder.getTopic();
+		subject = builder.getSubject();
+		target = builder.getTarget();
+		role = builder.getRole();
+		result = builder.getResult();
+		talkType = builder.getTalkType();
+		talkDay = builder.getTalkDay();
+		talkID = builder.getTalkID();
+		contentList = builder.getContentList();
+		day = builder.getDay();
 	}
 
 	private static final String regAgent = "\\s+(Agent\\[\\d+\\]|ANY)";
@@ -236,9 +233,9 @@ public class Content implements Cloneable {
 	 *
 	 * <div lang="en">Returns the subject of this content.</div>
 	 * 
-	 * @return <div lang="ja">主語。省略された場合{@code null}</div>
+	 * @return <div lang="ja">主語</div>
 	 *
-	 *         <div lang="en">The subject, or {@code null} if omitted.</div>
+	 *         <div lang="en">The subject.</div>
 	 */
 	public Agent getSubject() {
 		return subject;
