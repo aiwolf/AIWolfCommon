@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
@@ -43,8 +45,8 @@ public abstract class ContentBuilder {
 
 	Operator operator = null;
 	Topic topic = null;
-	Agent subject = null;
-	Agent target = null;
+	Agent subject = Agent.UNSPEC;
+	Agent target = Agent.ANY;
 	Role role = null;
 	Species result = null;
 	TalkType talkType = null;
@@ -133,6 +135,16 @@ public abstract class ContentBuilder {
 	 */
 	int getDay() {
 		return day;
+	}
+
+	private static final Pattern stripPattern = Pattern.compile("^(Agent\\[\\d+\\]|ANY|)\\s*(\\p{Upper}+)(.*)$");
+
+	protected String stripSubject(String input) {
+		Matcher m = stripPattern.matcher(input);
+		if (m.find()) {
+			return m.group(2) + m.group(3);
+		}
+		return input;
 	}
 
 }
