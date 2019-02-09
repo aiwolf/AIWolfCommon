@@ -70,7 +70,7 @@ public class DayContentBuilder extends ContentBuilder {
 				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				String.valueOf(day),
-				"(" + contentList.get(0).getText() + ")"
+				"(" + (contentList.get(0).getSubject() == subject ? stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")"
 		}).trim();
 	}
 
