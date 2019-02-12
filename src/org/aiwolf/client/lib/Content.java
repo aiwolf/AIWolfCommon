@@ -558,4 +558,28 @@ public class Content implements Cloneable {
 		return false;
 	}
 
+	private static final Pattern stripPattern = Pattern.compile("^(Agent\\[\\d+\\]|ANY|)\\s*(\\p{Upper}+)(.*)$");
+
+	/**
+	 * <div lang="ja">発話文字列からsubjectの部分を除いた文字列を返す</div>
+	 *
+	 * <div lang="en">Strips subject off the given string and returns it.</div>
+	 * 
+	 * @param input
+	 *            <div lang="ja">入力文字列</div>
+	 *
+	 *            <div lang="en">Input string.</div>
+	 * @return <div lang="ja">発話文字列からsubjectの部分を除いた文字列</div>
+	 *
+	 *         <div lang="en">String with no subject prefix.</div>
+	 * 
+	 */
+	public static String stripSubject(String input) {
+		Matcher m = stripPattern.matcher(input);
+		if (m.find()) {
+			return m.group(2) + m.group(3);
+		}
+		return input;
+	}
+
 }

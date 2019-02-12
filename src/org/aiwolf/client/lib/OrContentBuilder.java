@@ -94,7 +94,7 @@ public class OrContentBuilder extends ContentBuilder {
 				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				contentList.stream().map(c -> "(" +
-						(c.getSubject() == subject ? stripSubject(c.getText()) : c.getText())
+						(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())
 						+ ")").collect(Collectors.joining(" "))
 		}).trim();
 	}
