@@ -215,6 +215,12 @@ public class Content implements Cloneable {
 			day = Integer.parseInt(m.group(2));
 			contentList = getContents(m.group(3));
 		}
+		// Unknown string pattern.
+		else {
+			topic = Topic.SKIP;
+			text = Talk.SKIP;
+			return;
+		}
 		completeInnerSubject();
 		normalizeText();
 	}
