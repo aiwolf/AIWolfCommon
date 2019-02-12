@@ -139,7 +139,7 @@ public abstract class ContentBuilder {
 
 	private static final Pattern stripPattern = Pattern.compile("^(Agent\\[\\d+\\]|ANY|)\\s*(\\p{Upper}+)(.*)$");
 
-	protected String stripSubject(String input) {
+	String stripSubject(String input) {
 		Matcher m = stripPattern.matcher(input);
 		if (m.find()) {
 			return m.group(2) + m.group(3);
