@@ -30,7 +30,7 @@ public class Content implements Cloneable {
 	private Operator operator = null;
 	private Topic topic = null;
 	private Agent subject = Agent.UNSPEC;
-	private Agent target = Agent.ANY;
+	private Agent target = Agent.UNSPEC;
 	private Role role = null;
 	private Species result = null;
 	private TalkType talkType = null;
@@ -40,7 +40,7 @@ public class Content implements Cloneable {
 	private int day = -1;
 
 	// かっこで囲んだContent文字列の並びをContentのリストに変換する
-	private List<Content> getContents(String input) {
+	private static List<Content> getContents(String input) {
 		List<Content> contents = new ArrayList<>();
 		int length = input.length();
 		int stackPtr = 0;
@@ -67,25 +67,31 @@ public class Content implements Cloneable {
 			return;
 		}
 		contentList = contentList.stream().map(c -> {
-			if (c.isUnspecSubject()) {
-				Content cl = c.clone();
+			if (Agent.UNSPEC == c.subject) {
+				// INQUIREとREQUESTでsubjectが省略された場合は外の文のtarget
 				if (Operator.INQUIRE == operator || Operator.REQUEST == operator) {
-					cl.subject = target;
-				} else {
-					cl.subject = subject;
+					Content cl = c.cloneAndReplaceSubject(target);
+					return cl;
 				}
-				cl.normalizeText();
-				cl.completeInnerSubject();
-				return cl;
+				// それ以外は外の文のsubject
+				if (Agent.UNSPEC != subject) { // 未指定の場合は何もしない
+					Content cl = c.cloneAndReplaceSubject(subject);
+					return cl;
+				}
 			}
 			c.completeInnerSubject();
 			return c;
 		}).collect(Collectors.toList());
 	}
 
-	// subjectが未指定のときtrue
-	private boolean isUnspecSubject() {
-		return Agent.UNSPEC == subject;
+	// 複製したContentのsubjectを入れ替えて返す
+	// Clone this and replace subject with given subject.
+	private Content cloneAndReplaceSubject(Agent newSubject) {
+		Content c = clone();
+		c.subject = newSubject;
+		c.completeInnerSubject();
+		c.normalizeText(); // subjectを入れ替えると簡潔にできる場合がある
+		return c;
 	}
 
 	/**
@@ -198,7 +204,7 @@ public class Content implements Cloneable {
 			operator = Operator.valueOf(m.group(2));
 			contentList = getContents(m.group(3));
 			if (Operator.REQUEST == operator) {
-				target = contentList.get(0).isUnspecSubject() ? Agent.ANY : contentList.get(0).subject;
+				target = Agent.UNSPEC == contentList.get(0).subject ? Agent.ANY : contentList.get(0).subject;
 			}
 		}
 		// DAY
