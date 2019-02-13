@@ -30,7 +30,7 @@ public class Content implements Cloneable {
 	private Operator operator = null;
 	private Topic topic = null;
 	private Agent subject = Agent.UNSPEC;
-	private Agent target = Agent.UNSPEC;
+	private Agent target = Agent.ANY;
 	private Role role = null;
 	private Species result = null;
 	private TalkType talkType = null;
