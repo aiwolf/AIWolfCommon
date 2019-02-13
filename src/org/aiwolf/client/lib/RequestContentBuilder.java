@@ -73,7 +73,7 @@ public class RequestContentBuilder extends ContentBuilder {
 				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
 				target.toString(),
-				"(" + contentList.get(0).getText() + ")"
+				"(" + (contentList.get(0).getSubject() == target ? Content.stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")"
 		}).trim();
 	}
 

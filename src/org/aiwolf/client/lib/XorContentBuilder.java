@@ -68,8 +68,8 @@ public class XorContentBuilder extends ContentBuilder {
 		return ContentBuilder.join(" ", new String[] {
 				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
-				"(" + contentList.get(0).getText() + ")",
-				"(" + contentList.get(1).getText() + ")"
+				"(" + (contentList.get(0).getSubject() == subject ? Content.stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")",
+				"(" + (contentList.get(1).getSubject() == subject ? Content.stripSubject(contentList.get(1).getText()) : contentList.get(1).getText()) + ")"
 		}).trim();
 	}
 

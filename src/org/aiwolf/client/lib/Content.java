@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.aiwolf.common.data.Agent;
 import org.aiwolf.common.data.Role;
@@ -28,62 +29,18 @@ public class Content implements Cloneable {
 	private String text = null;
 	private Operator operator = null;
 	private Topic topic = null;
-	private Agent subject = null;
-	private Agent target = null;
+	private Agent subject = Agent.UNSPEC;
+	private Agent target = Agent.ANY;
 	private Role role = null;
 	private Species result = null;
 	private TalkType talkType = null;
 	private int talkDay = -1;
 	private int talkID = -1;
-	private List<Content> contentList = new ArrayList<>();
+	private List<Content> contentList = null;
 	private int day = -1;
 
-	/**
-	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
-	 *
-	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
-	 * 
-	 * @param builder
-	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
-	 *
-	 *            <div lang="en">ContentBuilder for the content.</div>
-	 */
-	public Content(ContentBuilder builder) {
-		operator = builder.getOperator();
-		subject = builder.getSubject();
-		text = builder.getText();
-		if (null == operator) {
-			topic = builder.getTopic();
-			target = builder.getTarget();
-			role = builder.getRole();
-			result = builder.getResult();
-			talkType = builder.getTalkType();
-			talkDay = builder.getTalkDay();
-			talkID = builder.getTalkID();
-		} else {
-			contentList = builder.getContentList();
-			day = builder.getDay();
-		}
-	}
-
-	private static final String regAgent = "\\s+(Agent\\[\\d+\\]|ANY)";
-	private static final String regSubject = "^(Agent\\[\\d+\\]|ANY|)\\s*";
-	private static final String regTalk = "\\s+(\\p{Upper}+)\\s+day(\\d+)\\s+ID:(\\d+)";
-	private static final String regRoleResult = "\\s+(\\p{Upper}+)";
-	private static final String regParen = "(\\(.*\\))";
-	private static final String regDigit = "(\\d+)";
-	private static final String TERM = "$";
-	private static final String SP = "\\s+";
-	private static final Pattern agreePattern = Pattern.compile(regSubject + "(AGREE|DISAGREE)" + regTalk + TERM);
-	private static final Pattern estimatePattern = Pattern.compile(regSubject + "(ESTIMATE|COMINGOUT)" + regAgent + regRoleResult + TERM);
-	private static final Pattern divinedPattern = Pattern.compile(regSubject + "(DIVINED|IDENTIFIED)" + regAgent + regRoleResult + TERM);
-	private static final Pattern attackPattern = Pattern.compile(regSubject + "(ATTACK|ATTACKED|DIVINATION|GUARD|GUARDED|VOTE|VOTED)" + regAgent + TERM);
-	private static final Pattern requestPattern = Pattern.compile(regSubject + "(REQUEST|INQUIRE)" + regAgent + SP + regParen + TERM);
-	private static final Pattern becausePattern = Pattern.compile(regSubject + "(BECAUSE|AND|OR|XOR|NOT|REQUEST)" + SP + regParen + TERM);
-	private static final Pattern dayPattern = Pattern.compile(regSubject + "DAY" + SP + regDigit + SP + regParen + TERM);
-
 	// かっこで囲んだContent文字列の並びをContentのリストに変換する
-	static List<Content> getContents(String input) {
+	private static List<Content> getContents(String input) {
 		List<Content> contents = new ArrayList<>();
 		int length = input.length();
 		int stackPtr = 0;
@@ -103,6 +60,81 @@ public class Content implements Cloneable {
 		}
 		return contents;
 	}
+
+	// 内側の文のsubjectを補完する
+	private void completeInnerSubject() {
+		if (null == contentList) {
+			return;
+		}
+		contentList = contentList.stream().map(c -> {
+			if (Agent.UNSPEC == c.subject) {
+				// INQUIREとREQUESTでsubjectが省略された場合は外の文のtarget
+				if (Operator.INQUIRE == operator || Operator.REQUEST == operator) {
+					Content cl = c.cloneAndReplaceSubject(target);
+					return cl;
+				}
+				// それ以外は外の文のsubject
+				if (Agent.UNSPEC != subject) { // 未指定の場合は何もしない
+					Content cl = c.cloneAndReplaceSubject(subject);
+					return cl;
+				}
+			}
+			c.completeInnerSubject();
+			return c;
+		}).collect(Collectors.toList());
+	}
+
+	// 複製したContentのsubjectを入れ替えて返す
+	// Clone this and replace subject with given subject.
+	private Content cloneAndReplaceSubject(Agent newSubject) {
+		Content c = clone();
+		c.subject = newSubject;
+		c.completeInnerSubject();
+		c.normalizeText(); // subjectを入れ替えると簡潔にできる場合がある
+		return c;
+	}
+
+	/**
+	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
+	 *
+	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
+	 * 
+	 * @param builder
+	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
+	 *
+	 *            <div lang="en">ContentBuilder for the content.</div>
+	 */
+	public Content(ContentBuilder builder) {
+		text = builder.getText();
+		operator = builder.getOperator();
+		topic = builder.getTopic();
+		subject = builder.getSubject();
+		target = builder.getTarget();
+		role = builder.getRole();
+		result = builder.getResult();
+		talkType = builder.getTalkType();
+		talkDay = builder.getTalkDay();
+		talkID = builder.getTalkID();
+		contentList = builder.getContentList();
+		day = builder.getDay();
+		completeInnerSubject();
+	}
+
+	private static final String regAgent = "\\s+(Agent\\[\\d+\\]|ANY)";
+	private static final String regSubject = "^(Agent\\[\\d+\\]|ANY|)\\s*";
+	private static final String regTalk = "\\s+(\\p{Upper}+)\\s+day(\\d+)\\s+ID:(\\d+)";
+	private static final String regRoleResult = "\\s+(\\p{Upper}+)";
+	private static final String regParen = "(\\(.*\\))";
+	private static final String regDigit = "(\\d+)";
+	private static final String TERM = "$";
+	private static final String SP = "\\s+";
+	private static final Pattern agreePattern = Pattern.compile(regSubject + "(AGREE|DISAGREE)" + regTalk + TERM);
+	private static final Pattern estimatePattern = Pattern.compile(regSubject + "(ESTIMATE|COMINGOUT)" + regAgent + regRoleResult + TERM);
+	private static final Pattern divinedPattern = Pattern.compile(regSubject + "(DIVINED|IDENTIFIED)" + regAgent + regRoleResult + TERM);
+	private static final Pattern attackPattern = Pattern.compile(regSubject + "(ATTACK|ATTACKED|DIVINATION|GUARD|GUARDED|VOTE|VOTED)" + regAgent + TERM);
+	private static final Pattern requestPattern = Pattern.compile(regSubject + "(REQUEST|INQUIRE)" + regAgent + SP + regParen + TERM);
+	private static final Pattern becausePattern = Pattern.compile(regSubject + "(BECAUSE|AND|OR|XOR|NOT|REQUEST)" + SP + regParen + TERM);
+	private static final Pattern dayPattern = Pattern.compile(regSubject + "DAY" + SP + regDigit + SP + regParen + TERM);
 
 	/**
 	 * <div lang="ja">発話テキストによりContentを構築する</div>
@@ -136,52 +168,37 @@ public class Content implements Cloneable {
 			talkType = TalkType.valueOf(m.group(3));
 			talkDay = Integer.parseInt(m.group(4));
 			talkID = Integer.parseInt(m.group(5));
-			makeText();
-			return;
 		}
 		// ESTIMATE,COMINGOUT
-		m = estimatePattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = estimatePattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			target = toAgent(m.group(3));
 			role = Role.valueOf(m.group(4));
-			makeText();
-			return;
 		}
 		// DIVINED,IDENTIFIED
-		m = divinedPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = divinedPattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			target = toAgent(m.group(3));
 			result = Species.valueOf(m.group(4));
-			makeText();
-			return;
 		}
 		// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
-		m = attackPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = attackPattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			target = toAgent(m.group(3));
-			makeText();
-			return;
 		}
 		// REQUEST,INQUIRE
-		m = requestPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = requestPattern.matcher(trimmed)).find()) {
 			topic = Topic.OPERATOR;
 			subject = toAgent(m.group(1));
 			operator = Operator.valueOf(m.group(2));
 			target = toAgent(m.group(3));
 			contentList = getContents(m.group(4));
-			makeText();
-			return;
 		}
 		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
-		m = becausePattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = becausePattern.matcher(trimmed)).find()) {
 			topic = Topic.OPERATOR;
 			subject = toAgent(m.group(1));
 			operator = Operator.valueOf(m.group(2));
@@ -189,20 +206,23 @@ public class Content implements Cloneable {
 			if (Operator.REQUEST == operator) {
 				target = Agent.UNSPEC == contentList.get(0).subject ? Agent.ANY : contentList.get(0).subject;
 			}
-			makeText();
-			return;
 		}
 		// DAY
-		m = dayPattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = dayPattern.matcher(trimmed)).find()) {
 			topic = Topic.OPERATOR;
 			operator = Operator.DAY;
 			subject = toAgent(m.group(1));
 			day = Integer.parseInt(m.group(2));
 			contentList = getContents(m.group(3));
-			makeText();
+		}
+		// Unknown string pattern.
+		else {
+			topic = Topic.SKIP;
+			text = Talk.SKIP;
 			return;
 		}
+		completeInnerSubject();
+		normalizeText();
 	}
 
 	/**
@@ -236,9 +256,9 @@ public class Content implements Cloneable {
 	 *
 	 * <div lang="en">Returns the subject of this content.</div>
 	 * 
-	 * @return <div lang="ja">主語。省略された場合{@code null}</div>
+	 * @return <div lang="ja">主語</div>
 	 *
-	 *         <div lang="en">The subject, or {@code null} if omitted.</div>
+	 *         <div lang="en">The subject.</div>
 	 */
 	public Agent getSubject() {
 		return subject;
@@ -249,9 +269,9 @@ public class Content implements Cloneable {
 	 *
 	 * <div lang="en">Returns the topic of this content.</div>
 	 * 
-	 * @return <div lang="ja">トピック。複文の場合は{@code null}</div>
+	 * @return <div lang="ja">トピック</div>
 	 *
-	 *         <div lang="en">The topic, or {@code null} when it is a complex sentence.</div>
+	 *         <div lang="en">The topic.</div>
 	 */
 	public Topic getTopic() {
 		return topic;
@@ -422,7 +442,8 @@ public class Content implements Cloneable {
 		return false;
 	}
 
-	private void makeText() {
+	// textをContentBuilderで正規化する
+	private void normalizeText() {
 		switch (topic) {
 		case SKIP:
 			text = Talk.SKIP;
@@ -535,6 +556,30 @@ public class Content implements Cloneable {
 			return text.equals(((Content) content).getText());
 		}
 		return false;
+	}
+
+	private static final Pattern stripPattern = Pattern.compile("^(Agent\\[\\d+\\]|ANY|)\\s*(\\p{Upper}+)(.*)$");
+
+	/**
+	 * <div lang="ja">発話文字列からsubjectの部分を除いた文字列を返す</div>
+	 *
+	 * <div lang="en">Strips subject off the given string and returns it.</div>
+	 * 
+	 * @param input
+	 *            <div lang="ja">入力文字列</div>
+	 *
+	 *            <div lang="en">Input string.</div>
+	 * @return <div lang="ja">発話文字列からsubjectの部分を除いた文字列</div>
+	 *
+	 *         <div lang="en">String with no subject prefix.</div>
+	 * 
+	 */
+	public static String stripSubject(String input) {
+		Matcher m = stripPattern.matcher(input);
+		if (m.find()) {
+			return m.group(2) + m.group(3);
+		}
+		return input;
 	}
 
 }

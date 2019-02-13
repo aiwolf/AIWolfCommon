@@ -93,7 +93,9 @@ public class AndContentBuilder extends ContentBuilder {
 		return ContentBuilder.join(" ", new String[] {
 				Agent.UNSPEC == subject ? "" : subject.toString(),
 				operator.toString(),
-				contentList.stream().map(c -> "(" + c.getText() + ")").collect(Collectors.joining(" "))
+				contentList.stream().map(c -> "(" +
+						(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())
+						+ ")").collect(Collectors.joining(" "))
 		}).trim();
 	}
 
