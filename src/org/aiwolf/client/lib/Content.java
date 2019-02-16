@@ -46,14 +46,14 @@ public class Content implements Cloneable {
 		int stackPtr = 0;
 		int start = 0;
 		for (int i = 0; i < length; i++) {
-			if ('(' == input.charAt(i)) {
-				if (0 == stackPtr) {
+			if (input.charAt(i) == '(') {
+				if (stackPtr == 0) {
 					start = i;
 				}
 				stackPtr++;
-			} else if (')' == input.charAt(i)) {
+			} else if (input.charAt(i) == ')') {
 				stackPtr--;
-				if (0 == stackPtr) {
+				if (stackPtr == 0) {
 					contents.add(new Content(input.substring(start + 1, i)));
 				}
 			}
@@ -63,13 +63,13 @@ public class Content implements Cloneable {
 
 	// 内側の文のsubjectを補完する
 	private void completeInnerSubject() {
-		if (null == contentList) {
+		if (contentList == null) {
 			return;
 		}
 		contentList = contentList.stream().map(c -> {
-			if (Agent.UNSPEC == c.subject) {
+			if (c.subject == Agent.UNSPEC) {
 				// INQUIREとREQUESTでsubjectが省略された場合は外の文のtarget
-				if (Operator.INQUIRE == operator || Operator.REQUEST == operator) {
+				if (operator == Operator.INQUIRE || operator == Operator.REQUEST) {
 					Content cl = c.cloneAndReplaceSubject(target);
 					return cl;
 				}
@@ -203,8 +203,8 @@ public class Content implements Cloneable {
 			subject = toAgent(m.group(1));
 			operator = Operator.valueOf(m.group(2));
 			contentList = getContents(m.group(3));
-			if (Operator.REQUEST == operator) {
-				target = Agent.UNSPEC == contentList.get(0).subject ? Agent.ANY : contentList.get(0).subject;
+			if (operator == Operator.REQUEST) {
+				target = contentList.get(0).subject == Agent.UNSPEC ? Agent.ANY : contentList.get(0).subject;
 			}
 		}
 		// DAY
@@ -397,7 +397,7 @@ public class Content implements Cloneable {
 	 */
 	public static boolean validate(String input) {
 
-		if (null == input) {
+		if (input == null) {
 			return false;
 		}
 

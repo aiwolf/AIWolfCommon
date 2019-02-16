@@ -65,7 +65,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder
 				.join(" ", new String[] {
-						Agent.UNSPEC == subject ? "" : subject.toString(),
+						subject == Agent.UNSPEC ? "" : subject.toString(),
 						topic.toString(),
 						target.toString(),
 						role.toString()

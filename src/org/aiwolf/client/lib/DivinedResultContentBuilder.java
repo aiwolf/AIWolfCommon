@@ -64,7 +64,7 @@ public class DivinedResultContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Agent.UNSPEC ? "" : subject.toString(),
 				topic.toString(),
 				target.toString(),
 				result.toString()

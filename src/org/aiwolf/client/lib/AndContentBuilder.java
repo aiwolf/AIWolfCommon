@@ -91,7 +91,7 @@ public class AndContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Agent.UNSPEC ? "" : subject.toString(),
 				operator.toString(),
 				contentList.stream().map(c -> "(" +
 						(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())

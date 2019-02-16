@@ -61,8 +61,8 @@ public class RequestContentBuilder extends ContentBuilder {
 		operator = Operator.REQUEST;
 		this.subject = subject;
 		this.target = target;
-		if (Agent.UNSPEC == this.target) {
-			this.target = Agent.UNSPEC == content.getSubject() ? Agent.ANY : content.getSubject();
+		if (this.target == Agent.UNSPEC) {
+			this.target = content.getSubject() == Agent.UNSPEC ? Agent.ANY : content.getSubject();
 		}
 		contentList = new ArrayList<>(Arrays.asList(content));
 	}
@@ -70,7 +70,7 @@ public class RequestContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Agent.UNSPEC ? "" : subject.toString(),
 				operator.toString(),
 				target.toString(),
 				"(" + (contentList.get(0).getSubject() == target ? Content.stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")"

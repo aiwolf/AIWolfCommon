@@ -74,7 +74,7 @@ public class AgreeContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Agent.UNSPEC ? "" : subject.toString(),
 				topic.toString(),
 				talkType.toString(),
 				"day" + talkDay,
