@@ -33,7 +33,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The role estimated.</div>
 	 */
 	public EstimateContentBuilder(Agent target, Role role) {
-		this(Agent.UNSPEC, target, role);
+		this(Content.UNSPEC, target, role);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class EstimateContentBuilder extends ContentBuilder {
 	String getText() {
 		return ContentBuilder
 				.join(" ", new String[] {
-						subject == Agent.UNSPEC ? "" : subject.toString(),
+						subject == Content.UNSPEC ? "" : subject.toString(),
 						topic.toString(),
 						target.toString(),
 						role.toString()

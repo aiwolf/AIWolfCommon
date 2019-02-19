@@ -32,7 +32,7 @@ public class AndContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The series of {@code Content}s.</div>
 	 */
 	public AndContentBuilder(Content... contents) {
-		this(Agent.UNSPEC, contents);
+		this(Content.UNSPEC, contents);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class AndContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The list of {@code Content}s.</div>
 	 */
 	public AndContentBuilder(List<Content> contents) {
-		this(Agent.UNSPEC, contents);
+		this(Content.UNSPEC, contents);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class AndContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == Agent.UNSPEC ? "" : subject.toString(),
+				subject == Content.UNSPEC ? "" : subject.toString(),
 				operator.toString(),
 				contentList.stream().map(c -> "(" +
 						(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())

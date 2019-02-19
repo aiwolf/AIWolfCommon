@@ -35,7 +35,7 @@ public class XorContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The second {@code Content}.</div>
 	 */
 	public XorContentBuilder(Content content1, Content content2) {
-		this(Agent.UNSPEC, content1, content2);
+		this(Content.UNSPEC, content1, content2);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class XorContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == Agent.UNSPEC ? "" : subject.toString(),
+				subject == Content.UNSPEC ? "" : subject.toString(),
 				operator.toString(),
 				"(" + (contentList.get(0).getSubject() == subject ? Content.stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")",
 				"(" + (contentList.get(1).getSubject() == subject ? Content.stripSubject(contentList.get(1).getText()) : contentList.get(1).getText()) + ")"

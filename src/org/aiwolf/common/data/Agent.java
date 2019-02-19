@@ -11,15 +11,13 @@ import java.util.Map;
 /**
  * <div lang="ja">
  * 
- * プレイヤーのエージェントです。 各プレイヤーは、エージェントとして他のプレイヤーを識別することができます。
- * 各エージェントは、一意のインデックスを持っています。
+ * プレイヤーのエージェントです。 各プレイヤーは、エージェントとして他のプレイヤーを識別することができます。 各エージェントは、一意のインデックスを持っています。
  * 
  * </div>
  * 
  * <div lang="en">
  * 
- * Player Agent. Each players can identify other players as Agent. Each agent
- * has unique index.
+ * Player Agent. Each players can identify other players as Agent. Each agent has unique index.
  * 
  * </div>
  * 
@@ -29,20 +27,6 @@ import java.util.Map;
 final public class Agent implements Comparable<Agent> {
 
 	private static Map<Integer, Agent> agentIndexMap = new HashMap<>();
-
-	/**
-	 * <div lang="ja">不特定のエージェントを表す定数</div>
-	 * 
-	 * <div lang="en">Constant representing an arbitrary agent.</div>
-	 */
-	public static final Agent ANY = getAgent(0);
-
-	/**
-	 * <div lang="ja">エージェント未特定であることを表す定数</div>
-	 * 
-	 * <div lang="en">Constant representing an unspecified agent.</div>
-	 */
-	public static final Agent UNSPEC = null;
 
 	/**
 	 * <div lang="ja">指定されたインデックスのエージェントを取得します。</div>
@@ -61,7 +45,7 @@ final public class Agent implements Comparable<Agent> {
 	 */
 	static public Agent getAgent(int idx) {
 		if (idx < 0) {
-			return UNSPEC;
+			return null;
 		}
 		if (!agentIndexMap.containsKey(idx)) {
 			Agent agent = new Agent(idx);

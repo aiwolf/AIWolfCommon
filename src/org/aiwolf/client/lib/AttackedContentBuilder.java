@@ -29,7 +29,7 @@ public class AttackedContentBuilder extends ContentBuilder {
 	 * 
 	 */
 	public AttackedContentBuilder(Agent target) {
-		this(Agent.UNSPEC, target);
+		this(Content.UNSPEC, target);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class AttackedContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				subject == Agent.UNSPEC ? "" : subject.toString(),
+				subject == Content.UNSPEC ? "" : subject.toString(),
 				topic.toString(),
 				target.toString()
 		}).trim();
