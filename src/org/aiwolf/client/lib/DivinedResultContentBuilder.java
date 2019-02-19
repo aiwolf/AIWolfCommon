@@ -33,7 +33,7 @@ public class DivinedResultContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public DivinedResultContentBuilder(Agent target, Species result) {
-		this(Agent.UNSPEC, target, result);
+		this(Content.UNSPEC, target, result);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class DivinedResultContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Content.UNSPEC ? "" : subject.toString(),
 				topic.toString(),
 				target.toString(),
 				result.toString()

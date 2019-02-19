@@ -43,8 +43,8 @@ public abstract class ContentBuilder {
 
 	Operator operator = null;
 	Topic topic = null;
-	Agent subject = Agent.UNSPEC;
-	Agent target = Agent.ANY;
+	Agent subject = Content.UNSPEC;
+	Agent target = Content.ANY;
 	Role role = null;
 	Species result = null;
 	TalkType talkType = null;

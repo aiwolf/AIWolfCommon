@@ -28,7 +28,7 @@ public class VotedContentBuilder extends ContentBuilder {
 	 *            <div lang="en">The voted agent.</div>
 	 */
 	public VotedContentBuilder(Agent target) {
-		this(Agent.UNSPEC, target);
+		this(Content.UNSPEC, target);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class VotedContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Content.UNSPEC ? "" : subject.toString(),
 				topic.toString(),
 				target.toString()
 		}).trim();

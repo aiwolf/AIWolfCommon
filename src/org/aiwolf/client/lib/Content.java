@@ -26,11 +26,25 @@ public class Content implements Cloneable {
 	public static final Content SKIP = new Content(new SkipContentBuilder());
 	public static final Content OVER = new Content(new OverContentBuilder());
 
+	/**
+	 * <div lang="ja">不特定のエージェントを表す定数</div>
+	 * 
+	 * <div lang="en">Constant representing an arbitrary agent.</div>
+	 */
+	public static final Agent ANY = Agent.getAgent(0);
+
+	/**
+	 * <div lang="ja">エージェント未特定であることを表す定数</div>
+	 * 
+	 * <div lang="en">Constant representing an unspecified agent.</div>
+	 */
+	public static final Agent UNSPEC = null;
+
 	private String text = null;
 	private Operator operator = null;
 	private Topic topic = null;
-	private Agent subject = Agent.UNSPEC;
-	private Agent target = Agent.ANY;
+	private Agent subject = UNSPEC;
+	private Agent target = ANY;
 	private Role role = null;
 	private Species result = null;
 	private TalkType talkType = null;
@@ -46,14 +60,14 @@ public class Content implements Cloneable {
 		int stackPtr = 0;
 		int start = 0;
 		for (int i = 0; i < length; i++) {
-			if ('(' == input.charAt(i)) {
-				if (0 == stackPtr) {
+			if (input.charAt(i) == '(') {
+				if (stackPtr == 0) {
 					start = i;
 				}
 				stackPtr++;
-			} else if (')' == input.charAt(i)) {
+			} else if (input.charAt(i) == ')') {
 				stackPtr--;
-				if (0 == stackPtr) {
+				if (stackPtr == 0) {
 					contents.add(new Content(input.substring(start + 1, i)));
 				}
 			}
@@ -63,18 +77,18 @@ public class Content implements Cloneable {
 
 	// 内側の文のsubjectを補完する
 	private void completeInnerSubject() {
-		if (null == contentList) {
+		if (contentList == null) {
 			return;
 		}
 		contentList = contentList.stream().map(c -> {
-			if (Agent.UNSPEC == c.subject) {
+			if (c.subject == UNSPEC) {
 				// INQUIREとREQUESTでsubjectが省略された場合は外の文のtarget
-				if (Operator.INQUIRE == operator || Operator.REQUEST == operator) {
+				if (operator == Operator.INQUIRE || operator == Operator.REQUEST) {
 					Content cl = c.cloneAndReplaceSubject(target);
 					return cl;
 				}
 				// それ以外は外の文のsubject
-				if (Agent.UNSPEC != subject) { // 未指定の場合は何もしない
+				if (UNSPEC != subject) { // 未指定の場合は何もしない
 					Content cl = c.cloneAndReplaceSubject(subject);
 					return cl;
 				}
@@ -203,8 +217,8 @@ public class Content implements Cloneable {
 			subject = toAgent(m.group(1));
 			operator = Operator.valueOf(m.group(2));
 			contentList = getContents(m.group(3));
-			if (Operator.REQUEST == operator) {
-				target = Agent.UNSPEC == contentList.get(0).subject ? Agent.ANY : contentList.get(0).subject;
+			if (operator == Operator.REQUEST) {
+				target = contentList.get(0).subject == UNSPEC ? ANY : contentList.get(0).subject;
 			}
 		}
 		// DAY
@@ -397,7 +411,7 @@ public class Content implements Cloneable {
 	 */
 	public static boolean validate(String input) {
 
-		if (null == input) {
+		if (input == null) {
 			return false;
 		}
 
@@ -531,12 +545,12 @@ public class Content implements Cloneable {
 		Matcher m = agentPattern.matcher(s);
 		if (m.find()) {
 			if (m.group(1).equals("ANY")) {
-				return Agent.ANY;
+				return ANY;
 			} else {
 				return Agent.getAgent(Integer.parseInt(m.group(2)));
 			}
 		}
-		return Agent.UNSPEC;
+		return UNSPEC;
 	}
 
 	@Override

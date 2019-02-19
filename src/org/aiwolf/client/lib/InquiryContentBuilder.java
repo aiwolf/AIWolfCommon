@@ -35,7 +35,7 @@ public class InquiryContentBuilder extends ContentBuilder {
 	 *            <div lang="en">{@code Content} representing the inquired matter.</div>
 	 */
 	public InquiryContentBuilder(Agent target, Content content) {
-		this(Agent.UNSPEC, target, content);
+		this(Content.UNSPEC, target, content);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class InquiryContentBuilder extends ContentBuilder {
 	@Override
 	String getText() {
 		return ContentBuilder.join(" ", new String[] {
-				Agent.UNSPEC == subject ? "" : subject.toString(),
+				subject == Content.UNSPEC ? "" : subject.toString(),
 				operator.toString(),
 				target.toString(),
 				"(" + (contentList.get(0).getSubject() == target ? Content.stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")"
