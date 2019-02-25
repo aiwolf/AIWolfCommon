@@ -119,7 +119,6 @@ public class Content implements Cloneable {
 	 *            <div lang="en">ContentBuilder for the content.</div>
 	 */
 	public Content(ContentBuilder builder) {
-		text = builder.getText();
 		operator = builder.getOperator();
 		topic = builder.getTopic();
 		subject = builder.getSubject();
@@ -132,6 +131,7 @@ public class Content implements Cloneable {
 		contentList = builder.getContentList();
 		day = builder.getDay();
 		completeInnerSubject();
+		normalizeText();
 	}
 
 	private static final String regAgent = "\\s+(Agent\\[\\d+\\]|ANY)";
@@ -162,21 +162,17 @@ public class Content implements Cloneable {
 	 */
 	public Content(String input) {
 		String trimmed = input.trim();
+		Matcher m;
 		// SKIP
 		if (trimmed.equals(Talk.SKIP)) {
 			topic = Topic.SKIP;
-			text = Talk.SKIP;
-			return;
 		}
 		// OVER
-		if (trimmed.equals(Talk.OVER)) {
+		else if (trimmed.equals(Talk.OVER)) {
 			topic = Topic.OVER;
-			text = Talk.OVER;
-			return;
 		}
 		// AGREE,DISAGREE
-		Matcher m = agreePattern.matcher(trimmed);
-		if (m.find()) {
+		else if ((m = agreePattern.matcher(trimmed)).find()) {
 			subject = toAgent(m.group(1));
 			topic = Topic.valueOf(m.group(2));
 			talkType = TalkType.valueOf(m.group(3));
@@ -232,8 +228,6 @@ public class Content implements Cloneable {
 		// Unknown string pattern.
 		else {
 			topic = Topic.SKIP;
-			text = Talk.SKIP;
-			return;
 		}
 		completeInnerSubject();
 		normalizeText();
@@ -456,7 +450,7 @@ public class Content implements Cloneable {
 		return false;
 	}
 
-	// textをContentBuilderで正規化する
+	// textを正規化する
 	private void normalizeText() {
 		switch (topic) {
 		case SKIP:
@@ -466,69 +460,84 @@ public class Content implements Cloneable {
 			text = Talk.OVER;
 			break;
 		case AGREE:
-			text = new AgreeContentBuilder(subject, talkType, talkDay, talkID).getText();
-			break;
 		case DISAGREE:
-			text = new DisagreeContentBuilder(subject, talkType, talkDay, talkID).getText();
+			text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+					+ topic.toString()
+					+ " " + talkType.toString() + " day" + talkDay + " ID:" + talkID;
 			break;
 		case ESTIMATE:
-			text = new EstimateContentBuilder(subject, target, role).getText();
-			break;
 		case COMINGOUT:
-			text = new ComingoutContentBuilder(subject, target, role).getText();
+			text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+					+ topic.toString()
+					+ " " + (target == ANY ? "ANY" : target.toString())
+					+ " " + role.toString();
 			break;
 		case DIVINED:
-			text = new DivinedResultContentBuilder(subject, target, result).getText();
-			break;
 		case IDENTIFIED:
-			text = new IdentContentBuilder(subject, target, result).getText();
+			text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+					+ topic.toString()
+					+ " " + (target == ANY ? "ANY" : target.toString())
+					+ " " + result.toString();
 			break;
 		case ATTACK:
-			text = new AttackContentBuilder(subject, target).getText();
-			break;
 		case ATTACKED:
-			text = new AttackedContentBuilder(subject, target).getText();
-			break;
 		case DIVINATION:
-			text = new DivinationContentBuilder(subject, target).getText();
-			break;
 		case GUARD:
-			text = new GuardCandidateContentBuilder(subject, target).getText();
-			break;
 		case GUARDED:
-			text = new GuardedAgentContentBuilder(subject, target).getText();
-			break;
 		case VOTE:
-			text = new VoteContentBuilder(subject, target).getText();
-			break;
 		case VOTED:
-			text = new VotedContentBuilder(subject, target).getText();
+			text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+					+ topic.toString()
+					+ " " + (target == ANY ? "ANY" : target.toString());
 			break;
 		case OPERATOR:
 			switch (operator) {
 			case REQUEST:
-				text = new RequestContentBuilder(subject, target, contentList.get(0)).getText();
-				break;
 			case INQUIRE:
-				text = new InquiryContentBuilder(subject, target, contentList.get(0)).getText();
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+						+ operator.toString()
+						+ " " + (target == ANY ? "ANY" : target.toString())
+						+ " ("
+						+ (contentList.get(0).getSubject() == target ? stripSubject(contentList.get(0).getText())
+								: contentList.get(0).getText())
+						+ ")";
 				break;
 			case BECAUSE:
-				text = new BecauseContentBuilder(subject, contentList.get(0), contentList.get(1)).getText();
+			case XOR:
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+						+ operator.toString()
+						+ " ("
+						+ (contentList.get(0).getSubject() == subject ? stripSubject(contentList.get(0).getText())
+								: contentList.get(0).getText())
+						+ ") ("
+						+ (contentList.get(1).getSubject() == subject ? stripSubject(contentList.get(1).getText())
+								: contentList.get(1).getText())
+						+ ")";
 				break;
 			case AND:
-				text = new AndContentBuilder(subject, contentList).getText();
-				break;
 			case OR:
-				text = new OrContentBuilder(subject, contentList).getText();
-				break;
-			case XOR:
-				text = new XorContentBuilder(subject, contentList.get(0), contentList.get(1)).getText();
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+						+ operator.toString()
+						+ " " + contentList.stream().map(c -> "(" +
+								(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())
+								+ ")").collect(Collectors.joining(" "));
 				break;
 			case NOT:
-				text = new NotContentBuilder(subject, contentList.get(0)).getText();
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+						+ operator.toString()
+						+ " ("
+						+ (contentList.get(0).getSubject() == target ? stripSubject(contentList.get(0).getText())
+								: contentList.get(0).getText())
+						+ ")";
 				break;
 			case DAY:
-				text = new DayContentBuilder(subject, day, contentList.get(0)).getText();
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
+						+ operator.toString()
+						+ " " + String.valueOf(day)
+						+ " ("
+						+ (contentList.get(0).getSubject() == target ? stripSubject(contentList.get(0).getText())
+								: contentList.get(0).getText())
+						+ ")";
 				break;
 			default:
 				break;
@@ -594,6 +603,11 @@ public class Content implements Cloneable {
 			return m.group(2) + m.group(3);
 		}
 		return input;
+	}
+
+	@Override
+	public String toString() {
+		return text;
 	}
 
 }

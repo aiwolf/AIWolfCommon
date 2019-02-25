@@ -61,14 +61,4 @@ public class ComingoutContentBuilder extends ContentBuilder {
 		this.role = role;
 	}
 
-	@Override
-	String getText() {
-		return ContentBuilder.join(" ", new String[] {
-				subject == Content.UNSPEC ? "" : subject.toString(),
-				topic.toString(),
-				target.toString(),
-				role.toString()
-		}).trim();
-	}
-
 }

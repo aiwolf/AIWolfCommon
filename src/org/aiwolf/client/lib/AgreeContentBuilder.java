@@ -71,14 +71,4 @@ public class AgreeContentBuilder extends ContentBuilder {
 		this.talkID = talkID;
 	}
 
-	@Override
-	String getText() {
-		return ContentBuilder.join(" ", new String[] {
-				subject == Content.UNSPEC ? "" : subject.toString(),
-				topic.toString(),
-				talkType.toString(),
-				"day" + talkDay,
-				"ID:" + talkID
-		}).trim();
-	}
 }

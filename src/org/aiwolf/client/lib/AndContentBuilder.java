@@ -7,7 +7,6 @@ package org.aiwolf.client.lib;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.aiwolf.common.data.Agent;
 
@@ -86,17 +85,6 @@ public class AndContentBuilder extends ContentBuilder {
 		operator = Operator.AND;
 		this.subject = subject;
 		contentList = contents;
-	}
-
-	@Override
-	String getText() {
-		return ContentBuilder.join(" ", new String[] {
-				subject == Content.UNSPEC ? "" : subject.toString(),
-				operator.toString(),
-				contentList.stream().map(c -> "(" +
-						(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())
-						+ ")").collect(Collectors.joining(" "))
-		}).trim();
 	}
 
 }

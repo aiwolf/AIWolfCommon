@@ -5,8 +5,6 @@
  */
 package org.aiwolf.client.lib;
 
-import org.aiwolf.common.data.Talk;
-
 /**
  * <div lang="ja">SKIPビルダークラス</div>
  * 
@@ -24,11 +22,6 @@ public class SkipContentBuilder extends ContentBuilder {
 	 */
 	public SkipContentBuilder() {
 		topic = Topic.SKIP;
-	}
-
-	@Override
-	String getText() {
-		return Talk.SKIP;
 	}
 
 }

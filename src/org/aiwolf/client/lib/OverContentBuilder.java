@@ -5,8 +5,6 @@
  */
 package org.aiwolf.client.lib;
 
-import org.aiwolf.common.data.Talk;
-
 /**
  * <div lang="ja">OVERビルダークラス</div>
  * 
@@ -24,11 +22,6 @@ public class OverContentBuilder extends ContentBuilder {
 	 */
 	public OverContentBuilder() {
 		topic = Topic.OVER;
-	}
-
-	@Override
-	String getText() {
-		return Talk.OVER;
 	}
 
 }

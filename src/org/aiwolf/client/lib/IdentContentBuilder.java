@@ -61,14 +61,4 @@ public class IdentContentBuilder extends ContentBuilder {
 		this.result = result;
 	}
 
-	@Override
-	String getText() {
-		return ContentBuilder.join(" ", new String[] {
-				subject == Content.UNSPEC ? "" : subject.toString(),
-				topic.toString(),
-				target.toString(),
-				result.toString()
-		}).trim();
-	}
-
 }

@@ -51,13 +51,4 @@ public class VotedContentBuilder extends ContentBuilder {
 		this.target = target;
 	}
 
-	@Override
-	String getText() {
-		return ContentBuilder.join(" ", new String[] {
-				subject == Content.UNSPEC ? "" : subject.toString(),
-				topic.toString(),
-				target.toString()
-		}).trim();
-	}
-
 }

@@ -63,14 +63,4 @@ public class XorContentBuilder extends ContentBuilder {
 		contentList = new ArrayList<>(Arrays.asList(content1, content2));
 	}
 
-	@Override
-	String getText() {
-		return ContentBuilder.join(" ", new String[] {
-				subject == Content.UNSPEC ? "" : subject.toString(),
-				operator.toString(),
-				"(" + (contentList.get(0).getSubject() == subject ? Content.stripSubject(contentList.get(0).getText()) : contentList.get(0).getText()) + ")",
-				"(" + (contentList.get(1).getSubject() == subject ? Content.stripSubject(contentList.get(1).getText()) : contentList.get(1).getText()) + ")"
-		}).trim();
-	}
-
 }
