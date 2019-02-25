@@ -87,7 +87,7 @@ final public class Agent implements Comparable<Agent> {
 
 	@Override
 	public String toString() {
-		return agentIdx == 0 ? "ANY" : String.format("Agent[%02d]", agentIdx);
+		return String.format("Agent[%02d]", agentIdx);
 	}
 
 	@Override
