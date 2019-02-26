@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class RequestContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">他エージェントの行動を要求するためのRequestContentBuilderを構築する</div>
+	 * <div lang="ja">他エージェントの行動を要求するためのRequestContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action.</div>
+	 * <div lang="en">Constructs a RequestContentBuilder to request for the other agent's action (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">要求先のエージェント</div>

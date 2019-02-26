@@ -19,9 +19,9 @@ import org.aiwolf.common.data.Species;
 public class DivinedResultContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">占いの結果報告のためのDivinedResultContentBuilderを構築する</div>
+	 * <div lang="ja">占いの結果報告のためのDivinedResultContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a DivinedResultContentBuilder to report the result of a divination.</div>
+	 * <div lang="en">Constructs a DivinedResultContentBuilder to report the result of a divination (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被占いエージェント</div>

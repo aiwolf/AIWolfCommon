@@ -23,7 +23,18 @@ import org.aiwolf.common.data.Talk;
  */
 public class Content implements Cloneable {
 
+	/**
+	 * <div lang="ja">SKIPを表す定数</div>
+	 * 
+	 * <div lang="en">Constant representing SKIP.</div>
+	 */
 	public static final Content SKIP = new Content(new SkipContentBuilder());
+
+	/**
+	 * <div lang="ja">OVERを表す定数</div>
+	 * 
+	 * <div lang="en">Constant representing OVER.</div>
+	 */
 	public static final Content OVER = new Content(new OverContentBuilder());
 
 	/**

@@ -18,9 +18,9 @@ import org.aiwolf.common.data.Agent;
 public class AttackedContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">襲撃報告のためのAttackedContentBuilderを構築する</div>
+	 * <div lang="ja">襲撃報告のためのAttackedContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs an AttackedContentBuilder for the report of an attack.</div>
+	 * <div lang="en">Constructs an AttackedContentBuilder for the report of an attack (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被襲撃エージェント</div>

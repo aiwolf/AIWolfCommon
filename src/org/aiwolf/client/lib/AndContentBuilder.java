@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class AndContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">AND演算子のためのAndContentBuilderを構築する</div>
+	 * <div lang="ja">AND演算子のためのAndContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a AndContentBuilder for AND operator.</div>
+	 * <div lang="en">Constructs a AndContentBuilder for AND operator (with no subject specified).</div>
 	 * 
 	 * @param contents
 	 *            <div lang="ja">{@code Content}の並び</div>
@@ -53,9 +53,9 @@ public class AndContentBuilder extends ContentBuilder {
 	}
 
 	/**
-	 * <div lang="ja">AND演算子のためのAndContentBuilderを構築する</div>
+	 * <div lang="ja">AND演算子のためのAndContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a AndContentBuilder for AND operator.</div>
+	 * <div lang="en">Constructs a AndContentBuilder for AND operator (with no subject specified).</div>
 	 * 
 	 * @param contents
 	 *            <div lang="ja">{@code Content}のリスト</div>

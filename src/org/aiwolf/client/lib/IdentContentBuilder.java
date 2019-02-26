@@ -19,9 +19,9 @@ import org.aiwolf.common.data.Species;
 public class IdentContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">霊媒結果の報告のためのIdentContentBuilderを構築する</div>
+	 * <div lang="ja">霊媒結果の報告のためのIdentContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs an IdentContentBuilder to report an identification.</div>
+	 * <div lang="en">Constructs an IdentContentBuilder to report an identification (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被霊媒エージェント</div>

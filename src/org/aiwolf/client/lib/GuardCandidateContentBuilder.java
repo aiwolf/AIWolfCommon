@@ -18,9 +18,9 @@ import org.aiwolf.common.data.Agent;
 public class GuardCandidateContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">護衛行為について発話するためのGuardCandidateContentBuilderを構築する</div>
+	 * <div lang="ja">護衛行為について発話するためのGuardCandidateContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a GuardCandidateContentBuilder to utter a guard.</div>
+	 * <div lang="en">Constructs a GuardCandidateContentBuilder to utter a guard (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被護衛エージェント</div>

@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class DayContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">発話内容に日付情報を与えるためのDayContentBuilderを構築する</div>
+	 * <div lang="ja">発話内容に日付情報を与えるためのDayContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a DayContentBuilder to give date information to the content.</div>
+	 * <div lang="en">Constructs a DayContentBuilder to give date information to the content (with no subject specified).</div>
 	 * 
 	 * @param day
 	 *            <div lang="ja">日付</div>

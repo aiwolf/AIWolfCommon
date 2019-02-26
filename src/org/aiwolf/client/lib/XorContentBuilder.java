@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class XorContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">排他的論理和のためのXorContentBuilderを構築する</div>
+	 * <div lang="ja">XOR演算子のためのXorContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a XorContentBuilder for exclusive OR.</div>
+	 * <div lang="en">Constructs a XorContentBuilder for XOR operator (with no subject specified).</div>
 	 * 
 	 * @param content1
 	 *            <div lang="ja">1つ目の{@code Content}</div>
@@ -39,7 +39,7 @@ public class XorContentBuilder extends ContentBuilder {
 	}
 
 	/**
-	 * <div lang="ja">排他的論理和のためのXorContentBuilderを構築する</div>
+	 * <div lang="ja">XOR演算子のためのXorContentBuilderを構築する</div>
 	 *
 	 * <div lang="en">Constructs a XorContentBuilder for XOR operator.</div>
 	 * 

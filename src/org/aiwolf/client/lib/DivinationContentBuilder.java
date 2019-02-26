@@ -18,9 +18,9 @@ import org.aiwolf.common.data.Agent;
 public class DivinationContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">占い行為について発話するためのDivinationContentBuilderを構築する</div>
+	 * <div lang="ja">占い行為について発話するためのDivinationContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a DivinationContentBuilder to utter a divination.</div>
+	 * <div lang="en">Constructs a DivinationContentBuilder to utter a divination (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被占いエージェント</div>

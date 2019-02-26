@@ -11,9 +11,9 @@ import java.util.Arrays;
 import org.aiwolf.common.data.Agent;
 
 /**
- * <div lang="ja">論理否定ビルダークラス</div>
+ * <div lang="ja">NOT演算子ビルダークラス</div>
  * 
- * <div lang="en">Builder class for logical NOT.</div>
+ * <div lang="en">Builder class for NOT operator.</div>
  * 
  * @author otsuki
  *
@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class NotContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">論理否定のためのNotContentBuilderを構築する</div>
+	 * <div lang="ja">NOT演算子のためのNotContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a NotContentBuilder for logical NOT.</div>
+	 * <div lang="en">Constructs a NotContentBuilder for NOT operator (with no subject specified).</div>
 	 * 
 	 * @param content
 	 *            <div lang="ja">否定される{@code Content}</div>
@@ -35,9 +35,9 @@ public class NotContentBuilder extends ContentBuilder {
 	}
 
 	/**
-	 * <div lang="ja">論理否定のためのNotContentBuilderを構築する</div>
+	 * <div lang="ja">NOT演算子のためのNotContentBuilderを構築する</div>
 	 *
-	 * <div lang="en">Constructs a NotContentBuilder for logical NOT.</div>
+	 * <div lang="en">Constructs a NotContentBuilder for NOT operator.</div>
 	 * 
 	 * @param subject
 	 *            <div lang="ja">発話エージェント</div>

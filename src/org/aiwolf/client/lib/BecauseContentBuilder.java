@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class BecauseContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">行動の理由を述べるためのBecauseContentBuilderを構築する</div>
+	 * <div lang="ja">行動の理由を述べるためのBecauseContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a BecauseContentBuilder to express the reason for an action.</div>
+	 * <div lang="en">Constructs a BecauseContentBuilder to express the reason for an action (with no subject specified).</div>
 	 * 
 	 * @param reason
 	 *            <div lang="ja">理由を表す{@code Content}</div>

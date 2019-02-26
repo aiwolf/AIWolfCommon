@@ -19,9 +19,9 @@ import org.aiwolf.common.data.Role;
 public class EstimateContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">推測のためのEstimateContentBuilderを構築する</div>
+	 * <div lang="ja">推測のためのEstimateContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs an EstimateContentBuilder to utter an estimation.</div>
+	 * <div lang="en">Constructs an EstimateContentBuilder to utter an estimation (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被推測エージェント</div>

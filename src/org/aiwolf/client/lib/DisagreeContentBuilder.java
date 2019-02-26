@@ -18,9 +18,9 @@ import org.aiwolf.common.data.Agent;
 public class DisagreeContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">他の発話への不同意を発話するためのDisagreeContentBuilderを構築する</div>
+	 * <div lang="ja">他の発話への不同意を発話するためのDisagreeContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a DisagreeContentBuilder to utter the disagreement with the other utterance.</div>
+	 * <div lang="en">Constructs a DisagreeContentBuilder to utter the disagreement with the other utterance (with no subject specified).</div>
 	 * 
 	 * @param talkType
 	 *            <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>

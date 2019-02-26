@@ -18,9 +18,9 @@ import org.aiwolf.common.data.Agent;
 public class VoteContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">投票発話のためのVoteContentBuilderを構築する</div>
+	 * <div lang="ja">投票発話のためのVoteContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a VoteContentBuilder for the utterance of a vote.</div>
+	 * <div lang="en">Constructs a VoteContentBuilder for the utterance of a vote (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被投票エージェント</div>

@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class OrContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">OR演算子のためのOrContentBuilderを構築する</div>
+	 * <div lang="ja">OR演算子のためのOrContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a OrContentBuilder for OR operator.</div>
+	 * <div lang="en">Constructs a OrContentBuilder for OR operator (with no subject specified).</div>
 	 * 
 	 * @param contents
 	 *            <div lang="ja">{@code Content}の並び</div>
@@ -53,9 +53,9 @@ public class OrContentBuilder extends ContentBuilder {
 	}
 
 	/**
-	 * <div lang="ja">OR演算子のためのOrContentBuilderを構築する</div>
+	 * <div lang="ja">OR演算子のためのOrContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a OrContentBuilder for OR operator.</div>
+	 * <div lang="en">Constructs a OrContentBuilder for OR operator (with no subject specified).</div>
 	 * 
 	 * @param contents
 	 *            <div lang="ja">{@code Content}のリスト</div>

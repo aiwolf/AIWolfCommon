@@ -18,9 +18,9 @@ import org.aiwolf.common.data.Agent;
 public class AgreeContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">他の発話への同意を発話するためのAgreeContentBuilderを構築する</div>
+	 * <div lang="ja">他の発話への同意を発話するためのAgreeContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs an AgreeContentBuilder to utter the agreement with the other utterance.</div>
+	 * <div lang="en">Constructs an AgreeContentBuilder to utter the agreement with the other utterance (with no subject specified).</div>
 	 * 
 	 * @param talkType
 	 *            <div lang="ja">被同意発話のタイプ。TALKあるいはWHISPER</div>

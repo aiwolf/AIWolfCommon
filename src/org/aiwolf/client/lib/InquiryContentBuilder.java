@@ -21,9 +21,9 @@ import org.aiwolf.common.data.Agent;
 public class InquiryContentBuilder extends ContentBuilder {
 
 	/**
-	 * <div lang="ja">照会発話のためのInquiryContentBuilderを構築する</div>
+	 * <div lang="ja">照会発話のためのInquiryContentBuilderを構築する(主語の指定なし)</div>
 	 *
-	 * <div lang="en">Constructs a InquiryContentBuilder for the utterance of an inquiry.</div>
+	 * <div lang="en">Constructs a InquiryContentBuilder for the utterance of an inquiry (with no subject specified).</div>
 	 * 
 	 * @param target
 	 *            <div lang="ja">被照会エージェント</div>
