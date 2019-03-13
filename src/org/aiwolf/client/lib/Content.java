@@ -530,14 +530,14 @@ public class Content implements Cloneable {
 				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
 						+ operator.toString()
 						+ " " + contentList.stream().map(c -> "(" +
-								(c.getSubject() == subject ? Content.stripSubject(c.getText()) : c.getText())
+								(c.getSubject() == subject ? stripSubject(c.getText()) : c.getText())
 								+ ")").collect(Collectors.joining(" "));
 				break;
 			case NOT:
 				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
 						+ operator.toString()
 						+ " ("
-						+ (contentList.get(0).getSubject() == target ? stripSubject(contentList.get(0).getText())
+						+ (contentList.get(0).getSubject() == subject ? stripSubject(contentList.get(0).getText())
 								: contentList.get(0).getText())
 						+ ")";
 				break;
@@ -546,7 +546,7 @@ public class Content implements Cloneable {
 						+ operator.toString()
 						+ " " + String.valueOf(day)
 						+ " ("
-						+ (contentList.get(0).getSubject() == target ? stripSubject(contentList.get(0).getText())
+						+ (contentList.get(0).getSubject() == subject ? stripSubject(contentList.get(0).getText())
 								: contentList.get(0).getText())
 						+ ")";
 				break;
