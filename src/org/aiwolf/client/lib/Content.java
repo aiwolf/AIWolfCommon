@@ -67,6 +67,15 @@ public class Content implements Cloneable {
 	// かっこで囲んだContent文字列の並びをContentのリストに変換する
 	private static List<Content> getContents(String input) {
 		List<Content> contents = new ArrayList<>();
+		for (String s : getContentStrings(input)) {
+			contents.add(new Content(s));
+		}
+		return contents;
+	}
+
+	// かっこで囲んだContent文字列の並びをContent文字列のリストに変換する
+	private static List<String> getContentStrings(String input) {
+		List<String> strings = new ArrayList<>();
 		int length = input.length();
 		int stackPtr = 0;
 		int start = 0;
@@ -79,11 +88,11 @@ public class Content implements Cloneable {
 			} else if (input.charAt(i) == ')') {
 				stackPtr--;
 				if (stackPtr == 0) {
-					contents.add(new Content(input.substring(start + 1, i)));
+					strings.add(input.substring(start + 1, i));
 				}
 			}
 		}
-		return contents;
+		return strings;
 	}
 
 	// 内側の文のsubjectを補完する
@@ -445,16 +454,32 @@ public class Content implements Cloneable {
 		if (attackPattern.matcher(trimmed).find()) {
 			return true;
 		}
+		Matcher m;
 		// REQUEST,INQUIRE
-		if (requestPattern.matcher(trimmed).find()) {
+		if ((m = requestPattern.matcher(trimmed)).find()) {
+			for (String s : getContentStrings(m.group(4))) {
+				if (!validate(s)) {
+					return false;
+				}
+			}
 			return true;
 		}
 		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
-		if (becausePattern.matcher(trimmed).find()) {
+		if ((m = becausePattern.matcher(trimmed)).find()) {
+			for (String s : getContentStrings(m.group(3))) {
+				if (!validate(s)) {
+					return false;
+				}
+			}
 			return true;
 		}
 		// DAY
-		if (dayPattern.matcher(trimmed).find()) {
+		if ((m = dayPattern.matcher(trimmed)).find()) {
+			for (String s : getContentStrings(m.group(3))) {
+				if (!validate(s)) {
+					return false;
+				}
+			}
 			return true;
 		}
 
