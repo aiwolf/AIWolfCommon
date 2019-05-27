@@ -65,10 +65,10 @@ public class Content implements Cloneable {
 	private int day = -1;
 
 	// かっこで囲んだContent文字列の並びをContentのリストに変換する
-	private static List<Content> getContents(String input) {
+	private static List<Content> getContents(String input, boolean isForValidation) {
 		List<Content> contents = new ArrayList<>();
 		for (String s : getContentStrings(input)) {
-			contents.add(new Content(s));
+			contents.add(new Content(s, isForValidation));
 		}
 		return contents;
 	}
@@ -181,73 +181,85 @@ public class Content implements Cloneable {
 	 *            <div lang="en">The uttered text.</div>
 	 */
 	public Content(String input) {
+		this(input, false);
+	}
+
+	private Content(String input, boolean isForValidation) {
 		String trimmed = input.trim();
 		Matcher m;
-		// SKIP
-		if (trimmed.equals(Talk.SKIP)) {
-			topic = Topic.SKIP;
-		}
-		// OVER
-		else if (trimmed.equals(Talk.OVER)) {
-			topic = Topic.OVER;
-		}
-		// AGREE,DISAGREE
-		else if ((m = agreePattern.matcher(trimmed)).find()) {
-			subject = toAgent(m.group(1));
-			topic = Topic.valueOf(m.group(2));
-			talkType = TalkType.valueOf(m.group(3));
-			talkDay = Integer.parseInt(m.group(4));
-			talkID = Integer.parseInt(m.group(5));
-		}
-		// ESTIMATE,COMINGOUT
-		else if ((m = estimatePattern.matcher(trimmed)).find()) {
-			subject = toAgent(m.group(1));
-			topic = Topic.valueOf(m.group(2));
-			target = toAgent(m.group(3));
-			role = Role.valueOf(m.group(4));
-		}
-		// DIVINED,IDENTIFIED
-		else if ((m = divinedPattern.matcher(trimmed)).find()) {
-			subject = toAgent(m.group(1));
-			topic = Topic.valueOf(m.group(2));
-			target = toAgent(m.group(3));
-			result = Species.valueOf(m.group(4));
-		}
-		// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
-		else if ((m = attackPattern.matcher(trimmed)).find()) {
-			subject = toAgent(m.group(1));
-			topic = Topic.valueOf(m.group(2));
-			target = toAgent(m.group(3));
-		}
-		// REQUEST,INQUIRE
-		else if ((m = requestPattern.matcher(trimmed)).find()) {
-			topic = Topic.OPERATOR;
-			subject = toAgent(m.group(1));
-			operator = Operator.valueOf(m.group(2));
-			target = toAgent(m.group(3));
-			contentList = getContents(m.group(4));
-		}
-		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
-		else if ((m = becausePattern.matcher(trimmed)).find()) {
-			topic = Topic.OPERATOR;
-			subject = toAgent(m.group(1));
-			operator = Operator.valueOf(m.group(2));
-			contentList = getContents(m.group(3));
-			if (operator == Operator.REQUEST) {
-				target = contentList.get(0).subject == UNSPEC ? ANY : contentList.get(0).subject;
+		try {
+			// SKIP
+			if (trimmed.equals(Talk.SKIP)) {
+				topic = Topic.SKIP;
 			}
-		}
-		// DAY
-		else if ((m = dayPattern.matcher(trimmed)).find()) {
-			topic = Topic.OPERATOR;
-			operator = Operator.DAY;
-			subject = toAgent(m.group(1));
-			day = Integer.parseInt(m.group(2));
-			contentList = getContents(m.group(3));
-		}
-		// Unknown string pattern.
-		else {
-			topic = Topic.SKIP;
+			// OVER
+			else if (trimmed.equals(Talk.OVER)) {
+				topic = Topic.OVER;
+			}
+			// AGREE,DISAGREE
+			else if ((m = agreePattern.matcher(trimmed)).find()) {
+				subject = toAgent(m.group(1));
+				topic = Topic.valueOf(m.group(2));
+				talkType = TalkType.valueOf(m.group(3));
+				talkDay = Integer.parseInt(m.group(4));
+				talkID = Integer.parseInt(m.group(5));
+			}
+			// ESTIMATE,COMINGOUT
+			else if ((m = estimatePattern.matcher(trimmed)).find()) {
+				subject = toAgent(m.group(1));
+				topic = Topic.valueOf(m.group(2));
+				target = toAgent(m.group(3));
+				role = Role.valueOf(m.group(4));
+			}
+			// DIVINED,IDENTIFIED
+			else if ((m = divinedPattern.matcher(trimmed)).find()) {
+				subject = toAgent(m.group(1));
+				topic = Topic.valueOf(m.group(2));
+				target = toAgent(m.group(3));
+				result = Species.valueOf(m.group(4));
+			}
+			// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
+			else if ((m = attackPattern.matcher(trimmed)).find()) {
+				subject = toAgent(m.group(1));
+				topic = Topic.valueOf(m.group(2));
+				target = toAgent(m.group(3));
+			}
+			// REQUEST,INQUIRE
+			else if ((m = requestPattern.matcher(trimmed)).find()) {
+				topic = Topic.OPERATOR;
+				subject = toAgent(m.group(1));
+				operator = Operator.valueOf(m.group(2));
+				target = toAgent(m.group(3));
+				contentList = getContents(m.group(4), isForValidation);
+			}
+			// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
+			else if ((m = becausePattern.matcher(trimmed)).find()) {
+				topic = Topic.OPERATOR;
+				subject = toAgent(m.group(1));
+				operator = Operator.valueOf(m.group(2));
+				contentList = getContents(m.group(3), isForValidation);
+				if (operator == Operator.REQUEST) {
+					target = contentList.get(0).subject == UNSPEC ? ANY : contentList.get(0).subject;
+				}
+			}
+			// DAY
+			else if ((m = dayPattern.matcher(trimmed)).find()) {
+				topic = Topic.OPERATOR;
+				operator = Operator.DAY;
+				subject = toAgent(m.group(1));
+				day = Integer.parseInt(m.group(2));
+				contentList = getContents(m.group(3), isForValidation);
+			}
+			// Unknown string pattern.
+			else {
+				throw new IllegalContentStringException();
+			}
+		} catch (IllegalArgumentException e) {
+			if (isForValidation) {
+				throw new IllegalContentStringException(input);
+			} else {
+				topic = Topic.SKIP;
+			}
 		}
 		completeInnerSubject();
 		normalizeText();
@@ -424,66 +436,12 @@ public class Content implements Cloneable {
 	 *         <div lang="en">{@code true} if the text is valid, otherwise {@code false}.</div>
 	 */
 	public static boolean validate(String input) {
-
-		if (input == null) {
+		try {
+			new Content(input, true);
+		} catch (IllegalArgumentException e) {
 			return false;
 		}
-
-		String trimmed = input.trim();
-		// SKIP
-		if (trimmed.equals(Talk.SKIP)) {
-			return true;
-		}
-		// OVER
-		if (trimmed.equals(Talk.OVER)) {
-			return true;
-		}
-		// AGREE,DISAGREE
-		if (agreePattern.matcher(trimmed).find()) {
-			return true;
-		}
-		// ESTIMATE,COMINGOUT
-		if (estimatePattern.matcher(trimmed).find()) {
-			return true;
-		}
-		// DIVINED,IDENTIFIED
-		if (divinedPattern.matcher(trimmed).find()) {
-			return true;
-		}
-		// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
-		if (attackPattern.matcher(trimmed).find()) {
-			return true;
-		}
-		Matcher m;
-		// REQUEST,INQUIRE
-		if ((m = requestPattern.matcher(trimmed)).find()) {
-			for (String s : getContentStrings(m.group(4))) {
-				if (!validate(s)) {
-					return false;
-				}
-			}
-			return true;
-		}
-		// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
-		if ((m = becausePattern.matcher(trimmed)).find()) {
-			for (String s : getContentStrings(m.group(3))) {
-				if (!validate(s)) {
-					return false;
-				}
-			}
-			return true;
-		}
-		// DAY
-		if ((m = dayPattern.matcher(trimmed)).find()) {
-			for (String s : getContentStrings(m.group(3))) {
-				if (!validate(s)) {
-					return false;
-				}
-			}
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 
 	// textを正規化する
@@ -587,6 +545,9 @@ public class Content implements Cloneable {
 	private static final Pattern agentPattern = Pattern.compile("\\s?(Agent\\[(\\d+)\\]|ANY)\\s?");
 
 	private static Agent toAgent(String s) {
+		if (s.isEmpty()) {
+			return UNSPEC;
+		}
 		Matcher m = agentPattern.matcher(s);
 		if (m.find()) {
 			if (m.group(1).equals("ANY")) {
@@ -595,7 +556,7 @@ public class Content implements Cloneable {
 				return Agent.getAgent(Integer.parseInt(m.group(2)));
 			}
 		}
-		return UNSPEC;
+		throw new IllegalContentStringException();
 	}
 
 	@Override
