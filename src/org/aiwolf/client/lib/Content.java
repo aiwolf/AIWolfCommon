@@ -230,14 +230,14 @@ public class Content implements Cloneable {
 				subject = toAgent(m.group(1));
 				operator = Operator.valueOf(m.group(2));
 				target = toAgent(m.group(3));
-				contentList = getContents(m.group(4), isForValidation);
+				contentList = getContents(m.group(4), true);
 			}
 			// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
 			else if ((m = becausePattern.matcher(trimmed)).find()) {
 				topic = Topic.OPERATOR;
 				subject = toAgent(m.group(1));
 				operator = Operator.valueOf(m.group(2));
-				contentList = getContents(m.group(3), isForValidation);
+				contentList = getContents(m.group(3), true);
 				if (operator == Operator.REQUEST) {
 					target = contentList.get(0).subject == UNSPEC ? ANY : contentList.get(0).subject;
 				}
@@ -248,7 +248,7 @@ public class Content implements Cloneable {
 				operator = Operator.DAY;
 				subject = toAgent(m.group(1));
 				day = Integer.parseInt(m.group(2));
-				contentList = getContents(m.group(3), isForValidation);
+				contentList = getContents(m.group(3), true);
 			}
 			// Unknown string pattern.
 			else {
