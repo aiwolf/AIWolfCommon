@@ -95,7 +95,8 @@ public class DataConverter {
 			return Agent.getAgent(((BigDecimal)((Map)obj).get("agentIdx")).intValue());
 		}
 		else{
-			throw new RuntimeException("Can not convert to agent "+obj.getClass()+"\t"+obj );
+			return null;
+//			throw new RuntimeException("Can not convert to agent "+obj.getClass()+"\t"+obj );
 //			return JSON.decode(JSON.encode(obj), Agent.class);
 		}
 	}
