@@ -942,7 +942,7 @@ public class GameSetting implements Cloneable {
 	 *
 	 *            <div lang="en">Random seed</div>
 	 */
-	public void setRandomSeer(long randomSeed) {
+	public void setRandomSeed(long randomSeed) {
 		this.randomSeed = randomSeed;
 	}
 
